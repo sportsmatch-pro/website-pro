@@ -52,7 +52,9 @@ const allAvailableSports: string[] = [];
 
 // Obtenir tots els esports únics dels articles
 const sportsWithArticles = Array.from(
-  new Set(posts.flatMap((post) => post.sports || []).map((sport) => sport.name))
+  new Set(
+    posts.flatMap((post) => post.sports || []).map((sport) => sport.name),
+  ),
 );
 
 // Ordenar tots els esports disponibles (mostrar tots els filtres)
@@ -160,7 +162,11 @@ const getDaysAgo = (dateString: string | undefined): string => {
   }
 
   // Si és més d'una setmana, mostrar data formatada
-  return date.toLocaleDateString(t.locale, { day: "numeric", month: "short" });
+  return date.toLocaleDateString(t.locale, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 };
 ---
 
@@ -198,7 +204,6 @@ const getDaysAgo = (dateString: string | undefined): string => {
     {
       posts.map((post) => {
         const postSports = (post.sports || []).map((s) => s.name);
-        const firstSport = postSports[0] || "";
         const daysAgo = getDaysAgo(post.publishedAt);
 
         return (
@@ -227,14 +232,17 @@ const getDaysAgo = (dateString: string | undefined): string => {
                   </span>
                 </div>
 
-                {firstSport && (
-                  <span
-                    class="inline-block px-3 py-1 text-white text-xs rounded-full mb-2"
-                    style={`background-color: ${sportColorMap[firstSport] || "#22c55e"};`}
-                  >
-                    {translateSportName(firstSport, currentLang)}
-                  </span>
-                )}
+                {postSports.length > 0 &&
+                  postSports.map((sport) => {
+                    return (
+                      <span
+                        class="inline-block px-3 py-1 text-white text-xs rounded-full mb-2"
+                        style={`background-color: ${sportColorMap[sport] || "#22c55e"};`}
+                      >
+                        {translateSportName(sport, currentLang)}
+                      </span>
+                    );
+                  })}
 
                 <h2 class="text-xl font-semibold text-gray-800 mb-2 line-clamp-2">
                   {post.title}
@@ -325,7 +333,7 @@ const getDaysAgo = (dateString: string | undefined): string => {
     articles.forEach((article) => {
       const articleElement = article as HTMLElement;
       const articleSports = JSON.parse(
-        article.getAttribute("data-sports") || "[]"
+        article.getAttribute("data-sports") || "[]",
       );
 
       if (articleSports.includes(selectedSport)) {
@@ -338,7 +346,7 @@ const getDaysAgo = (dateString: string | undefined): string => {
 
     // Verificar si l'esport seleccionat té articles
     const selectedFilter = document.querySelector(
-      `[data-sport="${selectedSport}"]`
+      `[data-sport="${selectedSport}"]`,
     );
     const hasArticles =
       selectedFilter?.getAttribute("data-has-articles") === "true";

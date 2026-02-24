@@ -102,12 +102,12 @@ const t =
     class="absolute left-0 w-full h-full lg:w-2/3 flex flex-col justify-start lg:justify-center items-start pt-40 lg:pl-40 p-10 text-left z-30"
   >
     <h1
-      class="font-bold text-white text-vw-xl leading-vw-xl lg:text-vw-base lg:leading-vw-base"
+      class="font-bold text-white text-vw-xl leading-vw-xl lg:text-vw-base lg:leading-vw-base text-shadow-md/30"
     >
       {t.title}
     </h1>
     <p
-      class="font-thin text-white text-vw-xl leading-vw-xl lg:text-vw-base lg:leading-vw-base"
+      class="font-thin text-white text-vw-xl leading-vw-xl lg:text-vw-base lg:leading-vw-base text-shadow-md/30"
     >
       {t.heroText}
     </p>
@@ -278,7 +278,7 @@ const t =
   const sportNameElement = document.querySelector(".absolute.bottom-8.right-8");
   const logoElement = document.querySelector("#logo-container svg");
   const backgroundImage = document.getElementById(
-    "sport-background"
+    "sport-background",
   ) as HTMLImageElement;
 
   function updateSport() {

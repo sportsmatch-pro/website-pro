@@ -1,3 +1,96 @@
+/* Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Classes personalitzades per viewport-width based font sizes */
+@utility text-vw-xs {
+  font-size: 1.5vw;
+}
+
+@utility text-vw-sm {
+  font-size: 2vw;
+}
+
+@utility text-vw-base {
+  font-size: 2.5vw;
+}
+
+@utility text-vw-lg {
+  font-size: 3vw;
+}
+
+@utility text-vw-xl {
+  font-size: 4vw;
+}
+
+@utility text-vw-2xl {
+  font-size: 5vw;
+}
+
+@utility text-vw-3xl {
+  font-size: 6vw;
+}
+
+@utility text-vw-4xl {
+  font-size: 7vw;
+}
+
+@utility text-vw-5xl {
+  font-size: 8vw;
+}
+
+@utility text-vw-6xl {
+  font-size: 9vw;
+}
+
+@utility text-vw-7xl {
+  font-size: 10vw;
+}
+
+/* Classes personalitzades per viewport-width based line heights */
+@utility leading-vw-xs {
+  line-height: 1.5vw;
+}
+
+@utility leading-vw-sm {
+  line-height: 2.5vw;
+}
+
+@utility leading-vw-base {
+  line-height: 3.5vw;
+}
+
+@utility leading-vw-lg {
+  line-height: 4.5vw;
+}
+
+@utility leading-vw-xl {
+  line-height: 6vw;
+}
+
+@utility leading-vw-2xl {
+  line-height: 7.5vw;
+}
+
+@utility leading-vw-3xl {
+  line-height: 9vw;
+}
+
+@utility leading-vw-4xl {
+  line-height: 10.5vw;
+}
+
+@utility leading-vw-5xl {
+  line-height: 12vw;
+}
+
+@utility leading-vw-6xl {
+  line-height: 13.5vw;
+}
+
+@utility leading-vw-7xl {
+  line-height: 15vw;
+}
+
 /* Estils globals per a SportsMatch */
 
 /* Animació de latido (pulsació forta) */
@@ -5,9 +98,11 @@
   0% {
     transform: scale(1);
   }
+
   20% {
     transform: scale(1.1);
   }
+
   40% {
     transform: scale(1.3);
   }
@@ -17,9 +112,11 @@
   0% {
     transform: scale(1);
   }
+
   20% {
     transform: scale(0.95);
   }
+
   40% {
     transform: scale(1.1);
   }

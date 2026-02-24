@@ -28,9 +28,9 @@ function initCarousel (carouselId) {
         // Actualitzar indicadors
         indicators.forEach(indicator => {
             indicator.classList.remove('bg-white');
-            indicator.classList.add('bg-white', 'bg-opacity-50');
+            indicator.classList.add('bg-white/50');
         });
-        indicators[index].classList.remove('bg-opacity-50');
+        indicators[index].classList.remove('bg-white/50');
         indicators[index].classList.add('bg-white');
 
         currentIndex = index;

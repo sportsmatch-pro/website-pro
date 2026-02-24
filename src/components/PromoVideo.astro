@@ -19,7 +19,7 @@ const { currentLang = "es-ES" } = Astro.props;
   <!-- Botó Play/Pause centrat -->
   <button
     id="play-pause-btn"
-    class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50 transition-all group-hover:opacity-100 opacity-0 cursor-pointer"
+    class="absolute inset-0 flex items-center justify-center bg-black/00 hover:bg-black/30 transition-all opacity-0 cursor-pointer"
     aria-label="Play/Pause"
     aria-pressed="true"
   >
@@ -46,7 +46,7 @@ const { currentLang = "es-ES" } = Astro.props;
   <!-- Botó Mute/Unmute a la dreta inferior -->
   <button
     id="mute-btn"
-    class="absolute bottom-4 right-4 p-3 bg-black bg-opacity-50 hover:bg-opacity-70 rounded-full transition-all cursor-pointer"
+    class="absolute bottom-4 right-4 p-3 bg-black/50 hover:bg-black/70 rounded-full transition-all cursor-pointer"
     aria-label="Mute/Unmute"
     aria-pressed="true"
   >
@@ -77,7 +77,7 @@ const { currentLang = "es-ES" } = Astro.props;
 
 <script>
   const video = document.getElementById(
-    "promo-video"
+    "promo-video",
   ) as HTMLVideoElement | null;
   const playPauseBtn = document.getElementById("play-pause-btn");
   const muteBtn = document.getElementById("mute-btn");

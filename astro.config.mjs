@@ -1,16 +1,16 @@
-import tailwind from '@astrojs/tailwind'
 import react from '@astrojs/react'
+import tailwindcss from '@tailwindcss/vite'
 
 export default {
     integrations: [
-        react(),
-        tailwind()
+        react()
     ],
     output: 'static',
     build: {
         static: true
     },
     vite: {
+        plugins: [tailwindcss()],
         server: {
             watch: {
                 usePolling: true

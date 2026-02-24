@@ -29,15 +29,19 @@ interface SportData {
 
 // Carregar articles i sports en paral·lel
 const articlesUrl = noCache
-  ? `${import.meta.env.API_BASE_URL}articles?language=${currentLang}&noCache=true`
-  : `${import.meta.env.API_BASE_URL}articles?language=${currentLang}`;
+  ? `${import.meta.env.API_BASE_URL}articles?language=${currentLang}&noCache=true&sortField=publishedAt&sortOrder=DESC`
+  : `${import.meta.env.API_BASE_URL}articles?language=${currentLang}&sortField=publishedAt&sortOrder=DESC`;
 
 const [articlesRes, sportsRes] = await Promise.all([
   fetch(articlesUrl),
   fetch(import.meta.env.API_BASE_URL + "sports"),
 ]);
 
-const posts: Post[] = await articlesRes.json();
+const articlesData = await articlesRes.json();
+// La API pot retornar un array directe o un objecte amb items (quan hi ha paginació)
+const posts: Post[] = Array.isArray(articlesData)
+  ? articlesData
+  : articlesData.items || [];
 const allSportsData = await sportsRes.json();
 
 // Crear un mapa de colors per nom d'esport

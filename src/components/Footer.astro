@@ -72,9 +72,15 @@ const t =
 ---
 
 <footer class="text-white">
-  <div class="bg-[#2e2e2e] px-[4vw] md:px-[6vw] pt-[8vw] pb-[4vw] text-center">
-    <h2 class="text-vw-4xl md:text-vw-3xl font-bold mb-8">{t.contactUs}</h2>
-    <p class="text-2xl mb-10">
+  <div
+    class="bg-[#2e2e2e] px-[4vw] md:px-[6vw] pt-[8vw] pb-[4vw] lg:pt-[6vw] lg:pb-[2vw] text-center"
+  >
+    <h2
+      class="text-vw-4xl md:text-vw-3xl lg:text-vw-2xl xl:text-vw-lg font-bold mb-8"
+    >
+      {t.contactUs}
+    </h2>
+    <p class="text-vw-xl md:text-vw-lg lg:text-vw-base xl:text-vw-sm mb-10">
       {t.contactText}
     </p>
     <div class="flex flex-col md:flex-row gap-[4vw] justify-center py-12">
@@ -84,7 +90,9 @@ const t =
         class="flex justify-center items-center space-x-2 border border-white/50 p-4 rounded-lg"
       >
         <MailIcon width={48} height={48} color="#82caff" />
-        <span class="text-3xl">info@sportsmatch.pro</span>
+        <span class="text-vw-xl md:text-vw-lg lg:text-vw-base xl:text-vw-sm"
+          >info@sportsmatch.pro</span
+        >
       </a>
       <a
         target="_blank"
@@ -92,7 +100,9 @@ const t =
         class="flex justify-center items-center space-x-2 border border-white/50 p-4 rounded-lg"
       >
         <WhatsAppIcon width={48} height={48} color="#25D366" />
-        <span class="text-3xl">+34 689 47 22 60</span>
+        <span class="text-vw-xl md:text-vw-lg lg:text-vw-base xl:text-vw-sm"
+          >+34 689 47 22 60</span
+        >
       </a>
     </div>
 

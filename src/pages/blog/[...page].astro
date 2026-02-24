@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogIndex from "../../components/BlogIndex.astro";
+import type { GetStaticPaths } from "astro";
+
+const currentLang = "es-ES";
+const blogBasePath = "/blog";
+const pageSize = 12;
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const response = await fetch(
+    `${import.meta.env.API_BASE_URL}articles?language=es-ES&sortField=publishedAt&sortOrder=DESC`
+  );
+  const posts = await response.json();
+  const postsArray = Array.isArray(posts) ? posts : posts.items || [];
+  
+  return paginate(postsArray, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const translations = {
+  title: "Blog Deportivo",
+};
+---
+
+<Layout title={translations.title} currentLang={currentLang}>
+  <BlogIndex 
+    currentLang={currentLang} 
+    blogBasePath={blogBasePath}
+    posts={page.data}
+    pagination={{
+      currentPage: page.currentPage,
+      lastPage: page.lastPage,
+      url: {
+        prev: page.url.prev,
+        next: page.url.next,
+      }
+    }}
+  />
+</Layout>

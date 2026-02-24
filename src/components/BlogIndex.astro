@@ -1,12 +1,4 @@
 ---
-export interface Props {
-  currentLang: string;
-  blogBasePath?: string; // Path base per als enllaços (ex: "/ca/blog" o "/blog")
-  noCache?: boolean;
-}
-
-const { currentLang, blogBasePath = "/blog", noCache = false } = Astro.props;
-
 interface Post {
   id: string;
   title: string;
@@ -21,27 +13,32 @@ interface Post {
   sports?: Array<{ id: string; name: string }>;
 }
 
+interface Pagination {
+  currentPage: number;
+  lastPage: number;
+  url: {
+    prev: string | undefined;
+    next: string | undefined;
+  };
+}
+
+export interface Props {
+  currentLang: string;
+  blogBasePath?: string;
+  posts: Post[];
+  pagination?: Pagination;
+}
+
+const { currentLang, blogBasePath = "/blog", posts, pagination } = Astro.props;
+
 interface SportData {
   id: string;
   name: string;
   color?: string;
 }
 
-// Carregar articles i sports en paral·lel
-const articlesUrl = noCache
-  ? `${import.meta.env.API_BASE_URL}articles?language=${currentLang}&noCache=true&sortField=publishedAt&sortOrder=DESC`
-  : `${import.meta.env.API_BASE_URL}articles?language=${currentLang}&sortField=publishedAt&sortOrder=DESC`;
-
-const [articlesRes, sportsRes] = await Promise.all([
-  fetch(articlesUrl),
-  fetch(import.meta.env.API_BASE_URL + "sports"),
-]);
-
-const articlesData = await articlesRes.json();
-// La API pot retornar un array directe o un objecte amb items (quan hi ha paginació)
-const posts: Post[] = Array.isArray(articlesData)
-  ? articlesData
-  : articlesData.items || [];
+// Carregar esports per als filtres
+const sportsRes = await fetch(import.meta.env.API_BASE_URL + "sports");
 const allSportsData = await sportsRes.json();
 
 // Crear un mapa de colors per nom d'esport
@@ -271,6 +268,66 @@ const getDaysAgo = (dateString: string | undefined): string => {
       {t.noResults}
     </p>
   </div>
+
+  <!-- Paginació -->
+  {
+    pagination && pagination.lastPage > 1 && (
+      <nav
+        class="flex justify-center items-center gap-4 mt-12"
+        aria-label="Paginació"
+      >
+        {pagination.url.prev ? (
+          <a
+            href={pagination.url.prev}
+            class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
+          >
+            ←{" "}
+            {currentLang === "en"
+              ? "Previous"
+              : currentLang === "ca-ES"
+                ? "Anterior"
+                : "Anterior"}
+          </a>
+        ) : (
+          <span class="px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed">
+            ←{" "}
+            {currentLang === "en"
+              ? "Previous"
+              : currentLang === "ca-ES"
+                ? "Anterior"
+                : "Anterior"}
+          </span>
+        )}
+
+        <span class="text-gray-600">
+          {pagination.currentPage} / {pagination.lastPage}
+        </span>
+
+        {pagination.url.next ? (
+          <a
+            href={pagination.url.next}
+            class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
+          >
+            {currentLang === "en"
+              ? "Next"
+              : currentLang === "ca-ES"
+                ? "Següent"
+                : "Siguiente"}{" "}
+            →
+          </a>
+        ) : (
+          <span class="px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed">
+            {currentLang === "en"
+              ? "Next"
+              : currentLang === "ca-ES"
+                ? "Següent"
+                : "Siguiente"}{" "}
+            →
+          </span>
+        )}
+      </nav>
+    )
+  }
 </div>
 
 <style>

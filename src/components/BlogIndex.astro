@@ -232,17 +232,19 @@ const getDaysAgo = (dateString: string | undefined): string => {
                   </span>
                 </div>
 
-                {postSports.length > 0 &&
-                  postSports.map((sport) => {
-                    return (
-                      <span
-                        class="inline-block px-3 py-1 text-white text-xs rounded-full mb-2"
-                        style={`background-color: ${sportColorMap[sport] || "#22c55e"};`}
-                      >
-                        {translateSportName(sport, currentLang)}
-                      </span>
-                    );
-                  })}
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  {postSports.length > 0 &&
+                    postSports.map((sport) => {
+                      return (
+                        <span
+                          class="inline-block px-3 py-1 text-white text-xs rounded-full"
+                          style={`background-color: ${sportColorMap[sport] || "#22c55e"};`}
+                        >
+                          {translateSportName(sport, currentLang)}
+                        </span>
+                      );
+                    })}
+                </div>
 
                 <h2 class="text-xl font-semibold text-gray-800 mb-2 line-clamp-2">
                   {post.title}

@@ -27,9 +27,16 @@ export interface Props {
   blogBasePath?: string;
   posts: Post[];
   pagination?: Pagination;
+  activeSport?: string;
 }
 
-const { currentLang, blogBasePath = "/blog", posts, pagination } = Astro.props;
+const {
+  currentLang,
+  blogBasePath = "/blog",
+  posts,
+  pagination,
+  activeSport,
+} = Astro.props;
 
 interface SportData {
   id: string;
@@ -176,22 +183,52 @@ const getDaysAgo = (dateString: string | undefined): string => {
 
   <!-- Filtre per esports -->
   <div class="mb-8 flex flex-wrap gap-2 justify-center" id="sport-filters">
+    {/* Botó "Tots" per tornar a la vista sense filtre */}
+    <a
+      href={blogBasePath}
+      class:list={[
+        "sport-filter px-3 py-1.5 text-sm rounded-full font-medium transition-all",
+        !activeSport
+          ? "bg-green-500 text-white"
+          : "bg-gray-300 text-gray-700 hover:bg-gray-400",
+      ]}
+    >
+      {
+        currentLang === "en"
+          ? "All"
+          : currentLang === "ca-ES"
+            ? "Tots"
+            : "Todos"
+      }
+    </a>
     {
       allSports.map((sport) => {
-        const sportColor = sportColorMap[sport] || "#6b7280"; // Gray per defecte
+        const sportColor = sportColorMap[sport] || "#6b7280";
         const translatedSportName = translateSportName(sport, currentLang);
         const hasArticles = sportsWithArticles.includes(sport);
-        return (
-          <button
-            class="sport-filter px-3 py-1.5 text-sm rounded-full font-medium transition-all bg-gray-300 text-gray-700"
-            data-sport={sport}
-            data-sport-color={sportColor}
-            data-has-articles={hasArticles.toString()}
-            style={`${!hasArticles ? "opacity: 0.6;" : ""}`}
-            title={!hasArticles ? t.noResults : undefined}
+        const isActive = activeSport === sport;
+        const sportUrl = `${blogBasePath}/sport/${sport}`;
+
+        return hasArticles ? (
+          <a
+            href={sportUrl}
+            class:list={[
+              "sport-filter px-3 py-1.5 text-sm rounded-full font-medium transition-all",
+              isActive
+                ? "text-white"
+                : "bg-gray-300 text-gray-700 hover:bg-gray-400",
+            ]}
+            style={isActive ? `background-color: ${sportColor};` : ""}
           >
             {translatedSportName}
-          </button>
+          </a>
+        ) : (
+          <span
+            class="sport-filter px-3 py-1.5 text-sm rounded-full font-medium bg-gray-200 text-gray-400 cursor-not-allowed"
+            title={t.noResults}
+          >
+            {translatedSportName}
+          </span>
         );
       })
     }
@@ -366,92 +403,3 @@ const getDaysAgo = (dateString: string | undefined): string => {
     color: white !important;
   }
 </style>
-
-<script>
-  // Filtrat d'articles per esport (selecció única)
-  const filters = document.querySelectorAll(".sport-filter");
-  const articles = document.querySelectorAll(".article-card");
-  const noResults = document.getElementById("no-results");
-  const articlesGrid = document.getElementById("articles-grid");
-
-  // Variable per emmagatzemar l'esport seleccionat (només un)
-  let selectedSport: string | null = null;
-
-  const updateFilters = () => {
-    let visibleCount = 0;
-
-    // Si no hi ha cap esport seleccionat, mostrar tots
-    if (!selectedSport) {
-      articles.forEach((article) => {
-        const articleElement = article as HTMLElement;
-        articleElement.style.display = "block";
-      });
-
-      if (articlesGrid) (articlesGrid as HTMLElement).style.display = "grid";
-      if (noResults) noResults.classList.add("hidden");
-      return;
-    }
-
-    // Filtrar articles segons l'esport seleccionat
-    articles.forEach((article) => {
-      const articleElement = article as HTMLElement;
-      const articleSports = JSON.parse(
-        article.getAttribute("data-sports") || "[]",
-      );
-
-      if (articleSports.includes(selectedSport)) {
-        articleElement.style.display = "block";
-        visibleCount++;
-      } else {
-        articleElement.style.display = "none";
-      }
-    });
-
-    // Verificar si l'esport seleccionat té articles
-    const selectedFilter = document.querySelector(
-      `[data-sport="${selectedSport}"]`,
-    );
-    const hasArticles =
-      selectedFilter?.getAttribute("data-has-articles") === "true";
-
-    // Mostrar/ocultar missatge de no resultats
-    if (visibleCount === 0 || !hasArticles) {
-      if (articlesGrid) (articlesGrid as HTMLElement).style.display = "none";
-      if (noResults) noResults.classList.remove("hidden");
-    } else {
-      if (articlesGrid) (articlesGrid as HTMLElement).style.display = "grid";
-      if (noResults) noResults.classList.add("hidden");
-    }
-  };
-
-  filters.forEach((filter) => {
-    filter.addEventListener("click", () => {
-      const sport = filter.getAttribute("data-sport");
-      if (!sport) return;
-
-      // Si ja estava seleccionat, desmarcar-lo
-      if (selectedSport === sport) {
-        selectedSport = null;
-        filter.classList.remove("active-filter");
-        const filterEl = filter as HTMLElement;
-        filterEl.style.backgroundColor = "";
-      } else {
-        // Desmarcar tots els altres i restaurar el color gris
-        filters.forEach((f) => {
-          f.classList.remove("active-filter");
-          const fEl = f as HTMLElement;
-          fEl.style.backgroundColor = "";
-        });
-
-        // Marcar el nou i aplicar el color de l'esport
-        selectedSport = sport;
-        filter.classList.add("active-filter");
-        const filterEl = filter as HTMLElement;
-        const sportColor = filter.getAttribute("data-sport-color") || "#6b7280";
-        filterEl.style.backgroundColor = sportColor;
-      }
-
-      updateFilters();
-    });
-  });
-</script>

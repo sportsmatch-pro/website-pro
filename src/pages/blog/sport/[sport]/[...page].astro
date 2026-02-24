@@ -1,0 +1,72 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import BlogIndex from "../../../../components/BlogIndex.astro";
+import type { GetStaticPaths } from "astro";
+
+const currentLang = "es-ES";
+const blogBasePath = "/blog";
+const pageSize = 12;
+
+export const getStaticPaths = (async ({ paginate }) => {
+  // Carregar tots els articles i esports
+  const [articlesRes, sportsRes] = await Promise.all([
+    fetch(`${import.meta.env.API_BASE_URL}articles?language=es-ES&sortField=publishedAt&sortOrder=DESC`),
+    fetch(`${import.meta.env.API_BASE_URL}sports`),
+  ]);
+  
+  const posts = await articlesRes.json();
+  const postsArray = Array.isArray(posts) ? posts : posts.items || [];
+  const sports = await sportsRes.json();
+  
+  // Generar pàgines per cada esport
+  const paths = sports.flatMap((sport: { name: string }) => {
+    const sportPosts = postsArray.filter((post: any) => 
+      post.sports?.some((s: { name: string }) => s.name === sport.name)
+    );
+    
+    // Si no hi ha articles per aquest esport, no generar pàgines
+    if (sportPosts.length === 0) return [];
+    
+    return paginate(sportPosts, {
+      params: { sport: sport.name },
+      pageSize: 12,
+    });
+  });
+  
+  return paths;
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { sport } = Astro.params;
+
+const sportTranslations: Record<string, string> = {
+  soccer: "Fútbol",
+  basketball: "Baloncesto",
+  handball: "Balonmano",
+  volleyball: "Voleibol",
+  futsal: "Fútbol Sala",
+  rollerHoquey: "Hockey",
+  rinkhockey: "Hockey",
+  hockey: "Hockey",
+  coach: "Equipo técnico",
+};
+
+const sportName = sportTranslations[sport?.toLowerCase() || ""] || sport;
+---
+
+<Layout title={`Blog - ${sportName}`} currentLang={currentLang}>
+  <BlogIndex 
+    currentLang={currentLang} 
+    blogBasePath={blogBasePath}
+    posts={page.data}
+    pagination={{
+      currentPage: page.currentPage,
+      lastPage: page.lastPage,
+      url: {
+        prev: page.url.prev,
+        next: page.url.next,
+      }
+    }}
+    activeSport={sport}
+  />
+</Layout>

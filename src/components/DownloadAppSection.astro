@@ -30,7 +30,7 @@ const t =
   translations["es-ES"];
 ---
 
-<section class="relative py-20">
+<section class="relative p-[12vw] md:p-[6vw]">
   <!-- Imatge de fons -->
   <img
     src="/assets/player-17.jpg"
@@ -42,34 +42,32 @@ const t =
   <div class="absolute inset-0 bg-black/50"></div>
 
   <!-- Contingut -->
-  <div class="relative max-w-6xl mx-auto px-4 text-center z-10">
+  <div class="relative mx-auto text-center z-10">
     <div class="mb-16">
-      <h2 class="text-6xl font-bold text-white mb-6">
+      <h2 class="text-vw-3xl font-bold text-white mb-6">
         {t.title}
       </h2>
     </div>
-    <div
-      class="flex flex-col md:flex-row items-center justify-center gap-8 mb-12"
-    >
+    <div class="flex flex-row items-center justify-center gap-8 mb-12">
       <a
         target="_blank"
         href="https://apps.apple.com/app/sportsmatch/6741365151"
       >
-        <img src="/assets/apple.svg" alt="App Store" class="h-14" />
+        <img src="/assets/apple.svg" alt="App Store" class="h-14 md:h-20" />
       </a>
       <a
         target="_blank"
         href="https://play.google.com/store/apps/details?id=com.fersuter.sportsmatch"
       >
-        <img src="/assets/google.svg" alt="Google Play" class="h-20" />
+        <img src="/assets/google.svg" alt="Google Play" class="h-20 md:h-28" />
       </a>
     </div>
     <div class="mb-8">
-      <p class="text-2xl text-white">
+      <p class="text-vw-lg lg:text-vw-sm text-white">
         {t.subtitle}
       </p>
     </div>
-    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+    <div class="flex flex-row items-center justify-center gap-4">
       <a target="_blank" href="https://www.instagram.com/sports.match.pro/">
         <IconInstagram width={55} height={55} color="#ffffff" />
       </a>

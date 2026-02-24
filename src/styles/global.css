@@ -4,46 +4,57 @@
 /* Classes personalitzades per viewport-width based font sizes */
 @utility text-vw-xs {
   font-size: 1.5vw;
+  line-height: 1.5vw;
 }
 
 @utility text-vw-sm {
   font-size: 2vw;
+  line-height: 2.5vw;
 }
 
 @utility text-vw-base {
   font-size: 2.5vw;
+  line-height: 2.5vw;
 }
 
 @utility text-vw-lg {
   font-size: 3vw;
+  line-height: 3vw;
 }
 
 @utility text-vw-xl {
   font-size: 4vw;
+  line-height: 4vw;
 }
 
 @utility text-vw-2xl {
   font-size: 5vw;
+  line-height: 5vw;
 }
 
 @utility text-vw-3xl {
   font-size: 6vw;
+  line-height: 6vw;
 }
 
 @utility text-vw-4xl {
   font-size: 7vw;
+  line-height: 7vw;
 }
 
 @utility text-vw-5xl {
   font-size: 8vw;
+  line-height: 8vw;
 }
 
 @utility text-vw-6xl {
   font-size: 9vw;
+  line-height: 9vw;
 }
 
 @utility text-vw-7xl {
   font-size: 10vw;
+  line-height: 10vw;
 }
 
 /* Classes personalitzades per viewport-width based line heights */

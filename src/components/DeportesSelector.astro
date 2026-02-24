@@ -43,19 +43,19 @@ const translations = {
     title: "¿Cuál es tu deporte?",
     subtitle:
       "<b>SPORTSMATCH</b> te permite registrarte en cualquiera de estos deportes.",
-    downloadText: "Descarga la app y comienza tu viaje.",
+    downloadText: "¡Descarga la app y persigue tu primer Match!",
   },
   "ca-ES": {
     title: "Quin és el teu esport?",
     subtitle:
       "<b>SPORTSMATCH</b> et permet registrar-te en qualsevol d'aquests esports.",
-    downloadText: "Descarrega l'app i comença el teu viatge.",
+    downloadText: "Descarrega l'app i persegueix el teu primer Match!",
   },
   en: {
     title: "Which is your sport?",
     subtitle:
       "<b>SPORTSMATCH</b> allows you to register in one of these sports.",
-    downloadText: "Download the app and start your journey.",
+    downloadText: "Download the app & find your first match!",
   },
 };
 
@@ -65,34 +65,38 @@ const t =
 ---
 
 <section
-  class="w-screen flex flex-col items-center justify-center bg-white py-20 gap-20"
+  class="w-screen flex flex-col items-center justify-center bg-white px-[4vw] py-[8vw] gap-[12vw]"
 >
-  <div class="flex flex-col items-center justify-center gap-2">
-    <h2 class="text-6xl font-bold text-center text-gray-900">
+  <div class="flex flex-col items-center justify-center gap-[4vw]">
+    <h2 class="text-vw-5xl font-bold text-center text-gray-900">
       {t.title}
     </h2>
 
-    <p class="text-xl text-center text-gray-600" set:html={t.subtitle} />
+    <p class="text-vw-lg text-center text-gray-600" set:html={t.subtitle} />
   </div>
 
-  <div class="grid grid-cols-2 gap-8 sm:flex sm:flex-wrap sm:justify-center">
+  <div
+    class="grid grid-cols-2 gap-[8vw] lg:gap-[4vw] sm:flex sm:flex-wrap sm:justify-center"
+  >
     {
       deportes.map((deporte) => (
         <div class="text-center">
-          <div class="w-40 h-40 mx-auto mb-4 relative hover:scale-110 transition-transform cursor-pointer">
+          <div class="w-[40vw] h-[40vw] lg:w-[20vw] lg:h-[20vw] mx-auto mb-4 relative hover:scale-110 transition-transform cursor-pointer">
             <img
               src={deporte.imagen}
               alt={deporte.nombre}
               class="absolute inset-0 w-full h-full object-cover rounded-full"
             />
           </div>
-          <h3 class="text-xl font-semibold text-gray-800">{deporte.nombre}</h3>
+          <h3 class="text-vw-xl lg:text-vw-base font-semibold text-gray-800">
+            {deporte.nombre}
+          </h3>
         </div>
       ))
     }
   </div>
 
-  <p class="text-2xl font-bold max-w-3xl text-center text-gray-900">
+  <p class="text-vw-xl font-bold text-center text-gray-900">
     {t.downloadText}
   </p>
 </section>

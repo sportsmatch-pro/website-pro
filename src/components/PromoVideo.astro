@@ -6,10 +6,14 @@ export interface Props {
 const { currentLang = "es-ES" } = Astro.props;
 ---
 
-<section class="w-screen relative group" style={{ aspectRatio: "16/9" }}>
+<section
+  id="promo-video-section"
+  class="w-screen relative group"
+  data-video-horizontal="/assets/video-horizontal.mp4"
+  data-video-vertical="/assets/video-vertical.mp4"
+>
   <video
     id="promo-video"
-    src="/assets/videosport.mp4"
     class="w-full h-full object-cover"
     autoplay
     loop
@@ -76,6 +80,7 @@ const { currentLang = "es-ES" } = Astro.props;
 </section>
 
 <script>
+  const section = document.getElementById("promo-video-section");
   const video = document.getElementById(
     "promo-video",
   ) as HTMLVideoElement | null;
@@ -85,6 +90,48 @@ const { currentLang = "es-ES" } = Astro.props;
   const pauseIcon = document.getElementById("pause-icon");
   const muteIcon = document.getElementById("mute-icon");
   const unmuteIcon = document.getElementById("unmute-icon");
+
+  // Carregar video segons amplada de pantalla
+  let currentOrientation: "vertical" | "horizontal" | null = null;
+
+  function updateVideoSource() {
+    if (!section || !video) return;
+
+    const isVertical = window.innerWidth < 768;
+    const newOrientation = isVertical ? "vertical" : "horizontal";
+
+    // Només canviar si l'orientació ha canviat
+    if (newOrientation === currentOrientation) return;
+
+    currentOrientation = newOrientation;
+    const videoSrc = isVertical
+      ? section.dataset.videoVertical
+      : section.dataset.videoHorizontal;
+
+    if (videoSrc) {
+      // Guardar estat actual
+      const wasPlaying = !video.paused;
+      const wasMuted = video.muted;
+
+      video.src = videoSrc;
+      video.muted = wasMuted;
+
+      // Ajustar aspect ratio segons orientació
+      section.style.aspectRatio = isVertical ? "9/16" : "16/9";
+
+      // Reproduir si estava reproduint
+      if (wasPlaying) {
+        video.play().catch(() => {});
+      }
+    }
+  }
+
+  // Carregar inicialment
+  updateVideoSource();
+
+  // Actualitzar quan canvia la mida de la finestra o es gira el dispositiu
+  window.addEventListener("resize", updateVideoSource);
+  window.addEventListener("orientationchange", updateVideoSource);
 
   if (
     video &&
@@ -146,7 +193,6 @@ const { currentLang = "es-ES" } = Astro.props;
     });
 
     // Mostra/amaga el botó de Play/Pause quan s'atura el cursor
-    const section = playPauseBtn.closest("section");
     if (section) {
       section.addEventListener("mouseenter", () => {
         playPauseBtn.classList.remove("opacity-0");

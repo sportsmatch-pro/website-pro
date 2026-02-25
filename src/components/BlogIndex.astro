@@ -213,7 +213,7 @@ const getDaysAgo = (dateString: string | undefined): string => {
           <a
             href={sportUrl}
             class:list={[
-              "sport-filter px-3 py-1.5 text-sm rounded-full font-medium transition-all",
+              "sport-filter px-3 py-1.5 text-xs rounded-full font-medium transition-all",
               isActive
                 ? "text-white"
                 : "bg-gray-300 text-gray-700 hover:bg-gray-400",
@@ -224,7 +224,7 @@ const getDaysAgo = (dateString: string | undefined): string => {
           </a>
         ) : (
           <span
-            class="sport-filter px-3 py-1.5 text-sm rounded-full font-medium bg-gray-200 text-gray-400 cursor-not-allowed"
+            class="sport-filter px-3 py-1.5 text-xs rounded-full font-medium bg-gray-200 text-gray-400 cursor-not-allowed"
             title={t.noResults}
           >
             {translatedSportName}

@@ -58,13 +58,6 @@ const allAvailableSports: string[] = [];
   }
 });
 
-// Obtenir tots els esports únics dels articles
-const sportsWithArticles = Array.from(
-  new Set(
-    posts.flatMap((post) => post.sports || []).map((sport) => sport.name),
-  ),
-);
-
 // Ordenar tots els esports disponibles (mostrar tots els filtres)
 const allSports = allAvailableSports.sort();
 
@@ -205,11 +198,10 @@ const getDaysAgo = (dateString: string | undefined): string => {
       allSports.map((sport) => {
         const sportColor = sportColorMap[sport] || "#666666";
         const translatedSportName = translateSportName(sport, currentLang);
-        const hasArticles = sportsWithArticles.includes(sport);
         const isActive = activeSport === sport;
         const sportUrl = `${blogBasePath}/sport/${sport}`;
 
-        return hasArticles ? (
+        return (
           <a
             href={sportUrl}
             class:list={[
@@ -222,13 +214,6 @@ const getDaysAgo = (dateString: string | undefined): string => {
           >
             {translatedSportName}
           </a>
-        ) : (
-          <span
-            class="sport-filter px-3 py-1.5 text-xs rounded-full font-medium bg-gray-200 text-gray-400 cursor-not-allowed"
-            title={t.noResults}
-          >
-            {translatedSportName}
-          </span>
         );
       })
     }

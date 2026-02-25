@@ -26,6 +26,7 @@ const translations = {
         imagen: "/assets/balonmano.png",
       },
     ],
+    download: "Ya disponible es:",
   },
   "ca-ES": {
     title: "SportsMatch - El teu somni, a l'abast",
@@ -39,6 +40,7 @@ const translations = {
       { nombre: "Voleibol", color: "#ec4899", imagen: "/assets/voleibol.png" },
       { nombre: "Handbol", color: "#7c3aed", imagen: "/assets/balonmano.png" },
     ],
+    download: "Ja disponible a:",
   },
   en: {
     title: "SportsMatch - Your dream, at your reach",
@@ -56,6 +58,7 @@ const translations = {
       },
       { nombre: "Handball", color: "#7c3aed", imagen: "/assets/balonmano.png" },
     ],
+    download: "Available now on:",
   },
 };
 
@@ -134,9 +137,36 @@ const t =
     <span>F</span>útbol
   </div>
 
+  <!-- Download links -->
+
+  <div
+    class="absolute bottom-20 md:bottom-8 md:left-8 mx-auto text-center z-50"
+  >
+    <h2 class="text-vw-lg md:text-vw-xs font-bold text-white mb-2 md:mb-4">
+      {t.download}
+    </h2>
+    <div class="flex flex-row items-center justify-center gap-2 md:gap-8 mb-12">
+      <a
+        target="_blank"
+        aria-label="Download from AppStore"
+        href="https://apps.apple.com/app/sportsmatch/6741365151"
+      >
+        <img src="/assets/apple.svg" alt="App Store" class="h-14" />
+      </a>
+      <a
+        target="_blank"
+        aria-label="Download from Google Play"
+        href="https://play.google.com/store/apps/details?id=com.fersuter.sportsmatch"
+      >
+        <img src="/assets/google.svg" alt="Google Play" class="h-20" />
+      </a>
+    </div>
+  </div>
+
   <!-- Fletxes de navegació -->
   <button
     id="prev-button"
+    aria-label="prev"
     class="absolute left-4 z-30 p-4 mt-20 text-white hover:text-gray-300 transition-colors arrow-button"
   >
     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,6 +180,7 @@ const t =
 
   <button
     id="next-button"
+    aria-label="next"
     class="absolute right-4 z-30 p-4 mt-20 text-white hover:text-gray-300 transition-colors arrow-button"
   >
     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

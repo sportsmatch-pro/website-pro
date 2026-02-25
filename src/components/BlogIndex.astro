@@ -187,9 +187,9 @@ const getDaysAgo = (dateString: string | undefined): string => {
     <a
       href={blogBasePath}
       class:list={[
-        "sport-filter px-3 py-1.5 text-sm rounded-full font-medium transition-all",
+        "sport-filter px-3 py-1.5 text-xs rounded-full font-medium transition-all",
         !activeSport
-          ? "bg-green-500 text-white"
+          ? "bg-black text-white"
           : "bg-gray-300 text-gray-700 hover:bg-gray-400",
       ]}
     >
@@ -203,7 +203,7 @@ const getDaysAgo = (dateString: string | undefined): string => {
     </a>
     {
       allSports.map((sport) => {
-        const sportColor = sportColorMap[sport] || "#6b7280";
+        const sportColor = sportColorMap[sport] || "#666666";
         const translatedSportName = translateSportName(sport, currentLang);
         const hasArticles = sportsWithArticles.includes(sport);
         const isActive = activeSport === sport;

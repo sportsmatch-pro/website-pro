@@ -19,7 +19,7 @@ interface Post {
 export async function getStaticPaths() {
   // Cridar l'API per obtenir articles en anglès
   const res = await fetch(
-    import.meta.env.API_BASE_URL + "articles?language=en"
+    import.meta.env.API_BASE_URL + "articles?language=en",
   );
   const posts = await res.json();
 
@@ -43,14 +43,14 @@ const processedContent = processTweetEmbeds(post.content);
 const getLatestPosts = (
   posts: Post[],
   currentPost: Post,
-  limit: number = 3
+  limit: number = 3,
 ): Post[] => {
   return posts
     .filter(
       (p) =>
         p.id !== currentPost.id &&
         p.status === "published" &&
-        p.language === currentPost.language
+        p.language === currentPost.language,
     )
     .sort((a, b) => {
       const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
@@ -129,7 +129,7 @@ const t = {
         <img
           src={post.featuredImage}
           alt={post.title}
-          class="w-full h-96 object-cover rounded-lg mb-6"
+          class="w-full h-128 object-cover rounded-lg mb-6"
         />
       )
     }
@@ -177,10 +177,10 @@ const t = {
                     <img
                       src={relatedPost.featuredImage}
                       alt={relatedPost.title}
-                      class="w-full h-48 object-cover"
+                      class="w-full h-64 object-cover"
                     />
                   ) : (
-                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
                       <span class="text-gray-400">{t.noImage}</span>
                     </div>
                   )}

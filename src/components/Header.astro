@@ -2,6 +2,7 @@
 import LanguageSelector from "./LanguageSelector.astro";
 import HeaderLogoIcon from "./HeaderLogoIcon.astro";
 import ThemeSelector from "./ThemeSelector.astro";
+import IconMenu from "./IconMenu.astro";
 
 // Props per a l'idioma actual i slug de l'article
 export interface Props {
@@ -131,18 +132,7 @@ const t =
           id="mobile-menu-button"
           aria-label="Menu"
         >
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+          <IconMenu class="h-6 w-6" />
         </button>
       </div>
     </div>

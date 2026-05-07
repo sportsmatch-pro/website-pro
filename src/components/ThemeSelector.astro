@@ -1,0 +1,165 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import IconSun from "./IconSun.astro";
+import IconMoon from "./IconMoon.astro";
+import IconMonitor from "./IconMonitor.astro";
+import IconCheck from "./IconCheck.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class="relative theme-selector-container">
+  <button
+    type="button"
+    id="theme-toggle-btn"
+    class="flex items-center justify-center w-8 h-8 rounded-full border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition-all duration-200 theme-button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Select theme"
+  >
+    <IconSun class="theme-icon-light w-4 h-4 hidden" />
+    <IconMoon class="theme-icon-dark w-4 h-4 hidden" />
+    <IconMonitor class="theme-icon-auto w-4 h-4 hidden" />
+  </button>
+
+  <!-- Dropdown -->
+  <div
+    class="theme-dropdown absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible transition-all duration-200 z-50 overflow-hidden"
+    role="listbox"
+    aria-label="Theme options"
+  >
+    <button
+      type="button"
+      class="theme-option w-full flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+      data-theme-value="light"
+      role="option"
+    >
+      <IconSun class="w-4 h-4 flex-shrink-0" />
+      <span>{t("theme.light")}</span>
+      <IconCheck class="theme-check w-3 h-3 ml-auto hidden" />
+    </button>
+
+    <button
+      type="button"
+      class="theme-option w-full flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+      data-theme-value="dark"
+      role="option"
+    >
+      <IconMoon class="w-4 h-4 flex-shrink-0" />
+      <span>{t("theme.dark")}</span>
+      <IconCheck class="theme-check w-3 h-3 ml-auto hidden" />
+    </button>
+
+    <button
+      type="button"
+      class="theme-option w-full flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+      data-theme-value="auto"
+      role="option"
+    >
+      <IconMonitor class="w-4 h-4 flex-shrink-0" />
+      <span>{t("theme.auto")}</span>
+      <IconCheck class="theme-check w-3 h-3 ml-auto hidden" />
+    </button>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "sm-theme";
+
+  function getSavedTheme(): string {
+    return localStorage.getItem(STORAGE_KEY) || "auto";
+  }
+
+  function resolveTheme(theme: string): "light" | "dark" {
+    if (theme === "auto") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    return theme as "light" | "dark";
+  }
+
+  function applyTheme(theme: string) {
+    document.documentElement.setAttribute("data-theme", resolveTheme(theme));
+    localStorage.setItem(STORAGE_KEY, theme);
+    updateUI(theme);
+  }
+
+  function updateUI(theme: string) {
+    document
+      .querySelectorAll(".theme-icon-light")
+      .forEach((el) => el.classList.toggle("hidden", theme !== "light"));
+    document
+      .querySelectorAll(".theme-icon-dark")
+      .forEach((el) => el.classList.toggle("hidden", theme !== "dark"));
+    document
+      .querySelectorAll(".theme-icon-auto")
+      .forEach((el) => el.classList.toggle("hidden", theme !== "auto"));
+
+    document.querySelectorAll(".theme-selector-container").forEach((container) => {
+      container.querySelectorAll(".theme-option").forEach((btn) => {
+        const val = (btn as HTMLElement).dataset.themeValue;
+        const check = btn.querySelector(".theme-check");
+        check?.classList.toggle("hidden", val !== theme);
+        (btn as HTMLElement).classList.toggle("bg-gray-100", val === theme);
+        (btn as HTMLElement).classList.toggle("font-medium", val === theme);
+      });
+    });
+  }
+
+  function initThemeSelector(container: Element) {
+    const btn = container.querySelector(".theme-button") as HTMLButtonElement;
+    const dropdown = container.querySelector(
+      ".theme-dropdown"
+    ) as HTMLElement;
+    const chevron = container.querySelector(".chevron-icon") as SVGElement;
+
+    if (!btn || !dropdown) return;
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!isOpen));
+      dropdown.classList.toggle("opacity-0", isOpen);
+      dropdown.classList.toggle("invisible", isOpen);
+      dropdown.classList.toggle("opacity-100", !isOpen);
+      dropdown.classList.toggle("visible", !isOpen);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!container.contains(e.target as Node)) {
+        btn.setAttribute("aria-expanded", "false");
+        dropdown.classList.add("opacity-0", "invisible");
+        dropdown.classList.remove("opacity-100", "visible");
+      }
+    });
+
+    container.querySelectorAll(".theme-option").forEach((option) => {
+      option.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const val = (option as HTMLElement).dataset.themeValue;
+        if (val) {
+          applyTheme(val);
+          btn.setAttribute("aria-expanded", "false");
+          dropdown.classList.add("opacity-0", "invisible");
+          dropdown.classList.remove("opacity-100", "visible");
+        }
+      });
+    });
+  }
+
+  // Init all theme selectors on the page (desktop + mobile)
+  document
+    .querySelectorAll(".theme-selector-container")
+    .forEach(initThemeSelector);
+
+  const saved = getSavedTheme();
+  applyTheme(saved);
+
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", () => {
+      if (getSavedTheme() === "auto") applyTheme("auto");
+    });
+</script>

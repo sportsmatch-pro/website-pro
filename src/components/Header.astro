@@ -1,6 +1,8 @@
 ---
 import LanguageSelector from "./LanguageSelector.astro";
 import HeaderLogoIcon from "./HeaderLogoIcon.astro";
+import ThemeSelector from "./ThemeSelector.astro";
+import IconMenu from "./IconMenu.astro";
 
 // Props per a l'idioma actual i slug de l'article
 export interface Props {
@@ -100,12 +102,13 @@ const t =
 
       <!-- Columna dreta: Selector d'idioma i navegació -->
       <div class="flex justify-end items-center space-x-4">
-        <div class="hidden lg:flex">
+        <div class="hidden lg:flex items-center gap-2">
           <LanguageSelector
             currentLang={currentLang}
             currentSlug={articleSlug}
             translationRoutes={translationRoutes}
           />
+          <ThemeSelector />
         </div>
         <!-- Navegació desktop -->
         <nav class="hidden lg:flex space-x-4 items-center">
@@ -129,18 +132,7 @@ const t =
           id="mobile-menu-button"
           aria-label="Menu"
         >
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+          <IconMenu class="h-6 w-6" />
         </button>
       </div>
     </div>
@@ -161,11 +153,14 @@ const t =
       >
         {t.contact.text}
       </a>
-      <LanguageSelector
-        currentLang={currentLang}
-        currentSlug={articleSlug}
-        translationRoutes={translationRoutes}
-      />
+      <div class="flex items-center gap-3 px-3 py-2">
+        <LanguageSelector
+          currentLang={currentLang}
+          currentSlug={articleSlug}
+          translationRoutes={translationRoutes}
+        />
+        <ThemeSelector />
+      </div>
     </div>
   </div>
 </header>

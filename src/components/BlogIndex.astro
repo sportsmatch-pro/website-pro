@@ -52,6 +52,7 @@ const allSportsData = await sportsRes.json();
 const sportColorMap: Record<string, string> = {};
 const allAvailableSports: string[] = [];
 (allSportsData as SportData[]).forEach((sport) => {
+  if (!sport.name) return;
   allAvailableSports.push(sport.name);
   if (sport.color) {
     sportColorMap[sport.name] = sport.color;
@@ -100,6 +101,7 @@ const sportTranslations: Record<string, Record<string, string>> = {
 
 // Funció per traduir el nom de l'esport
 const translateSportName = (sportKey: string, lang: string): string => {
+  if (!sportKey) return sportKey ?? "";
   const langTranslations =
     sportTranslations[lang as keyof typeof sportTranslations] ||
     sportTranslations["es-ES"];

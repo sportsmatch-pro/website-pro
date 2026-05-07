@@ -228,7 +228,7 @@ const getDaysAgo = (dateString: string | undefined): string => {
   >
     {
       posts.map((post) => {
-        const postSports = (post.sports || []).map((s) => s.name);
+        const postSports = (post.sports || []).map((s) => s?.name).filter(Boolean);
         const daysAgo = getDaysAgo(post.publishedAt);
 
         return (

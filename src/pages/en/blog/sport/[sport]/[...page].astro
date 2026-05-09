@@ -9,27 +9,29 @@ const pageSize = 12;
 
 export const getStaticPaths = (async ({ paginate }) => {
   const [articlesRes, sportsRes] = await Promise.all([
-    fetch(`${import.meta.env.API_BASE_URL}articles?language=en&sortField=publishedAt&sortOrder=DESC`),
+    fetch(
+      `${import.meta.env.API_BASE_URL}articles?language=en&sortField=publishedAt&sortOrder=DESC`,
+    ),
     fetch(`${import.meta.env.API_BASE_URL}sports`),
   ]);
-  
+
   const posts = await articlesRes.json();
   const postsArray = Array.isArray(posts) ? posts : posts.items || [];
   const sports = await sportsRes.json();
-  
+
   const paths = sports.flatMap((sport: { name: string }) => {
-    const sportPosts = postsArray.filter((post: any) => 
-      post.sports?.some((s: { name: string }) => s.name === sport.name)
+    const sportPosts = postsArray.filter((post: any) =>
+      post.sports?.some((s: { name: string }) => s.name === sport.name),
     );
-    
+
     if (sportPosts.length === 0) return [];
-    
+
     return paginate(sportPosts, {
       params: { sport: sport.name },
       pageSize: 12,
     });
   });
-  
+
   return paths;
 }) satisfies GetStaticPaths;
 
@@ -42,9 +44,7 @@ const sportTranslations: Record<string, string> = {
   handball: "Handball",
   volleyball: "Volleyball",
   futsal: "Futsal",
-  rollerHoquey: "Roller Hockey",
-  rinkhockey: "Roller Hockey",
-  hockey: "Hockey",
+  rink_hockey: "Rink Hockey",
   coach: "Staff",
 };
 
@@ -52,8 +52,8 @@ const sportName = sportTranslations[sport?.toLowerCase() || ""] || sport;
 ---
 
 <Layout title={`Blog - ${sportName}`} currentLang={currentLang}>
-  <BlogIndex 
-    currentLang={currentLang} 
+  <BlogIndex
+    currentLang={currentLang}
     blogBasePath={blogBasePath}
     posts={page.data}
     pagination={{
@@ -62,7 +62,7 @@ const sportName = sportTranslations[sport?.toLowerCase() || ""] || sport;
       url: {
         prev: page.url.prev,
         next: page.url.next,
-      }
+      },
     }}
     activeSport={sport}
   />

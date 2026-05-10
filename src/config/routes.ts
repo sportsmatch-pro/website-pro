@@ -134,10 +134,10 @@ export const routes: AppRoutes = {
     "ca-ES": { url: "/ca/esports/basquet", title: "Bàsquet", description: "Bàsquet - SportsMatch" },
     "en": { url: "/en/sports/basketball", title: "Basketball", description: "Basketball - SportsMatch" }
   },
-  "sports-rinkhockey": {
-    "es-ES": { url: "/deportes/hockey-patines", title: "Hockey Patines", description: "Hockey Patines - SportsMatch" },
+  "sports-rink_hockey": {
+    "es-ES": { url: "/deportes/hockey-patines", title: "Hockey sobre patines", description: "Hockey sobre patines - SportsMatch" },
     "ca-ES": { url: "/ca/esports/hoquei-patins", title: "Hoquei Patins", description: "Hoquei Patins - SportsMatch" },
-    "en": { url: "/en/sports/rinkhockey", title: "Rink Hockey", description: "Rink Hockey - SportsMatch" }
+    "en": { url: "/en/sports/rink_hockey", title: "Rink Hockey", description: "Rink Hockey - SportsMatch" }
   },
   "sports-handball": {
     "es-ES": { url: "/deportes/balonmano", title: "Balonmano", description: "Balonmano - SportsMatch" },

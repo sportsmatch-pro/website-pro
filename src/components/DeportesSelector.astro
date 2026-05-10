@@ -7,32 +7,36 @@ const { currentLang = "es-ES" } = Astro.props;
 
 const deportes = [
   {
-    nombre: "Fútbol",
+    nombres: { "es-ES": "Fútbol", "ca-ES": "Futbol", en: "Football" },
     color: "#22c55e",
     imagen: "https://assets.sportsmatch.app/sport/choice-soccer.png",
   },
   {
-    nombre: "Baloncesto",
+    nombres: { "es-ES": "Baloncesto", "ca-ES": "Bàsquet", en: "Basketball" },
     color: "#f97316",
     imagen: "https://assets.sportsmatch.app/sport/choice-basketball.png",
   },
   {
-    nombre: "Hockey",
+    nombres: {
+      "es-ES": "Hockey sobre patines",
+      "ca-ES": "Hoquei patins",
+      en: "Rink Hockey",
+    },
     color: "#eab308",
     imagen: "https://assets.sportsmatch.app/sport/choice-rink_hockey.png",
   },
   {
-    nombre: "Fútbol sala",
+    nombres: { "es-ES": "Fútbol sala", "ca-ES": "Futbol sala", en: "Futsal" },
     color: "#3b82f6",
     imagen: "https://assets.sportsmatch.app/sport/choice-futsal.png",
   },
   {
-    nombre: "Voleibol",
+    nombres: { "es-ES": "Voleibol", "ca-ES": "Voleibol", en: "Volleyball" },
     color: "#ec4899",
     imagen: "https://assets.sportsmatch.app/sport/choice-volleyball.png",
   },
   {
-    nombre: "Balonmano",
+    nombres: { "es-ES": "Balonmano", "ca-ES": "Handbol", en: "Handball" },
     color: "#7c3aed",
     imagen: "https://assets.sportsmatch.app/sport/choice-handball.png",
   },
@@ -84,12 +88,16 @@ const t =
           <div class="w-[40vw] h-[40vw] lg:w-[20vw] lg:h-[20vw] mx-auto mb-4 relative hover:scale-110 transition-transform cursor-pointer">
             <img
               src={deporte.imagen}
-              alt={deporte.nombre}
+              alt={
+                deporte.nombres[currentLang as keyof typeof deporte.nombres] ??
+                deporte.nombres["es-ES"]
+              }
               class="absolute inset-0 w-full h-full object-cover rounded-full"
             />
           </div>
           <h3 class="text-vw-xl lg:text-vw-base font-semibold text-gray-800">
-            {deporte.nombre}
+            {deporte.nombres[currentLang as keyof typeof deporte.nombres] ??
+              deporte.nombres["es-ES"]}
           </h3>
         </div>
       ))

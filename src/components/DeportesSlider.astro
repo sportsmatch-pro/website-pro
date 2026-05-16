@@ -11,52 +11,116 @@ const { currentLang = "es-ES" } = Astro.props;
 // Traduccions per a cada idioma
 const translations = {
   "es-ES": {
-    title: "SportsMatch - Tu sueño, a tu alcance",
+    title: "SportsMatch",
     heroText:
       "Únete a la primera red social del mercado que conecta jugador@s y profesionales del deporte con clubes deportivos",
     sports: [
-      { nombre: "Fútbol", color: "#22c55e", imagen: "/assets/futbol.png" },
-      { nombre: "Baloncesto", color: "#f97316", imagen: "/assets/basket.png" },
-      { nombre: "Hockey", color: "#eab308", imagen: "/assets/hockey.png" },
-      { nombre: "Fútbol sala", color: "#3b82f6", imagen: "/assets/futsal.png" },
-      { nombre: "Voleibol", color: "#ec4899", imagen: "/assets/voleibol.png" },
+      {
+        nombre: "Fútbol",
+        color: "#22c55e",
+        imagen: "/assets/soccer-rectangle.jpg",
+      },
+      {
+        nombre: "Baloncesto",
+        color: "#f97316",
+        imagen: "/assets/basketball-rectangle.jpg",
+      },
+      {
+        nombre: "Hockey",
+        color: "#eab308",
+        imagen: "/assets/rinkhockey-rectangle.png",
+      },
+      {
+        nombre: "Fútbol sala",
+        color: "#3b82f6",
+        imagen: "/assets/futsal-rectangle.png",
+      },
+      {
+        nombre: "Voleibol",
+        color: "#ec4899",
+        imagen: "/assets/volleyball-rectangle.jpg",
+      },
       {
         nombre: "Balonmano",
         color: "#7c3aed",
         imagen: "/assets/balonmano.png",
       },
     ],
-    download: "Ya disponible es:",
+    download: "Ya disponible en:",
   },
   "ca-ES": {
-    title: "SportsMatch - El teu somni, a l'abast",
+    title: "SportsMatch ",
     heroText:
       "Uneix-te a la primera xarxa social del mercat que connecta jugadors i professionals de l'esport amb clubs esportius",
     sports: [
-      { nombre: "Futbol", color: "#22c55e", imagen: "/assets/futbol.png" },
-      { nombre: "Bàsquet", color: "#f97316", imagen: "/assets/basket.png" },
-      { nombre: "Hoquei", color: "#eab308", imagen: "/assets/hockey.png" },
-      { nombre: "Futbol sala", color: "#3b82f6", imagen: "/assets/futsal.png" },
-      { nombre: "Voleibol", color: "#ec4899", imagen: "/assets/voleibol.png" },
-      { nombre: "Handbol", color: "#7c3aed", imagen: "/assets/balonmano.png" },
+      {
+        nombre: "Futbol",
+        color: "#22c55e",
+        imagen: "/assets/futbol-rectangle.png",
+      },
+      {
+        nombre: "Bàsquet",
+        color: "#f97316",
+        imagen: "/assets/basketball-rectangle.jpg",
+      },
+      {
+        nombre: "Hoquei",
+        color: "#eab308",
+        imagen: "/assets/rinkhockey-rectangle.png",
+      },
+      {
+        nombre: "Futbol sala",
+        color: "#3b82f6",
+        imagen: "/assets/futsal-rectangle.png",
+      },
+      {
+        nombre: "Voleibol",
+        color: "#ec4899",
+        imagen: "/assets/volleyball-rectangle.jpg",
+      },
+      {
+        nombre: "Handbol",
+        color: "#7c3aed",
+        imagen: "/assets/balonmano-rectangle.png",
+      },
     ],
     download: "Ja disponible a:",
   },
   en: {
-    title: "SportsMatch - Your dream, at your reach",
+    title: "SportsMatch",
     heroText:
       "Join the first social network in the market that connects players and sports professionals with sports clubs",
     sports: [
-      { nombre: "Football", color: "#22c55e", imagen: "/assets/futbol.png" },
-      { nombre: "Basketball", color: "#f97316", imagen: "/assets/basket.png" },
-      { nombre: "Hockey", color: "#eab308", imagen: "/assets/hockey.png" },
-      { nombre: "Futsal", color: "#3b82f6", imagen: "/assets/futsal.png" },
+      {
+        nombre: "Football",
+        color: "#22c55e",
+        imagen: "/assets/futbol-rectangle.png",
+      },
+      {
+        nombre: "Basketball",
+        color: "#f97316",
+        imagen: "/assets/basketball-rectangle.jpg",
+      },
+      {
+        nombre: "Hockey",
+        color: "#eab308",
+        imagen: "/assets/rinkhockey-rectangle.png",
+      },
+      {
+        nombre: "Futsal",
+        color: "#3b82f6",
+        imagen: "/assets/futsal-rectangle.png",
+      },
       {
         nombre: "Volleyball",
         color: "#ec4899",
-        imagen: "/assets/voleibol.png",
+        imagen: "/assets/volleyball-rectangle.jpg",
       },
-      { nombre: "Handball", color: "#7c3aed", imagen: "/assets/balonmano.png" },
+      {
+        nombre: "Handball",
+        color: "#7c3aed",
+        imagen: "/assets/balonmano-rectangle.png",
+      },
     ],
     download: "Available now on:",
   },
@@ -95,7 +159,7 @@ const t =
   <!-- Imatge de fons dinàmica -->
   <img
     id="sport-background"
-    src="/assets/futbol.png"
+    src="/assets/soccer-rectangle.jpg"
     alt="Fútbol"
     class="absolute inset-0 w-full h-full object-cover sport-transition"
   />
@@ -207,96 +271,96 @@ const t =
         {
           nombre: "<span>F</span>útbol",
           color: "#22c55e",
-          imagen: "/assets/futbol.png",
+          imagen: "/assets/soccer-rectangle.jpg",
         },
         {
           nombre: "<span>B</span>aloncesto",
           color: "#f97316",
-          imagen: "/assets/basket.png",
+          imagen: "/assets/basketball-rectangle.jpg",
         },
         {
           nombre: "<span>H</span>ockey sobre <span>P</span>atines",
           color: "#eab308",
-          imagen: "/assets/hockey.png",
+          imagen: "/assets/rinkhockey-rectangle.png",
         },
         {
           nombre: "<span>F</span>útbol <span>S</span>ala",
           color: "#3b82f6",
-          imagen: "/assets/futsal.png",
+          imagen: "/assets/futsal-rectangle.png",
         },
         {
           nombre: "<span>V</span>oleibol",
           color: "#ec4899",
-          imagen: "/assets/voleibol.png",
+          imagen: "/assets/volleyball-rectangle.jpg",
         },
         {
           nombre: "<span>B</span>alonmano",
           color: "#7c3aed",
-          imagen: "/assets/balonmano.png",
+          imagen: "/assets/handball-rectangle.jpg",
         },
       ],
       "ca-ES": [
         {
           nombre: "<span>F</span>utbol",
           color: "#22c55e",
-          imagen: "/assets/futbol.png",
+          imagen: "/assets/soccer-rectangle.jpg",
         },
         {
           nombre: "<span>B</span>àsquet",
           color: "#f97316",
-          imagen: "/assets/basket.png",
+          imagen: "/assets/basketball-rectangle.jpg",
         },
         {
           nombre: "<span>H</span>oquei <span>P</span>patins",
           color: "#eab308",
-          imagen: "/assets/hockey.png",
+          imagen: "/assets/rinkhockey-rectangle.png",
         },
         {
           nombre: "<span>F</span>utbol <span>S</span>ala",
           color: "#3b82f6",
-          imagen: "/assets/futsal.png",
+          imagen: "/assets/futsal-rectangle.png",
         },
         {
           nombre: "<span>V</span>oleibol",
           color: "#ec4899",
-          imagen: "/assets/voleibol.png",
+          imagen: "/assets/volleyball-rectangle.jpg",
         },
         {
           nombre: "<span>B</span>alonmano",
           color: "#7c3aed",
-          imagen: "/assets/balonmano.png",
+          imagen: "/assets/handball-rectangle.jpg",
         },
       ],
       en: [
         {
           nombre: "<span>F</span>ootball",
           color: "#22c55e",
-          imagen: "/assets/futbol.png",
+          imagen: "/assets/soccer-rectangle.jpg",
         },
         {
           nombre: "<span>B</span>asketball",
           color: "#f97316",
-          imagen: "/assets/basket.png",
+          imagen: "/assets/basketball-rectangle.jpg",
         },
         {
           nombre: "<span>R</span>ink <span>H</span>ockey",
           color: "#eab308",
-          imagen: "/assets/hockey.png",
+          imagen: "/assets/rinkhockey-rectangle.png",
         },
         {
           nombre: "<span>F</span>utsal",
           color: "#3b82f6",
-          imagen: "/assets/futsal.png",
+          imagen: "/assets/futsal-rectangle.png",
         },
         {
           nombre: "<span>V</span>olleyball",
           color: "#ec4899",
-          imagen: "/assets/voleibol.png",
+          imagen: "/assets/volleyball-rectangle.jpg",
         },
         {
           nombre: "<span>H</span>andball",
           color: "#7c3aed",
-          imagen: "/assets/balonmano.png",
+          imagen: "/assets/handball-rectangle.jpg",
         },
       ],
     };

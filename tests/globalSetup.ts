@@ -27,8 +27,9 @@ function waitForPort(port: number, timeoutMs = 30000): Promise<void> {
 
 export async function setup(): Promise<void> {
   const distPath = resolve(ROOT, 'dist')
-  if (!existsSync(distPath)) {
-    console.log('[globalSetup] dist/ not found — running astro build...')
+  const distIndex = resolve(distPath, 'index.html')
+  if (!existsSync(distPath) || !existsSync(distIndex)) {
+    console.log('[globalSetup] dist/ missing or incomplete — running astro build...')
     execSync('npx astro build', { cwd: ROOT, stdio: 'inherit' })
   }
 

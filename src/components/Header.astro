@@ -37,8 +37,8 @@ const aboutHref = lang === 'es' ? '/nosotros' : lang === 'ca' ? '/ca/nosaltres' 
   <div class="site-header__inner">
     <!-- Logo -->
     <a href={langRoutes[lang]} class="site-logo" aria-label={t['nav.logo.aria']}>
-      <img class="site-logo__img site-logo__img--dark" src="/logo-dark.svg" alt="SportsMatch" />
-      <img class="site-logo__img site-logo__img--light" src="/logo-light.svg" alt="SportsMatch" />
+      <img class="site-logo__img site-logo__img--dark" src="/assets/logo-dark.svg" alt="SportsMatch" />
+      <img class="site-logo__img site-logo__img--light" src="/assets/logo-light.svg" alt="SportsMatch" />
     </a>
 
     <!-- Primary nav (desktop) -->
@@ -150,10 +150,10 @@ const aboutHref = lang === 'es' ? '/nosotros' : lang === 'ca' ? '/ca/nosaltres' 
       </button>
 
       <!-- Sign in (desktop) -->
-      <a class="btn btn--ghost desktop-only" href="#">{t['cta.signin']}</a>
+      <a class="btn btn--ghost btn--sm desktop-only header-signin" href="#">{t['cta.signin']}</a>
 
       <!-- Download app (desktop) -->
-      <a class="btn btn--primary desktop-only" href="#">
+      <a class="btn btn--primary btn--sm desktop-only" href="#">
         <IconDownload class="w-3.5 h-3.5" />
         <span>{t['cta.download']}</span>
       </a>

@@ -9,27 +9,20 @@ const { t } = Astro.props;
 ---
 
 <section class="duality-split">
-  <div class="duality-split__lead">
+  <!-- Lead (eyebrow + heading) -->
+  <div class="duality-split__lead container">
     <span class="eyebrow">{t['duality.eyebrow']}</span>
     <h2 class="duality-split__heading">{t['duality.title']}</h2>
   </div>
 
+  <!-- Stage -->
   <div class="duality-split__stage">
-    <img
-      class="duality-split__bg-img"
-      src="/assets/duality-club.jpg"
-      alt=""
-      loading="lazy"
-      aria-hidden="true"
-    />
+    <!-- Layer 1: copy + single bg image -->
+    <div class="duality-split__stage_container container">
+      <img class="duality-split__bg" src="/assets/duality-club.jpg" alt="" loading="lazy" />
 
-    <div class="duality-split__panels">
-      <!-- Left panel: clubs/scouts -->
-      <a
-        class="duality-split__side duality-split__side--club"
-        href="#"
-        aria-label="Soy club o scouter"
-      >
+      <!-- Left side: clubs/scouts -->
+      <a class="duality-split__side duality-split__side--player" href="#" aria-label="Soy jugador o profesional">
         <div class="duality-split__copy">
           <span class="duality-split__kicker">{t['duality.club.tag']}</span>
           <h3 class="duality-split__title" set:html={t['duality.club.title']} />
@@ -41,20 +34,15 @@ const { t } = Astro.props;
           </ul>
           <span class="duality-split__cta">
             <span>{t['duality.club.cta']}</span>
-            <IconArrowRight class="duality-split__cta-icon" />
+            <IconArrowRight />
           </span>
         </div>
       </a>
 
-      <!-- Central divider -->
       <span class="duality-split__divider" aria-hidden="true"></span>
 
-      <!-- Right panel: players/pros -->
-      <a
-        class="duality-split__side duality-split__side--player"
-        href="#"
-        aria-label="Soy jugador o profesional"
-      >
+      <!-- Right side: players/pros -->
+      <a class="duality-split__side duality-split__side--club" href="#" aria-label="Soy club o scouter">
         <div class="duality-split__copy">
           <span class="duality-split__kicker">{t['duality.player.tag']}</span>
           <h3 class="duality-split__title" set:html={t['duality.player.title']} />
@@ -66,9 +54,20 @@ const { t } = Astro.props;
           </ul>
           <span class="duality-split__cta">
             <span>{t['duality.player.cta']}</span>
-            <IconArrowRight class="duality-split__cta-icon" />
+            <IconArrowRight />
           </span>
         </div>
+      </a>
+    </div>
+
+    <!-- Layer 2: veil strips (20px tall) -->
+    <div class="duality-split__stage_container">
+      <a class="duality-split__side duality-split__side--player" href="#" aria-label="Soy jugador o profesional">
+        <span class="duality-split__veil" aria-hidden="true"></span>
+      </a>
+      <span class="duality-split__divider" aria-hidden="true"></span>
+      <a class="duality-split__side duality-split__side--club" href="#" aria-label="Soy club o scouter">
+        <span class="duality-split__veil" aria-hidden="true"></span>
       </a>
     </div>
   </div>
@@ -77,9 +76,9 @@ const { t } = Astro.props;
 <style>
   .duality-split {
     position: relative;
-    padding-top: var(--density-section, 128px);
+    padding-block: var(--density-section) 0;
     background: var(--bg-elev);
-    border-top: 1px solid var(--line);
+    border-block: 1px solid var(--line);
     overflow: hidden;
   }
 
@@ -93,16 +92,7 @@ const { t } = Astro.props;
     max-width: var(--container, 1280px);
     margin-left: auto;
     margin-right: auto;
-    padding: 0 1.5rem;
-  }
-
-  .eyebrow {
-    display: inline-block;
-    font-size: var(--fs-micro, 12px);
-    font-weight: 600;
-    letter-spacing: var(--tracking-caps, 0.12em);
-    text-transform: uppercase;
-    color: var(--fg-subtle);
+    padding-inline: clamp(20px, 4vw, 48px);
   }
 
   .duality-split__heading {
@@ -116,80 +106,83 @@ const { t } = Astro.props;
     color: var(--fg);
   }
 
-  /* Stage */
+  /* Stage: two sides + divider */
   .duality-split__stage {
+    background-color: #000;
+  }
+
+  .duality-split__stage_container {
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     height: clamp(520px, 44vh, 720px);
+    isolation: isolate;
     overflow: hidden;
-    background: #000;
   }
 
-  .duality-split__bg-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.55) saturate(1.05);
-    pointer-events: none;
+  .duality-split__stage_container + .duality-split__stage_container {
+    height: 20px;
   }
 
-  /* Panels container */
-  .duality-split__panels {
-    position: relative;
-    display: flex;
-    height: 100%;
-  }
-
-  /* Side panels */
   .duality-split__side {
     position: relative;
-    flex: 1 1 50%;
+    overflow: hidden;
     display: flex;
     align-items: flex-end;
     color: #fff;
     text-decoration: none;
-    overflow: hidden;
-    transition: flex var(--t-slow, 480ms) var(--ease-out, cubic-bezier(0.16,1,0.3,1));
-    cursor: pointer;
+    transition: flex var(--t-slow, 480ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
-  .duality-split__side:hover {
-    flex: 1.4 1 50%;
+  /* Left side (player) on top */
+  .duality-split__side--player {
+    z-index: 2;
   }
 
-  /* Overlay tint per side */
-  .duality-split__side--club::before {
-    content: '';
+  /* Right side (club) overlaps left slightly */
+  .duality-split__side--club {
+    margin-left: -60px;
+    z-index: 1;
+  }
+
+  /* Background image */
+  .duality-split__bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(1, 140, 41, 0.6) 0%,
-      rgba(0, 0, 0, 0.2) 60%,
-      transparent 100%
-    );
-    z-index: 1;
-    transition: opacity var(--t-slow, 480ms);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform var(--t-slow, 480ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), filter var(--t-slow, 480ms);
+    filter: brightness(0.55) saturate(1.05);
   }
 
-  .duality-split__side--player::before {
-    content: '';
+  .duality-split__side--player .duality-split__bg {
+    object-position: 50% 35%;
+  }
+
+  .duality-split__side--club .duality-split__bg {
+    object-position: 50% 30%;
+  }
+
+  .duality-split__side:hover .duality-split__bg {
+    transform: scale(1.04);
+    filter: brightness(0.7) saturate(1.15);
+  }
+
+  /* Veil: accent tint strips */
+  .duality-split__veil {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(225, 69, 30, 0.6) 0%,
-      rgba(0, 0, 0, 0.2) 60%,
-      transparent 100%
-    );
     z-index: 1;
-    transition: opacity var(--t-slow, 480ms);
   }
 
-  .duality-split__side:hover::before {
-    opacity: 0.85;
+  .duality-split__side--player .duality-split__veil {
+    background: var(--brand-orange);
+  }
+
+  .duality-split__side--club .duality-split__veil {
+    background: var(--brand-green);
   }
 
   /* Copy block */
@@ -197,10 +190,18 @@ const { t } = Astro.props;
     position: relative;
     z-index: 3;
     padding: clamp(28px, 4vw, 56px);
-    max-width: 560px;
+    max-width: 570px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+  }
+
+  /* Club copy: items flush-right, but text flows left */
+  .duality-split__side--club .duality-split__copy {
+    margin-left: auto;
+    text-align: left;
+    align-items: flex-end;
+    max-width: 470px;
   }
 
   .duality-split__kicker {
@@ -221,6 +222,10 @@ const { t } = Astro.props;
     color: #fff;
   }
 
+  .duality-split__side--club .duality-split__kicker {
+    align-self: flex-end;
+  }
+
   .duality-split__title {
     font-size: clamp(28px, 3.2vw, 44px);
     line-height: 1.02;
@@ -229,6 +234,10 @@ const { t } = Astro.props;
     margin: 0;
     color: #fff;
     text-wrap: balance;
+  }
+
+  .duality-split__side--club .duality-split__title {
+    text-align: right;
   }
 
   :global(.duality-split__side--club .duality-split__title i) {
@@ -257,6 +266,7 @@ const { t } = Astro.props;
     gap: 8px;
     font-size: 13.5px;
     color: rgba(255, 255, 255, 0.85);
+    width: 100%;
   }
 
   .duality-split__bullets li {
@@ -264,19 +274,7 @@ const { t } = Astro.props;
     position: relative;
   }
 
-  .duality-split__side--club .duality-split__bullets li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 7px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--brand-green);
-    box-shadow: 0 0 0 3px rgba(1, 140, 41, 0.3);
-  }
-
-  .duality-split__side--player .duality-split__bullets li::before {
+  .duality-split__bullets li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -288,6 +286,18 @@ const { t } = Astro.props;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
   }
 
+  .duality-split__side--club .duality-split__bullets li {
+    padding-right: 0;
+    padding-left: 18px;
+  }
+
+  .duality-split__side--club .duality-split__bullets li::before {
+    left: 0;
+    background: var(--brand-green);
+    box-shadow: 0 0 0 3px rgba(1, 140, 41, 0.3);
+  }
+
+  /* CTA button */
   .duality-split__cta {
     display: inline-flex;
     align-items: center;
@@ -300,69 +310,104 @@ const { t } = Astro.props;
     letter-spacing: -0.005em;
     align-self: flex-start;
     text-decoration: none;
-    transition: transform var(--t-fast, 140ms) var(--ease-snap, cubic-bezier(0.4,0,0.2,1));
+    transition: transform var(--t-fast, 140ms) var(--ease-snap, cubic-bezier(0.4, 0, 0.2, 1)), background var(--t-fast, 140ms);
     color: #fff;
   }
 
   .duality-split__side--club .duality-split__cta {
+    align-self: flex-end;
     background: var(--brand-green);
+    color: #fff;
   }
 
   .duality-split__side--player .duality-split__cta {
     background: var(--brand-orange);
+    color: #fff;
   }
 
   .duality-split__side:hover .duality-split__cta {
     transform: translateY(-1px);
   }
 
-  :global(.duality-split__cta-icon) {
+  :global(.duality-split__cta svg) {
     width: 16px;
     height: 16px;
     transition: transform var(--t-fast, 140ms);
   }
 
-  .duality-split__side:hover :global(.duality-split__cta-icon) {
+  .duality-split__side:hover :global(.duality-split__cta svg) {
     transform: translateX(4px);
   }
 
   /* Central divider */
   .duality-split__divider {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    background: var(--bg-elev);
+    inset: 0;
     pointer-events: none;
     z-index: 5;
-    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .duality-split__divider::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    height: 130%;
+    width: 30px;
+    background: var(--bg-elev);
+    transform: translateX(-50%) rotate(0deg);
+    transform-origin: center;
   }
 
   /* Mobile: stack vertically */
   @media (max-width: 820px) {
-    .duality-split__stage {
+    .duality-split__stage_container {
+      grid-template-columns: 1fr;
       height: auto;
-    }
-
-    .duality-split__panels {
-      flex-direction: column;
     }
 
     .duality-split__side {
       min-height: 420px;
-      flex: none !important;
+      clip-path: none !important;
+      margin: 0 !important;
+    }
+
+    .duality-split__side--club .duality-split__copy {
+      margin-left: 0;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .duality-split__side--club .duality-split__kicker {
+      align-self: flex-start;
+    }
+
+    .duality-split__side--club .duality-split__cta {
+      align-self: flex-start;
+    }
+
+    .duality-split__side--club .duality-split__bullets li {
+      padding-left: 18px;
+      padding-right: 0;
+    }
+
+    .duality-split__side--club .duality-split__bullets li::before {
+      left: 0;
+      right: auto;
     }
 
     .duality-split__divider {
       position: relative;
-      top: auto;
-      bottom: auto;
-      left: auto;
-      transform: none;
+      inset: auto;
       height: 60px;
-      width: 100%;
+    }
+
+    .duality-split__divider::before {
+      height: 60px;
+      transform: rotate(90deg);
+      top: 0;
     }
   }
 </style>

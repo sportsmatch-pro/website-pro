@@ -69,9 +69,6 @@ const hreflangEn = `${siteUrl}/en${canonicalPath.replace(/^\/(ca|en)(\/|$)/, '/'
   </head>
 
   <body>
-    <!-- Top padding spacer for fixed header -->
-    <div style={`height: var(--header-h, 72px)`}></div>
-
     <Header lang={lang} currentPath={Astro.url.pathname} />
     <main>
       <slot />

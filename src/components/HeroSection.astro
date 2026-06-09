@@ -9,42 +9,68 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section class="hero">
-  <div class="hero__grid-bg" aria-hidden="true"></div>
-  <div class="hero__inner">
-    <div class="hero__copy">
-      <span class="eyebrow">{t['hero.eyebrow']}</span>
-      <h1 class="hero__title" set:html={t['hero.title']} />
-      <p class="hero__sub">{t['hero.sub']}</p>
+<section class="relative pt-[clamp(48px,8vw,96px)] pb-[clamp(48px,8vw,96px)] overflow-hidden">
 
-      <div class="hero__ctas">
-        <a class="store-btn" href="#" aria-label="App Store">
-          <IconAppStore class="store-btn__icon" />
-          <span class="store-btn__label">
-            <span class="store-btn__hint">{t['store.available']}</span>
-            <span class="store-btn__name">{t['store.appstore']}</span>
+  <!-- Animated grid background -->
+  <div class="hero-grid-bg absolute inset-0 bg-[url('/assets/bg-net.svg')] bg-cover bg-no-repeat bg-center opacity-60 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative max-w-(--container) mx-auto px-[clamp(20px,4vw,48px)] grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center gap-[clamp(40px,6vw,80px)] max-[920px]:grid-cols-1 max-[920px]:gap-12">
+
+    <!-- Copy -->
+    <div class="flex flex-col gap-6">
+      <span class="eyebrow">{t['hero.eyebrow']}</span>
+
+      <h1 class="hero-title [font-size:var(--fs-hero)] leading-[0.94] tracking-[-0.04em] font-bold m-0 text-balance text-fg"
+          set:html={t['hero.title']} />
+
+      <p class="[font-size:var(--fs-lead)] text-fg-muted max-w-[52ch] leading-[1.45] text-pretty m-0">
+        {t['hero.sub']}
+      </p>
+
+      <div class="flex flex-wrap gap-3 items-center">
+        <!-- App Store -->
+        <a class="inline-flex items-center gap-[10px] py-2 pl-4 pr-[22px]
+                  bg-fg text-bg rounded-pill border border-transparent no-underline
+                  transition-[transform,box-shadow,background] duration-fast ease-snap
+                  hover:-translate-y-px hover:scale-[1.005] hover:shadow-(--shadow-md)"
+           href="#" aria-label="App Store">
+          <IconAppStore class="w-[22px] h-[22px] shrink-0" />
+          <span class="flex flex-col items-start leading-[1.05]">
+            <span class="text-[9.5px] opacity-65 tracking-[0.05em] uppercase font-medium">{t['store.available']}</span>
+            <span class="text-[14px] font-bold tracking-[-0.01em]">{t['store.appstore']}</span>
           </span>
         </a>
-        <a class="store-btn" href="#" aria-label="Google Play">
-          <IconGooglePlay class="store-btn__icon" />
-          <span class="store-btn__label">
-            <span class="store-btn__hint">{t['store.available']}</span>
-            <span class="store-btn__name">{t['store.googleplay']}</span>
+        <!-- Google Play -->
+        <a class="inline-flex items-center gap-[10px] py-2 pl-4 pr-[22px]
+                  bg-fg text-bg rounded-pill border border-transparent no-underline
+                  transition-[transform,box-shadow,background] duration-fast ease-snap
+                  hover:-translate-y-px hover:scale-[1.005] hover:shadow-(--shadow-md)"
+           href="#" aria-label="Google Play">
+          <IconGooglePlay class="w-[22px] h-[22px] shrink-0" />
+          <span class="flex flex-col items-start leading-[1.05]">
+            <span class="text-[9.5px] opacity-65 tracking-[0.05em] uppercase font-medium">{t['store.available']}</span>
+            <span class="text-[14px] font-bold tracking-[-0.01em]">{t['store.googleplay']}</span>
           </span>
         </a>
-        <a class="btn btn--ghost" href="#">{t['hero.cta.secondary']}</a>
+        <a class="inline-flex items-center justify-center gap-2 px-[22px] py-[14px]
+                  rounded-pill font-semibold text-[15px] tracking-[-0.005em]
+                  border border-(--line) text-fg bg-transparent no-underline
+                  transition-[transform,background,border-color] duration-fast ease-snap
+                  hover:bg-surface-2 hover:border-fg active:translate-y-px active:scale-[0.99]"
+           href="#">{t['hero.cta.secondary']}</a>
       </div>
 
-      <div class="hero__meta">
-        <span class="hero__meta-dot" aria-hidden="true"></span>
+      <div class="flex flex-wrap gap-5 items-center text-[13px] text-fg-subtle">
+        <span class="hero-meta-dot w-[6px] h-[6px] rounded-full bg-[#16c447] shadow-[0_0_0_4px_rgba(22,196,71,0.18)] shrink-0" aria-hidden="true"></span>
         <span set:html={t['hero.meta.free']} />
       </div>
     </div>
 
-    <div class="hero__visual-wrap">
-      <div class="hero__visual hero__visual--photo">
+    <!-- Visual -->
+    <div class="relative">
+      <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-2 border border-line shadow-(--shadow-lg)">
         <img
-          class="hero__photo"
+          class="w-full h-full object-cover object-[center_25%] block"
           src="/assets/hero-home.jpg"
           alt="Jugador y representante de club en contexto deportivo real"
           loading="eager"
@@ -52,238 +78,81 @@ const { t } = Astro.props;
         />
       </div>
 
-      <span class="hero__chip hero__chip--left">
-        <span class="hero__chip-status" aria-hidden="true"></span>
+      <!-- Floating chip: player -->
+      <span class="hero-chip absolute top-14 -left-7 max-[920px]:left-2 max-[920px]:top-4
+                   bg-surface border border-line rounded-pill py-2 pl-2 pr-[14px]
+                   inline-flex items-center gap-2 text-[13px] font-medium
+                   shadow-(--shadow-md) z-[2] whitespace-nowrap">
+        <span class="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_0_4px_rgba(1,140,41,0.18)] mr-0.5 shrink-0" aria-hidden="true"></span>
         <span>{t['hero.chip.player']}</span>
       </span>
-      <span class="hero__chip hero__chip--right">
-        <span class="hero__chip-avatar">CF</span>
+
+      <!-- Floating chip: club -->
+      <span class="hero-chip hero-chip--delayed absolute bottom-16 -right-9 max-[920px]:right-2 max-[920px]:bottom-4
+                   bg-surface border border-line rounded-pill py-2 pl-2 pr-[14px]
+                   inline-flex items-center gap-2 text-[13px] font-medium
+                   shadow-(--shadow-md) z-[2] whitespace-nowrap">
+        <span class="w-6 h-6 rounded-full bg-brand-green text-white grid place-items-center text-[10px] font-bold tracking-[-0.02em]">CF</span>
         <span>{t['hero.chip.club']}</span>
       </span>
     </div>
+
   </div>
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    padding-top: clamp(48px, 8vw, 96px);
-    padding-bottom: clamp(48px, 8vw, 96px);
-    overflow: hidden;
-  }
-
-  .hero__grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('/assets/bg-net.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 75%);
-    opacity: 0.6;
-    pointer-events: none;
-    animation: hero-grid-pulse 8s ease-in-out infinite;
-  }
-
-  :root[data-theme='dark'] .hero__grid-bg {
-    opacity: 0.32;
-    filter: invert(1);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) .hero__grid-bg {
-      opacity: 0.32;
-      filter: invert(1);
-    }
-  }
-
+  /* Keyframe animations — cannot be utility classes */
   @keyframes hero-grid-pulse {
     0%, 100% { opacity: 0.6; }
-    50% { opacity: 0.4; }
+    50%       { opacity: 0.4; }
   }
-
-  :root[data-theme='dark'] .hero__grid-bg {
-    animation: hero-grid-pulse-dark 8s ease-in-out infinite;
-  }
-
   @keyframes hero-grid-pulse-dark {
     0%, 100% { opacity: 0.32; }
-    50% { opacity: 0.2; }
+    50%       { opacity: 0.2; }
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+  @keyframes dot-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(22,196,71,0.18); }
+    50%       { box-shadow: 0 0 0 6px rgba(22,196,71,0.08); }
   }
 
-  .hero__inner {
-    position: relative;
-    max-width: var(--container, 1280px);
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: clamp(40px, 6vw, 80px);
-    align-items: center;
+  .hero-grid-bg {
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 75%);
+    animation: hero-grid-pulse 8s ease-in-out infinite;
   }
-
-  @media (max-width: 920px) {
-    .hero__inner {
-      grid-template-columns: 1fr;
-      gap: 48px;
+  :root[data-theme='dark'] .hero-grid-bg {
+    opacity: 0.32;
+    filter: invert(1);
+    animation: hero-grid-pulse-dark 8s ease-in-out infinite;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .hero-grid-bg {
+      opacity: 0.32;
+      filter: invert(1);
+      animation: hero-grid-pulse-dark 8s ease-in-out infinite;
     }
   }
 
-  .hero__copy > * + * {
-    margin-top: 24px;
-  }
-
-  .hero__title {
-    font-size: var(--fs-hero);
-    line-height: 0.94;
-    letter-spacing: -0.04em;
-    font-weight: 700;
-    margin: 0;
-    text-wrap: balance;
-  }
-
-  :global(.hero__title em) {
+  /* italic brand color inside set:html — must use :global */
+  :global(.hero-title em) {
     font-style: italic;
     font-weight: 500;
     color: var(--brand-green);
     font-feature-settings: 'ss01';
   }
 
-  .hero__sub {
-    font-size: var(--fs-lead);
-    color: var(--fg-muted);
-    max-width: 52ch;
-    line-height: 1.45;
-    text-wrap: pretty;
-    margin: 0;
-  }
-
-  .hero__ctas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .hero__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    font-size: 13px;
-    color: var(--fg-subtle);
-  }
-
-  .hero__meta-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #16c447;
-    box-shadow: 0 0 0 4px rgba(22, 196, 71, 0.18);
-    flex-shrink: 0;
+  .hero-meta-dot {
     animation: dot-pulse 2s ease-in-out infinite;
   }
 
-  @keyframes dot-pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(22, 196, 71, 0.18); }
-    50% { box-shadow: 0 0 0 6px rgba(22, 196, 71, 0.08); }
-  }
-
-  .hero__visual-wrap {
-    position: relative;
-  }
-
-  .hero__visual {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    border-radius: var(--r-2xl);
-    overflow: hidden;
-    background: var(--surface-2);
-  }
-
-  .hero__visual--photo {
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .hero__photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 25%;
-    display: block;
-  }
-
-  .hero__chip {
-    position: absolute;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--r-pill);
-    padding: 8px 14px 8px 8px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    box-shadow: var(--shadow-md);
-    z-index: 2;
-    white-space: nowrap;
-  }
-
-  .hero__chip--left {
-    top: 56px;
-    left: -28px;
+  .hero-chip {
     animation: floaty 6s ease-in-out infinite;
-    animation-delay: 0s;
   }
-
-  .hero__chip--right {
-    bottom: 64px;
-    right: -36px;
-    animation: floaty 6s ease-in-out infinite;
+  .hero-chip--delayed {
     animation-delay: 2s;
-  }
-
-  @media (max-width: 920px) {
-    .hero__chip--left { left: 8px; top: 16px; }
-    .hero__chip--right { right: 8px; bottom: 16px; }
-  }
-
-  .hero__chip-status {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--brand-green);
-    box-shadow: 0 0 0 4px rgba(1, 140, 41, 0.18);
-    margin-right: 2px;
-    flex: 0 0 8px;
-  }
-
-  .hero__chip-avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--brand-green);
-    color: white;
-    display: grid;
-    place-items: center;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .eyebrow {
-    display: inline-block;
-    font-size: var(--fs-micro, 12px);
-    font-weight: 600;
-    letter-spacing: var(--tracking-caps, 0.12em);
-    text-transform: uppercase;
-    color: var(--fg-subtle);
-  }
-
-  @keyframes floaty {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
   }
 </style>

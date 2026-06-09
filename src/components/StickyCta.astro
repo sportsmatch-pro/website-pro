@@ -9,10 +9,22 @@ const { lang } = Astro.props;
 const t = getTranslations(lang);
 ---
 
-<div class="sticky-cta" role="complementary" aria-label="Download app">
+<div
+  class="fixed bottom-4 left-4 right-4 z-[90]
+         hidden max-[720px]:flex items-center justify-between gap-3
+         bg-fg text-bg
+         py-3 pl-4 pr-3 rounded-lg shadow-(--shadow-lg)"
+  role="complementary"
+  aria-label="Download app"
+>
   <div>
-    <span class="sticky-cta__text">{t['sticky.brand']}</span>
-    <span class="sticky-cta__sub">{t['sticky.tagline']}</span>
+    <span class="text-[14px] font-semibold tracking-[-0.01em]">{t['sticky.brand']}</span>
+    <span class="block text-[11px] opacity-70 mt-0.5">{t['sticky.tagline']}</span>
   </div>
-  <a class="sticky-cta__cta" href="#">{t['cta.download.mobile']}</a>
+  <a
+    class="inline-flex items-center shrink-0 px-4 py-[10px] rounded-pill
+           bg-brand-green text-white text-[13px] font-semibold no-underline whitespace-nowrap
+           transition-colors duration-fast hover:bg-brand-green-hover"
+    href="#"
+  >{t['cta.download.mobile']}</a>
 </div>

@@ -10,98 +10,110 @@ export interface Props {
 const { lang } = Astro.props;
 const t = getTranslations(lang);
 
-// Legal link routes
 const privacyHref = lang === 'es' ? '/politica-de-privacidad' : lang === 'ca' ? '/ca/politica-de-privacitat' : '/en/privacy-policy';
 const termsHref = lang === 'es' ? '/terminos' : lang === 'ca' ? '/ca/termes' : '/en/terms';
 const cookiesHref = lang === 'es' ? '/cookies' : lang === 'ca' ? '/ca/cookies' : '/en/cookies';
 const gdprHref = lang === 'es' ? '/gdpr' : lang === 'ca' ? '/ca/gdpr' : '/en/gdpr';
-
-// Blog/About hrefs
 const blogHref = lang === 'es' ? '/blog' : `/${lang}/blog`;
 const aboutHref = lang === 'es' ? '/nosotros' : lang === 'ca' ? '/ca/nosaltres' : '/en/about';
 ---
 
-<footer class="site-footer" data-testid="main-footer">
-  <div class="site-footer__inner">
-    <div class="site-footer__grid">
-      <!-- Brand column -->
-      <div class="site-footer__brand">
-        <a href={lang === 'es' ? '/' : `/${lang}`} class="site-logo" aria-label="SportsMatch">
-          <img class="site-logo__img site-logo__img--dark" src="/assets/logo-dark.svg" alt="SportsMatch" />
-          <img class="site-logo__img site-logo__img--light" src="/assets/logo-light.svg" alt="SportsMatch" />
+<footer class="pt-(--space-9) pb-(--space-7) border-t border-line bg-bg-elev" data-testid="main-footer">
+  <div class="max-w-(--container) mx-auto px-[clamp(20px,4vw,48px)]">
+
+    <!-- Grid -->
+    <div class="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-(--space-7) mb-(--space-8)
+                max-[920px]:grid-cols-[1fr_1fr] max-[639px]:grid-cols-1">
+
+      <!-- Brand column — full-width at ≤ 920px -->
+      <div class="max-[920px]:col-span-full">
+        <a href={lang === 'es' ? '/' : `/${lang}`} class="flex items-center shrink-0" aria-label="SportsMatch">
+          <img class="h-[26px] w-auto block dark:hidden" src="/assets/logo-dark.svg" alt="SportsMatch" />
+          <img class="h-[26px] w-auto hidden dark:block" src="/assets/logo-light.svg" alt="SportsMatch" />
         </a>
-        <p>{t['foot.tagline']}</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:0.5rem;">
-          <a class="store-btn" href="#" aria-label="App Store">
-            <IconAppStore class="store-btn__icon" />
-            <span class="store-btn__label">
-              <span class="store-btn__hint">{t['store.available']}</span>
-              <span class="store-btn__name">{t['store.appstore']}</span>
+        <p class="text-sm text-fg-muted leading-[1.6] mt-3 mb-5">{t['foot.tagline']}</p>
+        <div class="flex gap-2 flex-wrap">
+          <!-- App Store -->
+          <a class="inline-flex items-center gap-[10px] py-2 pl-4 pr-[22px]
+                    bg-fg text-bg rounded-pill border border-transparent no-underline
+                    transition-[transform,box-shadow,background] duration-fast ease-snap
+                    hover:-translate-y-px hover:scale-[1.005] hover:shadow-(--shadow-md)"
+             href="#" aria-label="App Store">
+            <IconAppStore class="w-[22px] h-[22px] shrink-0" />
+            <span class="flex flex-col items-start leading-[1.05]">
+              <span class="text-[9.5px] opacity-65 tracking-[0.05em] uppercase font-medium">{t['store.available']}</span>
+              <span class="text-[14px] font-bold tracking-[-0.01em]">{t['store.appstore']}</span>
             </span>
           </a>
-          <a class="store-btn" href="#" aria-label="Google Play">
-            <IconGooglePlay class="store-btn__icon" />
-            <span class="store-btn__label">
-              <span class="store-btn__hint">{t['store.available']}</span>
-              <span class="store-btn__name">{t['store.googleplay']}</span>
+          <!-- Google Play -->
+          <a class="inline-flex items-center gap-[10px] py-2 pl-4 pr-[22px]
+                    bg-fg text-bg rounded-pill border border-transparent no-underline
+                    transition-[transform,box-shadow,background] duration-fast ease-snap
+                    hover:-translate-y-px hover:scale-[1.005] hover:shadow-(--shadow-md)"
+             href="#" aria-label="Google Play">
+            <IconGooglePlay class="w-[22px] h-[22px] shrink-0" />
+            <span class="flex flex-col items-start leading-[1.05]">
+              <span class="text-[9.5px] opacity-65 tracking-[0.05em] uppercase font-medium">{t['store.available']}</span>
+              <span class="text-[14px] font-bold tracking-[-0.01em]">{t['store.googleplay']}</span>
             </span>
           </a>
         </div>
       </div>
 
-      <!-- Producto column -->
+      <!-- Producto -->
       <div>
-        <p class="footer-col__title">{t['foot.product']}</p>
-        <ul class="footer-col__list">
-          <li><a href="#">{t['foot.product.clubs']}</a></li>
-          <li><a href="#">{t['foot.product.players']}</a></li>
-          <li><a href="#">{t['foot.product.pros']}</a></li>
-          <li><a href="#">{t['foot.product.sports']}</a></li>
-          <li><a href="#">{t['foot.product.pricing']}</a></li>
+        <p class="text-[12px] font-semibold tracking-[0.12em] uppercase text-fg-subtle mb-4">{t['foot.product']}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-[10px]">
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#">{t['foot.product.clubs']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#">{t['foot.product.players']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#">{t['foot.product.pros']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#">{t['foot.product.sports']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#">{t['foot.product.pricing']}</a></li>
         </ul>
       </div>
 
-      <!-- Empresa column -->
+      <!-- Empresa -->
       <div>
-        <p class="footer-col__title">{t['foot.company']}</p>
-        <ul class="footer-col__list">
-          <li><a href={aboutHref}>{t['foot.company.about']}</a></li>
-          <li><a href={blogHref}>{t['foot.company.blog']}</a></li>
-          <li><a href="#">{t['foot.company.press']}</a></li>
-          <li><a href="#">{t['foot.company.contact']}</a></li>
+        <p class="text-[12px] font-semibold tracking-[0.12em] uppercase text-fg-subtle mb-4">{t['foot.company']}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-[10px]">
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href={aboutHref}>{t['foot.company.about']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href={blogHref}>{t['foot.company.blog']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#">{t['foot.company.press']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#">{t['foot.company.contact']}</a></li>
         </ul>
       </div>
 
-      <!-- Comunidad column -->
+      <!-- Comunidad -->
       <div>
-        <p class="footer-col__title">{t['foot.community']}</p>
-        <ul class="footer-col__list">
-          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.instagram']}</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.tiktok']}</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.linkedin']}</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.twitter']}</a></li>
+        <p class="text-[12px] font-semibold tracking-[0.12em] uppercase text-fg-subtle mb-4">{t['foot.community']}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-[10px]">
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.instagram']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.tiktok']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.linkedin']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.twitter']}</a></li>
         </ul>
       </div>
 
-      <!-- Legal column -->
+      <!-- Legal -->
       <div>
-        <p class="footer-col__title">{t['foot.legal']}</p>
-        <ul class="footer-col__list">
-          <li><a href={privacyHref}>{t['foot.privacy']}</a></li>
-          <li><a href={termsHref}>{t['foot.terms']}</a></li>
-          <li><a href={cookiesHref}>{t['foot.cookies']}</a></li>
-          <li><a href={gdprHref}>{t['foot.gdpr']}</a></li>
+        <p class="text-[12px] font-semibold tracking-[0.12em] uppercase text-fg-subtle mb-4">{t['foot.legal']}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-[10px]">
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href={privacyHref}>{t['foot.privacy']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href={termsHref}>{t['foot.terms']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href={cookiesHref}>{t['foot.cookies']}</a></li>
+          <li><a class="text-sm text-fg-muted no-underline transition-colors duration-fast hover:text-fg" href={gdprHref}>{t['foot.gdpr']}</a></li>
         </ul>
       </div>
     </div>
 
     <!-- Bottom bar -->
-    <div class="site-footer__bottom">
+    <div class="pt-8 border-t border-line flex items-center justify-between gap-4 flex-wrap text-[13px] text-fg-subtle">
       <span>{t['foot.copy']}</span>
-      <div class="site-footer__bottom-links">
-        <a href="mailto:info@sportsmatch.pro">info@sportsmatch.pro</a>
-        <a href="tel:+34623757950">+34 623 75 79 50</a>
+      <div class="flex gap-5">
+        <a class="no-underline transition-colors duration-fast hover:text-fg" href="mailto:info@sportsmatch.pro">info@sportsmatch.pro</a>
+        <a class="no-underline transition-colors duration-fast hover:text-fg" href="tel:+34623757950">+34 623 75 79 50</a>
       </div>
     </div>
+
   </div>
 </footer>

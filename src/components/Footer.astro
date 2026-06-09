@@ -1,136 +1,107 @@
 ---
-import LogoIcon from "./LogoIcon.astro";
-import MailIcon from "./MailIcon.astro";
-import WhatsAppIcon from "./WhatsAppIcon.astro";
+import { getTranslations, type Lang } from '../i18n/index';
+import IconAppStore from './IconAppStore.astro';
+import IconGooglePlay from './IconGooglePlay.astro';
 
-// Props per a l'idioma actual
 export interface Props {
-  currentLang?: string;
+  lang: Lang;
 }
 
-const { currentLang = "es-ES" } = Astro.props;
+const { lang } = Astro.props;
+const t = getTranslations(lang);
 
-// Mapeig d'idiomes per a les URLs
-const langMap = {
-  "es-ES": { code: "es", name: "ES", path: "" },
-  "ca-ES": { code: "ca", name: "CA", path: "/ca" },
-  en: { code: "en", name: "EN", path: "/en" },
-};
+// Legal link routes
+const privacyHref = lang === 'es' ? '/politica-de-privacidad' : lang === 'ca' ? '/ca/politica-de-privacitat' : '/en/privacy-policy';
+const termsHref = lang === 'es' ? '/terminos' : lang === 'ca' ? '/ca/termes' : '/en/terms';
+const cookiesHref = lang === 'es' ? '/cookies' : lang === 'ca' ? '/ca/cookies' : '/en/cookies';
+const gdprHref = lang === 'es' ? '/gdpr' : lang === 'ca' ? '/ca/gdpr' : '/en/gdpr';
 
-// Obtenir l'idioma actual
-const currentLangInfo =
-  langMap[currentLang as keyof typeof langMap] || langMap["es-ES"];
-
-// Traduccions amb rutes per a cada idioma
-const translations = {
-  "es-ES": {
-    contactUs: "Contáctanos",
-    contactText:
-      "Si tienes preguntas o necesitas ayuda, puedes contactarnos en:",
-    legalNotice: "Aviso Legal",
-    privacyPolicy: "Política de Privacidad",
-    cookiesPolicy: "Política de Cookies",
-    allRightsReserved: "Todos los derechos reservados.",
-    routes: {
-      legal: "/aviso-legal",
-      privacy: "/politica-de-privacidad",
-      cookies: "/cookies",
-    },
-  },
-  "ca-ES": {
-    contactUs: "Contacta'ns",
-    contactText: "Si tens preguntes o necessites ajuda, pots contactar-nos a:",
-    legalNotice: "Avís Legal",
-    privacyPolicy: "Política de Privacitat",
-    cookiesPolicy: "Política de Cookies",
-    allRightsReserved: "Tots els drets reservats.",
-    routes: {
-      legal: "/ca/avis-legal",
-      privacy: "/ca/politica-de-privacitat",
-      cookies: "/ca/cookies",
-    },
-  },
-  en: {
-    contactUs: "Contact us",
-    contactText:
-      "If you have questions or need assistance, you can contact us at:",
-    legalNotice: "Legal Notice",
-    privacyPolicy: "Privacy Policy",
-    cookiesPolicy: "Cookies Policy",
-    allRightsReserved: "All rights reserved.",
-    routes: {
-      legal: "/en/legal",
-      privacy: "/en/privacy-policy",
-      cookies: "/en/cookies",
-    },
-  },
-};
-
-const t =
-  translations[currentLang as keyof typeof translations] ||
-  translations["es-ES"];
+// Blog/About hrefs
+const blogHref = lang === 'es' ? '/blog' : `/${lang}/blog`;
+const aboutHref = lang === 'es' ? '/nosotros' : lang === 'ca' ? '/ca/nosaltres' : '/en/about';
 ---
 
-<footer class="text-white">
-  <div
-    class="bg-[#2e2e2e] px-[4vw] md:px-[6vw] pt-[8vw] pb-[4vw] lg:pt-[6vw] lg:pb-[2vw] text-center"
-  >
-    <h2
-      class="text-vw-4xl md:text-vw-3xl lg:text-vw-2xl xl:text-vw-lg 2xl:text-vw-base font-bold mb-8"
-    >
-      {t.contactUs}
-    </h2>
-    <p
-      class="text-vw-xl md:text-vw-lg lg:text-vw-base xl:text-vw-sm 2xl:text-vw-xs mb-10"
-    >
-      {t.contactText}
-    </p>
-    <div class="flex flex-col md:flex-row gap-[4vw] justify-center py-12">
-      <a
-        target="_blank"
-        aria-label="Email"
-        href="mailto:info@sportsmatch.pro"
-        class="flex justify-center items-center space-x-2 border border-white/50 p-4 rounded-lg"
-      >
-        <MailIcon width={48} height={48} color="#82caff" />
-        <span
-          class="text-vw-xl md:text-vw-lg lg:text-vw-base xl:text-vw-sm 2xl:text-vw-xs"
-          >info@sportsmatch.pro</span
-        >
-      </a>
-      <a
-        target="_blank"
-        aria-label="Whatsapp"
-        href="https://wa.me/34689472260?text=Hola%20tengo%20una%20consulta%20sobre%20la%20app"
-        class="flex justify-center items-center space-x-2 border border-white/50 p-4 rounded-lg"
-      >
-        <WhatsAppIcon width={48} height={48} color="#25D366" />
-        <span
-          class="text-vw-xl md:text-vw-lg lg:text-vw-base xl:text-vw-sm 2xl:text-vw-xs"
-          >+34 623 75 79 50</span
-        >
-      </a>
+<footer class="site-footer" data-testid="main-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      <!-- Brand column -->
+      <div class="site-footer__brand">
+        <a href={lang === 'es' ? '/' : `/${lang}`} class="site-logo" aria-label="SportsMatch">
+          <img class="site-logo__img site-logo__img--dark" src="/logo-dark.svg" alt="SportsMatch" />
+          <img class="site-logo__img site-logo__img--light" src="/logo-light.svg" alt="SportsMatch" />
+        </a>
+        <p>{t['foot.tagline']}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:0.5rem;">
+          <a class="store-btn" href="#" aria-label="App Store">
+            <IconAppStore class="store-btn__icon" />
+            <span class="store-btn__label">
+              <span class="store-btn__hint">{t['store.available']}</span>
+              <span class="store-btn__name">{t['store.appstore']}</span>
+            </span>
+          </a>
+          <a class="store-btn" href="#" aria-label="Google Play">
+            <IconGooglePlay class="store-btn__icon" />
+            <span class="store-btn__label">
+              <span class="store-btn__hint">{t['store.available']}</span>
+              <span class="store-btn__name">{t['store.googleplay']}</span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Producto column -->
+      <div>
+        <p class="footer-col__title">{t['foot.product']}</p>
+        <ul class="footer-col__list">
+          <li><a href="#">{t['foot.product.clubs']}</a></li>
+          <li><a href="#">{t['foot.product.players']}</a></li>
+          <li><a href="#">{t['foot.product.pros']}</a></li>
+          <li><a href="#">{t['foot.product.sports']}</a></li>
+          <li><a href="#">{t['foot.product.pricing']}</a></li>
+        </ul>
+      </div>
+
+      <!-- Empresa column -->
+      <div>
+        <p class="footer-col__title">{t['foot.company']}</p>
+        <ul class="footer-col__list">
+          <li><a href={aboutHref}>{t['foot.company.about']}</a></li>
+          <li><a href={blogHref}>{t['foot.company.blog']}</a></li>
+          <li><a href="#">{t['foot.company.press']}</a></li>
+          <li><a href="#">{t['foot.company.contact']}</a></li>
+        </ul>
+      </div>
+
+      <!-- Comunidad column -->
+      <div>
+        <p class="footer-col__title">{t['foot.community']}</p>
+        <ul class="footer-col__list">
+          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.instagram']}</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.tiktok']}</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.linkedin']}</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">{t['foot.community.twitter']}</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal column -->
+      <div>
+        <p class="footer-col__title">{t['foot.legal']}</p>
+        <ul class="footer-col__list">
+          <li><a href={privacyHref}>{t['foot.privacy']}</a></li>
+          <li><a href={termsHref}>{t['foot.terms']}</a></li>
+          <li><a href={cookiesHref}>{t['foot.cookies']}</a></li>
+          <li><a href={gdprHref}>{t['foot.gdpr']}</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="mx-auto inline-block p-4 rounded-lg">
-      <LogoIcon
-        width={200}
-        height={90}
-        color="#808080"
-        secondaryColor="#ffffff"
-      />
+    <!-- Bottom bar -->
+    <div class="site-footer__bottom">
+      <span>{t['foot.copy']}</span>
+      <div class="site-footer__bottom-links">
+        <a href="mailto:info@sportsmatch.pro">info@sportsmatch.pro</a>
+        <a href="tel:+34623757950">+34 623 75 79 50</a>
+      </div>
     </div>
-  </div>
-  <div
-    class="bg-[#000] p-[1vw] text-center flex flex-col lg:flex-row justify-between gap-6"
-  >
-    <div class="flex justify-center space-x-8 text-sm">
-      <a href={t.routes.legal} class="hover:underline">{t.legalNotice}</a>
-      <a href={t.routes.privacy} class="hover:underline">{t.privacyPolicy}</a>
-      <a href={t.routes.cookies} class="hover:underline">{t.cookiesPolicy}</a>
-    </div>
-    <p class="text-sm">
-      ©{new Date().getFullYear()}. SPORTSMATCH. {t.allRightsReserved}
-    </p>
   </div>
 </footer>

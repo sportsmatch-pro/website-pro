@@ -45,8 +45,13 @@ interface SportData {
 }
 
 // Carregar esports per als filtres
-const sportsRes = await fetch(import.meta.env.API_BASE_URL + "sports");
-const allSportsData = await sportsRes.json();
+let allSportsData: SportData[] = [];
+try {
+  const sportsRes = await fetch(import.meta.env.API_BASE_URL + "sports");
+  allSportsData = await sportsRes.json();
+} catch {
+  // API not available during build — use empty sports list
+}
 
 // Crear un mapa de colors per nom d'esport
 const sportColorMap: Record<string, string> = {};

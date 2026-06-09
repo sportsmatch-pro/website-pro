@@ -1,205 +1,228 @@
 ---
-import LanguageSelector from "./LanguageSelector.astro";
-import HeaderLogoIcon from "./HeaderLogoIcon.astro";
-import ThemeSelector from "./ThemeSelector.astro";
-import IconMenu from "./IconMenu.astro";
+import { getTranslations, type Lang } from '../i18n/index';
+import IconCaret from './IconCaret.astro';
+import IconNavClubs from './IconNavClubs.astro';
+import IconNavPlayers from './IconNavPlayers.astro';
+import IconNavPros from './IconNavPros.astro';
+import IconNavSports from './IconNavSports.astro';
+import IconGlobe from './IconGlobe.astro';
+import IconDownload from './IconDownload.astro';
+import IconMoon from './IconMoon.astro';
+import IconMenu from './IconMenu.astro';
 
-// Props per a l'idioma actual i slug de l'article
 export interface Props {
-  title?: string;
-  currentLang?: string;
-  currentSlug?: string;
-  translationRoutes?: { [key: string]: string }; // NOU: rutes de traducció
+  lang: Lang;
+  currentPath: string;
 }
 
-const {
-  title,
-  currentLang = "es-ES",
-  currentSlug,
-  translationRoutes,
-} = Astro.props;
+const { lang, currentPath } = Astro.props;
+const t = getTranslations(lang);
 
-// Obtenir la ruta actual per determinar si estem en un article
-const currentPath = Astro.url.pathname;
-const isArticlePage = currentPath.includes("/blog/");
-
-// Si estem en un article i no tenim slug, intentar extreure'l de la URL
-let articleSlug = currentSlug;
-if (isArticlePage && !articleSlug) {
-  const pathSegments = currentPath.split("/");
-  const blogIndex = pathSegments.indexOf("blog");
-  if (blogIndex !== -1 && pathSegments[blogIndex + 1]) {
-    articleSlug = pathSegments[blogIndex + 1];
-  }
-}
-
-// Traduccions hardcoded amb rutes (mateixa estratègia que el footer)
-const translations = {
-  "es-ES": {
-    home: { text: "SPORTSMATCH", href: "/" },
-    blog: { text: "Blog", href: "/blog" },
-    contact: { text: "Pregúntanos", href: "/#contact" },
-    dream: { text: "Tu sueño, a tu alcance", href: "/#dream" },
-    star: { text: "Encuentra a tu próxima estrella", href: "/#star" },
-  },
-  "ca-ES": {
-    home: { text: "SPORTSMATCH", href: "/ca" },
-    blog: { text: "Blog", href: "/ca/blog" },
-    contact: { text: "Pregunta'ns", href: "/ca/#contact" },
-    dream: { text: "El teu somni, a l'abast", href: "/ca/#dream" },
-    star: { text: "Troba la teva pròxima estrella", href: "/ca/#star" },
-  },
-  en: {
-    home: { text: "SPORTSMATCH", href: "/en" },
-    blog: { text: "Blog", href: "/en/blog" },
-    contact: { text: "Ask us", href: "/en/#contact" },
-    dream: { text: "Your dream, at your reach", href: "/en/#dream" },
-    star: { text: "Find your next star", href: "/en/#star" },
-  },
+// Language route map
+const langRoutes: Record<Lang, string> = {
+  es: '/',
+  ca: '/ca',
+  en: '/en',
 };
 
-const t =
-  translations[currentLang as keyof typeof translations] ||
-  translations["es-ES"];
+// Current lang label
+const langLabel = lang.toUpperCase();
+
+// Language-specific blog/about paths
+const blogHref = lang === 'es' ? '/blog' : `/${lang}/blog`;
+const aboutHref = lang === 'es' ? '/nosotros' : lang === 'ca' ? '/ca/nosaltres' : '/en/about';
 ---
 
-<header
-  class="fixed top-0 left-0 right-0 bg-white shadow-md z-50 header-scrollable"
-  id="main-header"
-  data-testid="main-header"
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-[1fr_auto_1fr] items-center h-20">
-      <!-- Columna esquerra: Navegació -->
-      <div class="flex justify-start">
-        <nav class="hidden lg:flex space-x-4">
-          <a
-            href={t.dream.href}
-            class="text-gray-700 hover:text-gray-900 py-2 text-sm"
-          >
-            {t.dream.text}
-          </a>
-          <a
-            href={t.star.href}
-            class="text-gray-700 hover:text-gray-900 py-2 text-sm"
-          >
-            {t.star.text}
-          </a>
-        </nav>
-      </div>
+<header class="site-header" data-testid="main-header">
+  <div class="site-header__inner">
+    <!-- Logo -->
+    <a href={langRoutes[lang]} class="site-logo" aria-label={t['nav.logo.aria']}>
+      <img class="site-logo__img site-logo__img--dark" src="/logo-dark.svg" alt="SportsMatch" />
+      <img class="site-logo__img site-logo__img--light" src="/logo-light.svg" alt="SportsMatch" />
+    </a>
 
-      <!-- Columna central: Logo (sempre centrat) -->
-      <div class="flex justify-center">
-        <a href={t.home.href} class="flex items-center">
-          <HeaderLogoIcon
-            width={140}
-            height={70}
-            color="#000"
-            secondaryColor="#999"
-            accentColor="#000"
-          />
-        </a>
-      </div>
-
-      <!-- Columna dreta: Selector d'idioma i navegació -->
-      <div class="flex justify-end items-center space-x-4">
-        <div class="hidden lg:flex items-center gap-2">
-          <LanguageSelector
-            currentLang={currentLang}
-            currentSlug={articleSlug}
-            translationRoutes={translationRoutes}
-          />
-          <ThemeSelector />
-        </div>
-        <!-- Navegació desktop -->
-        <nav class="hidden lg:flex space-x-4 items-center">
-          <a
-            href={t.blog.href}
-            class="text-gray-700 hover:text-gray-900 py-2 text-sm"
-          >
-            {t.blog.text}
-          </a>
-          <a
-            href={t.contact.href}
-            class="bg-black text-white px-4 py-1 rounded-full hover:bg-gray-800 transition-colors text-sm"
-          >
-            {t.contact.text}
-          </a>
-        </nav>
-
-        <!-- Botó mobile menu -->
-        <button
-          class="lg:hidden rounded-md p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-          id="mobile-menu-button"
-          aria-label="Menu"
-        >
-          <IconMenu class="h-6 w-6" />
+    <!-- Primary nav (desktop) -->
+    <nav class="site-nav desktop-nav" aria-label="Principal">
+      <!-- Producto dropdown -->
+      <div class="dropdown">
+        <button type="button" class="site-nav__item" data-dropdown-trigger aria-expanded="false" aria-haspopup="true">
+          <span>{t['nav.product']}</span>
+          <IconCaret />
         </button>
+        <div class="dropdown__panel" role="menu">
+          <a class="dropdown__item" href="#" role="menuitem">
+            <span class="dropdown__icon">
+              <IconNavClubs class="w-5 h-5" />
+            </span>
+            <div>
+              <p class="dropdown__title">{t['nav.product.clubs']}</p>
+              <p class="dropdown__desc">{t['nav.product.clubs.d']}</p>
+            </div>
+          </a>
+          <a class="dropdown__item" href="#" role="menuitem">
+            <span class="dropdown__icon">
+              <IconNavPlayers class="w-5 h-5" />
+            </span>
+            <div>
+              <p class="dropdown__title">{t['nav.product.players']}</p>
+              <p class="dropdown__desc">{t['nav.product.players.d']}</p>
+            </div>
+          </a>
+          <a class="dropdown__item" href="#" role="menuitem">
+            <span class="dropdown__icon">
+              <IconNavPros class="w-5 h-5" />
+            </span>
+            <div>
+              <p class="dropdown__title">{t['nav.product.pros']}</p>
+              <p class="dropdown__desc">{t['nav.product.pros.d']}</p>
+            </div>
+          </a>
+          <a class="dropdown__item" href="#" role="menuitem">
+            <span class="dropdown__icon">
+              <IconNavSports class="w-5 h-5" />
+            </span>
+            <div>
+              <p class="dropdown__title">{t['nav.product.sports']}</p>
+              <p class="dropdown__desc">{t['nav.product.sports.d']}</p>
+            </div>
+          </a>
+        </div>
       </div>
+
+      <a class="site-nav__item" href={blogHref}>{t['nav.blog']}</a>
+      <a class="site-nav__item" href={aboutHref}>{t['nav.about']}</a>
+    </nav>
+
+    <!-- Header actions -->
+    <div class="header-actions">
+      <!-- Language selector (desktop) -->
+      <div class="lang-dropdown desktop-only" data-open="false">
+        <button
+          class="lang-dropdown__trigger"
+          type="button"
+          data-lang-trigger
+          aria-haspopup="listbox"
+          aria-expanded="false"
+        >
+          <IconGlobe class="w-3.5 h-3.5" />
+          <span class="lang-dropdown__label">{langLabel}</span>
+          <IconCaret class="w-2.5 h-2.5" />
+        </button>
+        <div class="lang-dropdown__menu" role="listbox">
+          <a
+            class="lang-dropdown__item"
+            href="/"
+            role="option"
+            aria-current={lang === 'es' ? 'true' : 'false'}
+          >
+            <span>ES</span>
+            <span class="lang-dropdown__name">{t['lang.es']}</span>
+          </a>
+          <a
+            class="lang-dropdown__item"
+            href="/ca"
+            role="option"
+            aria-current={lang === 'ca' ? 'true' : 'false'}
+          >
+            <span>CA</span>
+            <span class="lang-dropdown__name">{t['lang.ca']}</span>
+          </a>
+          <a
+            class="lang-dropdown__item"
+            href="/en"
+            role="option"
+            aria-current={lang === 'en' ? 'true' : 'false'}
+          >
+            <span>EN</span>
+            <span class="lang-dropdown__name">{t['lang.en']}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Theme toggle -->
+      <button
+        class="icon-btn desktop-only"
+        data-theme-toggle
+        aria-label={t['theme.toggle']}
+        type="button"
+      >
+        <IconMoon class="w-5 h-5" />
+      </button>
+
+      <!-- Sign in (desktop) -->
+      <a class="btn btn--ghost desktop-only" href="#">{t['cta.signin']}</a>
+
+      <!-- Download app (desktop) -->
+      <a class="btn btn--primary desktop-only" href="#">
+        <IconDownload class="w-3.5 h-3.5" />
+        <span>{t['cta.download']}</span>
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="icon-btn mobile-only"
+        type="button"
+        data-mobile-toggle
+        aria-expanded="false"
+        aria-label={t['nav.open']}
+      >
+        <IconMenu class="w-5 h-5" />
+      </button>
     </div>
   </div>
 
-  <!-- Navegació mobile -->
-  <div class="lg:hidden hidden" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a
-        href={t.blog.href}
-        class="text-gray-700 hover:text-gray-900 block px-3 py-2 text-base font-medium"
-      >
-        {t.blog.text}
-      </a>
-      <a
-        href={t.contact.href}
-        class="text-gray-700 hover:text-gray-900 block px-3 py-2 text-base font-medium"
-      >
-        {t.contact.text}
-      </a>
-      <div class="flex items-center gap-3 px-3 py-2">
-        <LanguageSelector
-          currentLang={currentLang}
-          currentSlug={articleSlug}
-          translationRoutes={translationRoutes}
-        />
-        <ThemeSelector />
-      </div>
-    </div>
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" data-mobile-drawer data-open="false">
+    <!-- Producto items flat -->
+    <a class="site-nav__item" href="#">{t['nav.product.clubs']}</a>
+    <a class="site-nav__item" href="#">{t['nav.product.players']}</a>
+    <a class="site-nav__item" href="#">{t['nav.product.pros']}</a>
+    <a class="site-nav__item" href="#">{t['nav.product.sports']}</a>
+    <hr style="border-color: var(--line); margin: 4px 0;" />
+    <a class="site-nav__item" href={blogHref}>{t['nav.blog']}</a>
+    <a class="site-nav__item" href={aboutHref}>{t['nav.about']}</a>
+    <hr style="border-color: var(--line); margin: 4px 0;" />
+    <!-- Language links -->
+    <a class="site-nav__item" href="/">ES — {t['lang.es']}</a>
+    <a class="site-nav__item" href="/ca">CA — {t['lang.ca']}</a>
+    <a class="site-nav__item" href="/en">EN — {t['lang.en']}</a>
+    <hr style="border-color: var(--line); margin: 4px 0;" />
+    <!-- Theme toggle in drawer -->
+    <button class="site-nav__item" data-theme-toggle type="button" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;">
+      <IconMoon class="w-5 h-5" />
+      <span>{t['theme.toggle']}</span>
+    </button>
   </div>
 </header>
 
 <script>
-  // Funcionalitat del menú mobile
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
+  import { initThemeToggle } from '../scripts/theme';
+  import { initDropdowns } from '../scripts/dropdown';
 
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-  }
-
-  // Funcionalitat hide/show header amb scroll
-  const header = document.getElementById("main-header");
-  let lastScroll = 0;
-
-  window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
-
-    if (header) {
-      if (currentScroll <= 0) {
-        // Som al top, mostra l'header
-        header.classList.remove("header-hidden");
-        header.classList.add("header-visible");
-      } else if (currentScroll > lastScroll && currentScroll > 100) {
-        // Scroll cap avall i ja hem fet més de 100px, amaga l'header
-        header.classList.remove("header-visible");
-        header.classList.add("header-hidden");
-      } else if (currentScroll < lastScroll) {
-        // Scroll cap amunt, mostra l'header
-        header.classList.remove("header-hidden");
-        header.classList.add("header-visible");
-      }
-    }
-
-    lastScroll = currentScroll;
+  document.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
+    initDropdowns();
   });
 </script>
+
+<style>
+  /* Desktop (≥1024px): show desktop nav, hide mobile elements */
+  @media (min-width: 1024px) {
+    .mobile-only {
+      display: none !important;
+    }
+    .mobile-drawer {
+      display: none !important;
+    }
+  }
+
+  /* Mobile (<1024px): hide desktop nav and action items */
+  @media (max-width: 1023px) {
+    .desktop-nav {
+      display: none !important;
+    }
+    .desktop-only {
+      display: none !important;
+    }
+  }
+</style>

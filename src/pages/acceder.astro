@@ -1,21 +1,11 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
-import { getPageConfig, getTranslationRoutes } from "../config/routes";
 
-const currentLang = "es-ES";
-const pageKey = "login";
-
-const pageConfig = getPageConfig(pageKey, currentLang);
-const translationRoutes = getTranslationRoutes(pageKey);
+const lang = "es" as const;
 ---
 
-<Layout
-  title={pageConfig?.title || "No Title"}
-  description={pageConfig?.description || "No description"}
-  currentLang={currentLang}
-  translationRoutes={translationRoutes}
->
+<Layout title="Acceder — SportsMatch" description="Accede a SportsMatch" lang={lang}>
   <section class="py-20 text-center">
-    <h1 class="text-3xl font-bold">{pageConfig?.title}</h1>
+    <h1 class="text-3xl font-bold">Acceder</h1>
   </section>
 </Layout>

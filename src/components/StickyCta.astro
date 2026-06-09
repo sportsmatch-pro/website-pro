@@ -1,0 +1,18 @@
+---
+import { getTranslations, type Lang } from '../i18n/index';
+
+export interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+---
+
+<div class="sticky-cta" role="complementary" aria-label="Download app">
+  <div>
+    <span class="sticky-cta__text">{t['sticky.brand']}</span>
+    <span class="sticky-cta__sub">{t['sticky.tagline']}</span>
+  </div>
+  <a class="sticky-cta__cta" href="#">{t['cta.download.mobile']}</a>
+</div>

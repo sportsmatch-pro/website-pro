@@ -1,31 +1,18 @@
 ---
-import Layout from "../layouts/BaseLayout.astro";
-import DeportesSlider from "../components/DeportesSlider.astro";
-import TalentIntroSection from "../components/TalentIntroSection.astro";
-import DeportesSelector from "../components/DeportesSelector.astro";
-import SectionContactForm from "../components/SectionContactForm.astro";
-import DownloadAppSection from "../components/DownloadAppSection.astro";
-import PromoVideo from "../components/PromoVideo.astro";
-import HomeDream from "../components/HomeDream.astro";
-import HomeStar from "../components/HomeStar.astro";
-import HomeSports from "../components/HomeSports.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import DualitySplitSection from '../components/DualitySplitSection.astro';
+import { getTranslations } from '../i18n/index';
 
-const currentLang = "es-ES";
+const lang = 'es' as const;
+const t = getTranslations(lang);
 ---
 
-<Layout
-  title="SportsMatch - Tu sueño, a tu alcance"
-  description="La primera red social que conecta jugadores y profesionales del deporte con clubes deportivos"
-  currentLang={currentLang}
-  showHeader={true}
-  showFooter={true}
+<BaseLayout
+  title={t['page.home.title'] ?? 'SportsMatch — Tu match deportivo, sin intermediarios'}
+  description={t['page.home.desc'] ?? 'La plataforma que conecta jugadores, profesionales y clubes deportivos. Perfiles verificados, contacto directo, sin ruido.'}
+  lang={lang}
 >
-  <!-- Hero Section amb DeportesSlider -->
-  <DeportesSlider currentLang={currentLang} />
-  <PromoVideo />
-  <HomeDream currentLang={currentLang} />
-  <HomeStar currentLang={currentLang} />
-  <HomeSports currentLang={currentLang} />
-  <DownloadAppSection currentLang={currentLang} />
-  <SectionContactForm currentLang={currentLang} />
-</Layout>
+  <HeroSection t={t} />
+  <DualitySplitSection t={t} />
+</BaseLayout>

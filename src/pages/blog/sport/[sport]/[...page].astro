@@ -8,34 +8,36 @@ const blogBasePath = "/blog";
 const pageSize = 12;
 
 export const getStaticPaths = (async ({ paginate }) => {
-  // Carregar tots els articles i esports
-  const [articlesRes, sportsRes] = await Promise.all([
-    fetch(
-      `${import.meta.env.API_BASE_URL}articles?language=es-ES&sortField=publishedAt&sortOrder=DESC`,
-    ),
-    fetch(`${import.meta.env.API_BASE_URL}sports`),
-  ]);
+  try {
+    const [articlesRes, sportsRes] = await Promise.all([
+      fetch(
+        `${import.meta.env.API_BASE_URL}articles?language=es-ES&sortField=publishedAt&sortOrder=DESC`,
+      ),
+      fetch(`${import.meta.env.API_BASE_URL}sports`),
+    ]);
 
-  const posts = await articlesRes.json();
-  const postsArray = Array.isArray(posts) ? posts : posts.items || [];
-  const sports = await sportsRes.json();
+    const posts = await articlesRes.json();
+    const postsArray = Array.isArray(posts) ? posts : posts.items || [];
+    const sports = await sportsRes.json();
 
-  // Generar pàgines per cada esport
-  const paths = sports.flatMap((sport: { name: string }) => {
-    const sportPosts = postsArray.filter((post: any) =>
-      post.sports?.some((s: { name: string }) => s.name === sport.name),
-    );
+    const paths = sports.flatMap((sport: { name: string }) => {
+      const sportPosts = postsArray.filter((post: any) =>
+        post.sports?.some((s: { name: string }) => s.name === sport.name),
+      );
 
-    // Si no hi ha articles per aquest esport, no generar pàgines
-    if (sportPosts.length === 0) return [];
+      if (sportPosts.length === 0) return [];
 
-    return paginate(sportPosts, {
-      params: { sport: sport.name },
-      pageSize: 12,
+      return paginate(sportPosts, {
+        params: { sport: sport.name },
+        pageSize: 12,
+      });
     });
-  });
 
-  return paths;
+    return paths;
+  } catch {
+    // API not available during build — return empty
+    return [];
+  }
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

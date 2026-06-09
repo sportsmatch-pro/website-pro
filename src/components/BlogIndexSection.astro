@@ -1,0 +1,102 @@
+---
+import IconArrowRight from './IconArrowRight.astro';
+import type { Lang } from '../i18n/index';
+
+type MockArticle = {
+  slug: string;
+  title: string;
+  category: string;
+  date: string;
+  excerpt: string;
+};
+
+export interface Props {
+  t: Record<string, string>;
+  lang: Lang;
+  posts: MockArticle[];
+  blogBasePath: string;
+  currentPage?: number;
+  totalPages?: number;
+}
+
+const { t, lang, posts, blogBasePath, currentPage = 1, totalPages = 1 } = Astro.props;
+
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+const prevHref = hasPrev ? `${blogBasePath}?page=${currentPage - 1}` : undefined;
+const nextHref = hasNext ? `${blogBasePath}?page=${currentPage + 1}` : undefined;
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="mb-10 flex flex-col gap-3">
+    <p class="eyebrow">{t['blog.index.eyebrow']}</p>
+    <h1 class="text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+      {t['blog.index.title']}
+    </h1>
+  </div>
+
+  <div class="blog-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {posts.map((post) => (
+      <article class="blog-card bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        <a href={`${blogBasePath}/${post.slug}`} class="block">
+          <div class="aspect-video bg-neutral-100 dark:bg-neutral-800" aria-hidden="true"></div>
+          <div class="p-5 flex flex-col gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+              {post.category}
+            </span>
+            <h2 class="text-lg font-bold leading-snug text-neutral-900 dark:text-white">
+              {post.title}
+            </h2>
+            <time datetime={post.date} class="text-sm text-neutral-400">
+              {post.date}
+            </time>
+          </div>
+        </a>
+      </article>
+    ))}
+  </div>
+
+  <nav aria-label="pagination" class="mt-12 flex items-center justify-center gap-4">
+    {hasPrev ? (
+      <a
+        href={prevHref}
+        class="flex items-center gap-1 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+        aria-label={t['blog.index.pagination.prev']}
+      >
+        <IconArrowRight class="w-4 h-4 rotate-180" />
+        <span>{t['blog.index.pagination.prev']}</span>
+      </a>
+    ) : (
+      <span
+        class="flex items-center gap-1 text-sm font-medium text-neutral-300 dark:text-neutral-600 cursor-not-allowed"
+        aria-disabled="true"
+      >
+        <IconArrowRight class="w-4 h-4 rotate-180" />
+        <span>{t['blog.index.pagination.prev']}</span>
+      </span>
+    )}
+
+    <span class="text-sm text-neutral-500">
+      {currentPage} {t['blog.index.pagination.of']} {totalPages}
+    </span>
+
+    {hasNext ? (
+      <a
+        href={nextHref}
+        class="flex items-center gap-1 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+        aria-label={t['blog.index.pagination.next']}
+      >
+        <span>{t['blog.index.pagination.next']}</span>
+        <IconArrowRight class="w-4 h-4" />
+      </a>
+    ) : (
+      <span
+        class="flex items-center gap-1 text-sm font-medium text-neutral-300 dark:text-neutral-600 cursor-not-allowed"
+        aria-disabled="true"
+      >
+        <span>{t['blog.index.pagination.next']}</span>
+        <IconArrowRight class="w-4 h-4" />
+      </span>
+    )}
+  </nav>
+</section>

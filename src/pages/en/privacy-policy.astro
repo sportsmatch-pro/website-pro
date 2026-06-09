@@ -1,21 +1,18 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
-import PrivacyPolicyPage from "../../components/pages/PrivacyPolicyPage.astro";
-import { getPageConfig, getTranslationRoutes } from "../../config/routes";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPageSection from '../../components/LegalPageSection.astro';
+import { getTranslations } from '../../i18n/index';
 
-const currentLang = "en";
-const pageKey = "privacy";
-
-// Obtenir configuració de la pàgina des del fitxer centralitzat
-const pageConfig = getPageConfig(pageKey, currentLang);
-const translationRoutes = getTranslationRoutes(pageKey);
+const lang = 'en' as const;
+const t = getTranslations(lang);
 ---
 
-<Layout
-  title={pageConfig?.title || "No Title"}
-  description={pageConfig?.description || "No description"}
-  currentLang={currentLang}
-  translationRoutes={translationRoutes}
->
-  <PrivacyPolicyPage currentLang={currentLang} />
-</Layout>
+<BaseLayout title={t['legal.privacy.title']} description={t['legal.privacy.desc']} lang={lang}>
+  <LegalPageSection
+    t={t}
+    titleKey="legal.privacy.title"
+    descKey="legal.privacy.desc"
+    updatedKey="legal.privacy.updated"
+    contentKey="legal.privacy.content"
+  />
+</BaseLayout>

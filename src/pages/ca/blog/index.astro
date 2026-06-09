@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogIndexSection from '../../../components/BlogIndexSection.astro';
+import { getTranslations } from '../../../i18n/index';
+import type { Lang } from '../../../i18n/index';
+
+const lang: Lang = 'ca';
+const t = getTranslations(lang);
+
+type MockArticle = { slug: string; title: string; category: string; date: string; excerpt: string };
+
+const MOCK_ARTICLES: MockArticle[] = [
+  {
+    slug: 'primer-articulo-deportivo',
+    title: 'Com trobar el teu club ideal amb SportsMatch',
+    category: 'Consells',
+    date: '2026-01-15',
+    excerpt: 'Descobreix les millors estratègies per connectar amb clubs esportius de la teva zona.',
+  },
+  {
+    slug: 'novedades-plataforma',
+    title: 'Novetats a la plataforma: nous esports disponibles',
+    category: 'Novetats',
+    date: '2026-02-10',
+    excerpt: 'Ampliem l\'oferta esportiva amb handbol, voleibol i més.',
+  },
+  {
+    slug: 'perfil-jugador-completo',
+    title: 'Crea un perfil de jugador que destaqui',
+    category: 'Guies',
+    date: '2026-03-05',
+    excerpt: 'Aprèn a completar el teu perfil per augmentar la teva visibilitat davant els scouts.',
+  },
+];
+---
+
+<BaseLayout title={t['page.blog.title']} description={t['page.blog.desc']} lang={lang}>
+  <BlogIndexSection
+    t={t}
+    lang={lang}
+    posts={MOCK_ARTICLES}
+    blogBasePath="/ca/blog"
+    currentPage={1}
+    totalPages={1}
+  />
+</BaseLayout>

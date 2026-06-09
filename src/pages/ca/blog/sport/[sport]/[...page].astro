@@ -8,31 +8,35 @@ const blogBasePath = "/ca/blog";
 const pageSize = 12;
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const [articlesRes, sportsRes] = await Promise.all([
-    fetch(
-      `${import.meta.env.API_BASE_URL}articles?language=ca-ES&sortField=publishedAt&sortOrder=DESC`,
-    ),
-    fetch(`${import.meta.env.API_BASE_URL}sports`),
-  ]);
+  try {
+    const [articlesRes, sportsRes] = await Promise.all([
+      fetch(
+        `${import.meta.env.API_BASE_URL}articles?language=ca-ES&sortField=publishedAt&sortOrder=DESC`,
+      ),
+      fetch(`${import.meta.env.API_BASE_URL}sports`),
+    ]);
 
-  const posts = await articlesRes.json();
-  const postsArray = Array.isArray(posts) ? posts : posts.items || [];
-  const sports = await sportsRes.json();
+    const posts = await articlesRes.json();
+    const postsArray = Array.isArray(posts) ? posts : posts.items || [];
+    const sports = await sportsRes.json();
 
-  const paths = sports.flatMap((sport: { name: string }) => {
-    const sportPosts = postsArray.filter((post: any) =>
-      post.sports?.some((s: { name: string }) => s.name === sport.name),
-    );
+    const paths = sports.flatMap((sport: { name: string }) => {
+      const sportPosts = postsArray.filter((post: any) =>
+        post.sports?.some((s: { name: string }) => s.name === sport.name),
+      );
 
-    if (sportPosts.length === 0) return [];
+      if (sportPosts.length === 0) return [];
 
-    return paginate(sportPosts, {
-      params: { sport: sport.name },
-      pageSize: 12,
+      return paginate(sportPosts, {
+        params: { sport: sport.name },
+        pageSize: 12,
+      });
     });
-  });
 
-  return paths;
+    return paths;
+  } catch {
+    return [];
+  }
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

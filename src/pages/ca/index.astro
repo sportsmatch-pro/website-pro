@@ -1,31 +1,18 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
-import DeportesSlider from "../../components/DeportesSlider.astro";
-import TalentIntroSection from "../../components/TalentIntroSection.astro";
-import DeportesSelector from "../../components/DeportesSelector.astro";
-import SectionContactForm from "../../components/SectionContactForm.astro";
-import DownloadAppSection from "../../components/DownloadAppSection.astro";
-import PromoVideo from "../../components/PromoVideo.astro";
-import HomeSports from "../../components/HomeSports.astro";
-import HomeStar from "../../components/HomeStar.astro";
-import HomeDream from "../../components/HomeDream.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import DualitySplitSection from '../../components/DualitySplitSection.astro';
+import { getTranslations } from '../../i18n/index';
 
-const currentLang = "ca-ES";
+const lang = 'ca' as const;
+const t = getTranslations(lang);
 ---
 
-<Layout
-  title="SportsMatch - El teu somni, a l'abast"
-  description="La primera xarxa social que connecta jugadors i professionals del deporte amb clubs esportius"
-  currentLang={currentLang}
-  showHeader={true}
-  showFooter={true}
+<BaseLayout
+  title={t['page.home.title'] ?? "SportsMatch — El teu match esportiu, sense intermediaris"}
+  description={t['page.home.desc'] ?? "La plataforma que connecta jugadors, professionals i clubs esportius. Perfils verificats, contacte directe, sense soroll."}
+  lang={lang}
 >
-  <!-- Hero Section amb DeportesSlider -->
-  <DeportesSlider currentLang={currentLang} />
-  <PromoVideo />
-  <HomeDream currentLang={currentLang} />
-  <HomeStar currentLang={currentLang} />
-  <HomeSports currentLang={currentLang} />
-  <SectionContactForm currentLang={currentLang} />
-  <DownloadAppSection currentLang={currentLang} />
-</Layout>
+  <HeroSection t={t} />
+  <DualitySplitSection t={t} />
+</BaseLayout>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import type { Lang } from '../i18n/index';
 
 export interface Props {
   title: string;
@@ -13,17 +14,21 @@ const {
   title,
   description,
   currentLang = "es-ES",
-  showHeader = true,
-  showFooter = true,
 } = Astro.props;
+
+// Map legacy currentLang values to new Lang type
+const langMap: Record<string, Lang> = {
+  'es-ES': 'es',
+  'ca-ES': 'ca',
+  'en': 'en',
+};
+const lang: Lang = langMap[currentLang] ?? 'es';
 ---
 
 <BaseLayout
   title={title}
   description={description}
-  currentLang={currentLang}
-  showHeader={showHeader}
-  showFooter={showFooter}
+  lang={lang}
 >
   <slot />
 </BaseLayout>

@@ -1,21 +1,18 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
-import LegalPage from "../../components/pages/LegalPage.astro";
-import { getPageConfig, getTranslationRoutes } from "../../config/routes";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPageSection from '../../components/LegalPageSection.astro';
+import { getTranslations } from '../../i18n/index';
 
-const currentLang = "en";
-const pageKey = "legal";
-
-// Obtenir configuració de la pàgina des del fitxer centralitzat
-const pageConfig = getPageConfig(pageKey, currentLang);
-const translationRoutes = getTranslationRoutes(pageKey);
+const lang = 'en' as const;
+const t = getTranslations(lang);
 ---
 
-<Layout
-  title={pageConfig?.title || "No Title"}
-  description={pageConfig?.description || "No description"}
-  currentLang={currentLang}
-  translationRoutes={translationRoutes}
->
-  <LegalPage currentLang={currentLang} />
-</Layout>
+<BaseLayout title={t['legal.notice.title']} description={t['legal.notice.desc']} lang={lang}>
+  <LegalPageSection
+    t={t}
+    titleKey="legal.notice.title"
+    descKey="legal.notice.desc"
+    updatedKey="legal.notice.updated"
+    contentKey="legal.notice.content"
+  />
+</BaseLayout>

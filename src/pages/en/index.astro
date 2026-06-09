@@ -1,31 +1,18 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
-import DeportesSlider from "../../components/DeportesSlider.astro";
-import TalentIntroSection from "../../components/TalentIntroSection.astro";
-import DeportesSelector from "../../components/DeportesSelector.astro";
-import SectionContactForm from "../../components/SectionContactForm.astro";
-import DownloadAppSection from "../../components/DownloadAppSection.astro";
-import PromoVideo from "../../components/PromoVideo.astro";
-import HomeSports from "../../components/HomeSports.astro";
-import HomeStar from "../../components/HomeStar.astro";
-import HomeDream from "../../components/HomeDream.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import DualitySplitSection from '../../components/DualitySplitSection.astro';
+import { getTranslations } from '../../i18n/index';
 
-const currentLang = "en";
+const lang = 'en' as const;
+const t = getTranslations(lang);
 ---
 
-<Layout
-  title="SportsMatch - Your dream, at your reach"
-  description="The first social network that connects players and sports professionals with sports clubs"
-  currentLang={currentLang}
-  showHeader={true}
-  showFooter={true}
+<BaseLayout
+  title={t['page.home.title'] ?? "SportsMatch — Your sports match, without middlemen"}
+  description={t['page.home.desc'] ?? "The platform connecting players, professionals and sports clubs. Verified profiles, direct contact, no noise."}
+  lang={lang}
 >
-  <!-- Hero Section amb DeportesSlider -->
-  <DeportesSlider currentLang={currentLang} />
-  <PromoVideo />
-  <HomeDream currentLang={currentLang} />
-  <HomeStar currentLang={currentLang} />
-  <HomeSports currentLang={currentLang} />
-  <SectionContactForm currentLang={currentLang} />
-  <DownloadAppSection currentLang={currentLang} />
-</Layout>
+  <HeroSection t={t} />
+  <DualitySplitSection t={t} />
+</BaseLayout>

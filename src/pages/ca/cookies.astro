@@ -1,21 +1,18 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
-import CookiesPage from "../../components/pages/CookiesPage.astro";
-import { getPageConfig, getTranslationRoutes } from "../../config/routes";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPageSection from '../../components/LegalPageSection.astro';
+import { getTranslations } from '../../i18n/index';
 
-const currentLang = "ca-ES";
-const pageKey = "cookies";
-
-// Obtenir configuració de la pàgina des del fitxer centralitzat
-const pageConfig = getPageConfig(pageKey, currentLang);
-const translationRoutes = getTranslationRoutes(pageKey);
+const lang = 'ca' as const;
+const t = getTranslations(lang);
 ---
 
-<Layout
-  title={pageConfig?.title || "No Title"}
-  description={pageConfig?.description || "No description"}
-  currentLang={currentLang}
-  translationRoutes={translationRoutes}
->
-  <CookiesPage currentLang={currentLang} />
-</Layout>
+<BaseLayout title={t['legal.cookies.title']} description={t['legal.cookies.desc']} lang={lang}>
+  <LegalPageSection
+    t={t}
+    titleKey="legal.cookies.title"
+    descKey="legal.cookies.desc"
+    updatedKey="legal.cookies.updated"
+    contentKey="legal.cookies.content"
+  />
+</BaseLayout>

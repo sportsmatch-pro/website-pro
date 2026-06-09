@@ -1,178 +1,82 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
-import "../styles/dark-theme.css";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StickyCta from '../components/StickyCta.astro';
+import '../styles/global.css';
+import type { Lang } from '../i18n/index';
 
 export interface Props {
   title: string;
   description?: string;
-  currentLang?: string;
-  showHeader?: boolean;
-  showFooter?: boolean;
-  currentSlug?: string; // Afegir slug de l'article
-  translationRoutes?: { [key: string]: string }; // NOU: rutes de traducció
+  lang: Lang;
+  ogImage?: string;
 }
 
 const {
   title,
-  description = "SportsMatch - Tu sueño, a tu alcance",
-  currentLang = "es-ES",
-  showHeader = true,
-  showFooter = true,
-  currentSlug, // Afegir slug
-  translationRoutes, // NOU: rutes de traducció
+  description = 'SportsMatch — Tu match deportivo, sin intermediarios',
+  lang,
+  ogImage,
 } = Astro.props;
 
-// Mapeig d'idiomes per a les URLs
-const langMap = {
-  "es-ES": { code: "es", name: "ES", path: "" },
-  "ca-ES": { code: "ca", name: "CA", path: "/ca" },
-  en: { code: "en", name: "EN", path: "/en" },
-};
+const siteUrl = 'https://sportsmatch.pro';
+const canonicalPath = Astro.url.pathname;
 
-// Obtenir l'idioma actual
-const currentLangInfo =
-  langMap[currentLang as keyof typeof langMap] || langMap["es-ES"];
-
-// Meta tags per a cada idioma
-const metaLang =
-  currentLang === "es-ES" ? "es" : currentLang === "ca-ES" ? "ca" : "en";
+// hreflang URLs
+const hreflangEs = `${siteUrl}${canonicalPath.replace(/^\/(ca|en)(\/|$)/, '/')}`;
+const hreflangCa = `${siteUrl}/ca${canonicalPath.replace(/^\/(ca|en)(\/|$)/, '/')}`;
+const hreflangEn = `${siteUrl}/en${canonicalPath.replace(/^\/(ca|en)(\/|$)/, '/')}`;
 ---
 
 <!doctype html>
-<html lang={metaLang}>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- carregar theme si està present al localStorage -->
+
+    <!-- Pre-paint theme script — prevents flash of unstyled content (R8) -->
     <script is:inline>
       (function () {
-        var theme = localStorage.getItem("sm-theme") || "auto";
-        var resolved =
-          theme === "auto"
-            ? window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light"
-            : theme;
-        document.documentElement.setAttribute("data-theme", resolved);
+        var t = localStorage.getItem('sm-theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
       })();
     </script>
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="generator" content={Astro.generator} />
+
     <title>{title}</title>
+    <meta name="description" content={description} />
 
-    <!-- Scripts -->
-    <script src="/scripts/carousel.js" is:inline></script>
-
-    <!-- Preload fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Meta tags per a SEO -->
+    <!-- OG tags -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content={metaLang} />
+    <meta property="og:locale" content={lang} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
 
-    <!-- Canonical URL -->
-    <link
-      rel="canonical"
-      href={`https://sportsmatch.pro${currentLangInfo.path}${Astro.url.pathname}`}
-    />
+    <!-- hreflang tags (R35) -->
+    <link rel="alternate" hreflang="es" href={hreflangEs} />
+    <link rel="alternate" hreflang="ca" href={hreflangCa} />
+    <link rel="alternate" hreflang="en" href={hreflangEn} />
+    <link rel="alternate" hreflang="x-default" href={hreflangEs} />
 
-    <!-- Hreflang tags per a SEO multilingüe -->
-    <link
-      rel="alternate"
-      hreflang="es"
-      href={`https://sportsmatch.pro${Astro.url.pathname.replace(/^\/(ca|en)?/, "")}`}
-    />
-    <link
-      rel="alternate"
-      hreflang="ca"
-      href={`https://sportsmatch.pro/ca${Astro.url.pathname.replace(/^\/(ca|en)?/, "")}`}
-    />
-    <link
-      rel="alternate"
-      hreflang="en"
-      href={`https://sportsmatch.pro/en${Astro.url.pathname.replace(/^\/(ca|en)?/, "")}`}
-    />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href={`https://sportsmatch.pro${Astro.url.pathname.replace(/^\/(ca|en)?/, "")}`}
-    />
+    <!-- Canonical -->
+    <link rel="canonical" href={`${siteUrl}${canonicalPath}`} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
   </head>
 
-  <body class="min-h-screen bg-white">
-    {
-      showHeader && (
-        <Header
-          currentLang={currentLang}
-          currentSlug={currentSlug}
-          translationRoutes={translationRoutes}
-        />
-      )
-    }
+  <body>
+    <!-- Top padding spacer for fixed header -->
+    <div style={`height: var(--header-h, 72px)`}></div>
 
-    <!-- Spacer per al header fixe -->
-    {showHeader && <div class="h-20" />}
-
-    <!-- Contingut principal -->
-    <main class="flex-1">
+    <Header lang={lang} currentPath={Astro.url.pathname} />
+    <main>
       <slot />
     </main>
-
-    {showFooter && <Footer currentLang={currentLang} />}
+    <Footer lang={lang} />
+    <StickyCta lang={lang} />
   </body>
 </html>
-
-<style is:global>
-  /* Estils globals */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    font-family:
-      "Inter",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      sans-serif;
-  }
-
-  /* Utilitats per a Tailwind */
-  .space-x-6 > :not([hidden]) ~ :not([hidden]) {
-    margin-left: 1.5rem;
-  }
-
-  .space-x-4 > :not([hidden]) ~ :not([hidden]) {
-    margin-left: 1rem;
-  }
-
-  .space-x-12 > :not([hidden]) ~ :not([hidden]) {
-    margin-left: 3rem;
-  }
-
-  .space-y-4 > :not([hidden]) ~ :not([hidden]) {
-    margin-top: 1rem;
-  }
-
-  /* Responsive utilities */
-  @media (min-width: 1024px) {
-    .lg\:block {
-      display: block;
-    }
-
-    .lg\:hidden {
-      display: none;
-    }
-
-    .lg\:h-40 {
-      height: 10rem;
-    }
-  }
-</style>

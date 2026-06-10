@@ -1,0 +1,95 @@
+---
+type Tag = "p" | "span" | "div" | "label" | "strong" | "em";
+type Size = "xs" | "sm" | "md" | "lg" | "xl";
+type Weight =
+  | "thin"
+  | "extralight"
+  | "light"
+  | "normal"
+  | "medium"
+  | "semibold"
+  | "bold"
+  | "bolder";
+type Align = "left" | "center" | "right" | "justify";
+type Color = "default" | "muted" | "subtle";
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  tag?: Tag;
+  size?: Size;
+  weight?: Weight;
+  align?: Align;
+  color?: Color;
+  textColor?: string;
+  balance?: boolean;
+}
+
+const {
+  tag: Tag = "p",
+  size = "md",
+  weight,
+  align,
+  color = "default",
+  textColor,
+  balance = false,
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+
+const sizeClasses: Record<Size, string> = {
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
+};
+
+const weightClasses: Record<Weight, string> = {
+  thin: "font-thin",
+  extralight: "font-extralight",
+  light: "font-light",
+  normal: "font-normal",
+  medium: "font-medium",
+  semibold: "font-semibold",
+  bold: "font-bold",
+  bolder: "font-bolder",
+};
+
+const alignClasses: Record<Align, string> = {
+  left: "text-left",
+  center: "text-center",
+  right: "text-right",
+  justify: "text-justify",
+};
+
+const colorClasses: Record<Color, string> = {
+  default: "text-fg",
+  muted: "text-fg-muted",
+  subtle: "text-fg-subtle",
+};
+
+const resolveCssValue = (v: string) => (v.startsWith("--") ? `var(${v})` : v);
+
+const inlineStyle = [
+  textColor ? `color:${resolveCssValue(textColor)}` : "",
+  style ? String(style) : "",
+]
+  .filter(Boolean)
+  .join(";");
+---
+
+<Tag
+  class:list={[
+    "leading-[1.55] m-0",
+    sizeClasses[size],
+    weight ? weightClasses[weight] : "",
+    align ? alignClasses[align] : "",
+    !textColor ? colorClasses[color] : "",
+    balance ? "text-balance" : "",
+    className,
+  ]}
+  style={inlineStyle || undefined}
+  {...rest}
+>
+  <slot />
+</Tag>

@@ -1,7 +1,10 @@
 ---
 import BaseButton from "../components/base/BaseButton.astro";
+import BaseTag from "../components/base/BaseTag.astro";
+import BaseTitle from "../components/base/BaseTitle.astro";
 import BaseList from "../components/base/BaseList.astro";
 import IconArrowRight from "./IconArrowRight.astro";
+import BaseText from "./base/BaseText.astro";
 
 interface Props {
   t: Record<string, string>;
@@ -18,11 +21,9 @@ const { t } = Astro.props;
     class="container text-center flex flex-col gap-3.5 mb-14 items-center pb-(--density-stack)"
   >
     <span class="eyebrow">{t["duality.eyebrow"]}</span>
-    <h2
-      class="text-[clamp(40px,6vw,80px)] leading-[0.96] tracking-[-0.035em] font-bold m-0 max-w-[18ch] text-balance text-fg"
-    >
-      {t["duality.title"]}
-    </h2>
+    <BaseTitle tag="h2" size="7xl" balance>
+      <span set:html={t["duality.title"]} />
+    </BaseTitle>
   </div>
 
   <!-- Stage -->
@@ -49,20 +50,15 @@ const { t } = Astro.props;
         <div
           class="relative z-[3] p-[clamp(28px,4vw,56px)] max-w-[570px] flex flex-col gap-3.5 items-start"
         >
-          <span
-            class="inline-flex items-center gap-2 px-3 py-1.5
-                       bg-white/10 backdrop-blur-[8px] border border-white/[0.18] rounded-pill
-                       text-xs font-semibold tracking-[0.12em] uppercase self-start text-white"
-          >
+          <BaseTag size="sm">
             {t["duality.club.tag"]}
-          </span>
-          <h3
-            class="text-[clamp(28px,3.2vw,44px)] leading-[1.02] tracking-[-0.025em] font-bold m-0 text-white text-balance"
-            set:html={t["duality.club.title"]}
-          />
-          <p class="text-white/[0.78] text-sm leading-[1.55] m-0">
+          </BaseTag>
+          <BaseTitle tag="h3" size="5xl" iColor="--brand-orange">
+            <span set:html={t["duality.club.title"]} />
+          </BaseTitle>
+          <BaseText size="sm">
             {t["duality.club.desc"]}
-          </p>
+          </BaseText>
           <BaseList
             items={[
               t["duality.club.b1"],
@@ -75,8 +71,10 @@ const { t } = Astro.props;
           <BaseButton
             iconRight={IconArrowRight}
             bgColor="--brand-orange"
-            textColor="white">{t["duality.club.cta"]}</BaseButton
+            textColor="white"
           >
+            {t["duality.club.cta"]}
+          </BaseButton>
         </div>
       </a>
 
@@ -91,21 +89,20 @@ const { t } = Astro.props;
         <div
           class="club-copy relative z-[3] p-[clamp(28px,4vw,56px)] flex flex-col gap-3.5 text-left ml-0 md:ml-auto items-start md:items-end"
         >
-          <span
-            class="inline-flex items-center gap-2 px-3 py-1.5
-                       bg-white/10 backdrop-blur-[8px] border border-white/[0.18] rounded-pill
-                       text-xs font-semibold tracking-[0.12em] uppercase self-start text-white
-                       md:self-end"
-          >
+          <BaseTag size="sm" class="md:self-end">
             {t["duality.player.tag"]}
-          </span>
-          <h3
-            class="text-[clamp(28px,3.2vw,44px)] leading-[1.02] tracking-[-0.025em] font-bold m-0 text-white text-balance text-left md:text-right"
-            set:html={t["duality.player.title"]}
-          />
-          <p class="text-white/[0.78] text-sm leading-[1.55] m-0">
+          </BaseTag>
+          <BaseTitle
+            tag="h3"
+            size="5xl"
+            class="md:text-right"
+            iColor="--brand-green"
+          >
+            <span set:html={t["duality.player.title"]} />
+          </BaseTitle>
+          <BaseText size="sm">
             {t["duality.player.desc"]}
-          </p>
+          </BaseText>
           <BaseList
             items={[
               t["duality.player.b1"],
@@ -118,8 +115,10 @@ const { t } = Astro.props;
           <BaseButton
             iconRight={IconArrowRight}
             bgColor="--brand-green"
-            textColor="white">{t["duality.player.cta"]}</BaseButton
+            textColor="white"
           >
+            {t["duality.player.cta"]}
+          </BaseButton>
         </div>
       </a>
     </div>
@@ -132,26 +131,6 @@ const { t } = Astro.props;
   }
   .side-link[data-side="club"] {
     border-color: var(--brand-green);
-  }
-
-  /* Italic brand accent inside set:html — :global required */
-  :global(.side-link[data-side="player"] h3 i) {
-    color: var(--brand-orange);
-    font-style: italic;
-  }
-  :global(.side-link[data-side="club"] h3 i) {
-    color: var(--brand-green);
-    font-style: italic;
-  }
-
-  /* Arrow icon — size + hover slide */
-  :global(.cta-btn svg) {
-    width: 16px;
-    height: 16px;
-    transition: transform var(--t-fast);
-  }
-  .side-link:hover :global(.cta-btn svg) {
-    transform: translateX(4px);
   }
 
   /* Bg image hover effect — triggered by sibling side hovering */

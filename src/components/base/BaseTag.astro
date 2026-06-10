@@ -1,0 +1,80 @@
+---
+type Size = "sm" | "md" | "lg";
+type BigIcon = true | false;
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: Size;
+  bigIcon?: BigIcon;
+  bgColor?: string;
+  textColor?: string;
+  iconLeft?: (_props: Record<string, unknown>) => unknown;
+  iconRight?: (_props: Record<string, unknown>) => unknown;
+}
+
+const {
+  size = "md",
+  bigIcon = false,
+  bgColor,
+  textColor,
+  iconLeft: IconLeft,
+  iconRight: IconRight,
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+
+const sizeClasses: Record<Size, string> = {
+  sm: "px-3 py-1.5 text-sm gap-1.5",
+  md: "px-5 py-3 text-sm gap-2",
+  lg: "px-6 py-4 text-base gap-2.5",
+};
+
+const iconSizes: Record<Size, string> = {
+  sm: "w-3.5 h-3.5",
+  md: "w-4 h-4",
+  lg: "w-5 h-5",
+};
+
+const bigIconSizes: Record<Size, string> = {
+  sm: "w-5 h-5",
+  md: "w-6.5 h-6.6",
+  lg: "w-8 h-8",
+};
+
+const resolveCssValue = (v: string) => (v.startsWith("--") ? `var(${v})` : v);
+
+const inlineStyle = [
+  bgColor ? `background-color:${resolveCssValue(bgColor)}` : "",
+  textColor ? `color:${resolveCssValue(textColor)}` : "",
+  style ? String(style) : "",
+]
+  .filter(Boolean)
+  .join(";");
+---
+
+<span
+  class:list={[
+    "inline-flex items-center justify-center font-semibold rounded-pill border no-underline cursor-pointer",
+    "bg-white/10 border-white/[0.18] text-xs font-semibold tracking-[0.12em] uppercase self-start text-white",
+    sizeClasses[size],
+    className,
+  ]}
+  style={inlineStyle || undefined}
+  {...rest}
+>
+  {
+    IconLeft && (
+      <IconLeft
+        class={bigIcon ? bigIconSizes[size] : iconSizes[size] + " shrink-0"}
+      />
+    )
+  }
+  <slot />
+  {
+    IconRight && (
+      <IconRight
+        class={bigIcon ? bigIconSizes[size] : iconSizes[size] + " shrink-0"}
+      />
+    )
+  }
+</span>

@@ -1,0 +1,127 @@
+---
+type Tag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div";
+type Size =
+  | "xs"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "3xl"
+  | "4xl"
+  | "5xl"
+  | "6xl"
+  | "6xl"
+  | "7xl"
+  | "8xl"
+  | "9xl";
+type Weight =
+  | "thin"
+  | "extralight"
+  | "light"
+  | "normal"
+  | "medium"
+  | "semibold"
+  | "bold"
+  | "bolder";
+type Align = "left" | "center" | "right" | "justify";
+type Color = "default" | "muted" | "subtle";
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  tag?: Tag;
+  size?: Size;
+  weight?: Weight;
+  align?: Align;
+  color?: Color;
+  textColor?: string;
+  iColor?: string;
+  balance?: boolean;
+}
+
+const {
+  tag: Tag = "p",
+  size = "xl",
+  weight = "bold",
+  align,
+  color = "default",
+  textColor,
+  iColor,
+  balance = false,
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+
+const sizeClasses: Record<Size, string> = {
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
+  "2xl": "text-2xl",
+  "3xl": "text-3xl",
+  "4xl": "text-4xl",
+  "5xl": "text-5xl",
+  "6xl": "text-6xl",
+  "7xl": "text-7xl",
+  "8xl": "text-8xl",
+  "9xl": "text-9xl",
+};
+
+const weightClasses: Record<Weight, string> = {
+  thin: "font-thin",
+  extralight: "font-extralight",
+  light: "font-light",
+  normal: "font-normal",
+  medium: "font-medium",
+  semibold: "font-semibold",
+  bold: "font-bold",
+  bolder: "font-bolder",
+};
+
+const alignClasses: Record<Align, string> = {
+  left: "text-left",
+  center: "text-center",
+  right: "text-right",
+  justify: "text-justify",
+};
+
+const colorClasses: Record<Color, string> = {
+  default: "text-fg",
+  muted: "text-fg-muted",
+  subtle: "text-fg-subtle",
+};
+
+const resolveCssValue = (v: string) => (v.startsWith("--") ? `var(${v})` : v);
+
+const inlineStyle = [
+  textColor ? `color:${resolveCssValue(textColor)}` : "",
+  iColor ? `--i-color:${resolveCssValue(iColor)}` : "",
+  style ? String(style) : "",
+]
+  .filter(Boolean)
+  .join(";");
+---
+
+<Tag
+  class:list={[
+    "baseTitle m-0",
+    sizeClasses[size],
+    weight ? weightClasses[weight] : "",
+    align ? alignClasses[align] : "",
+    !textColor ? colorClasses[color] : "",
+    balance ? "text-balance" : "",
+    className,
+  ]}
+  style={inlineStyle || undefined}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .baseTitle :global(em),
+  .baseTitle :global(i) {
+    color: var(--i-color, inherit);
+  }
+</style>

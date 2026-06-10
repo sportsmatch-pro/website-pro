@@ -1,9 +1,11 @@
 ---
 type Size = "sm" | "md" | "lg";
+type Color = "default" | "muted" | "subtle";
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
   items: string[];
   bulletColor?: string;
+  color?: Color;
   textColor?: string;
   size?: Size;
 }
@@ -11,6 +13,7 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
 const {
   items,
   bulletColor,
+  color = "default",
   textColor,
   size = "md",
   class: className,
@@ -26,6 +29,12 @@ const sizeClasses: Record<Size, string> = {
   lg: "text-base gap-3",
 };
 
+const colorClasses: Record<Color, string> = {
+  default: "text-fg",
+  muted: "text-fg-muted",
+  subtle: "text-fg-subtle",
+};
+
 const inlineStyle = [
   `--_bullet:${bulletColor ? resolveCssValue(bulletColor) : "var(--fg)"}`,
   textColor ? `color:${resolveCssValue(textColor)}` : "",
@@ -39,6 +48,7 @@ const inlineStyle = [
   class:list={[
     "list-none m-0 p-0 flex flex-col w-full",
     sizeClasses[size],
+    !textColor ? colorClasses[color] : "",
     className,
   ]}
   style={inlineStyle}

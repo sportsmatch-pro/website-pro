@@ -1,5 +1,8 @@
 ---
 import BaseButton from "./base/BaseButton.astro";
+import BaseList from "./base/BaseList.astro";
+import BaseText from "./base/BaseText.astro";
+import BaseTitle from "./base/BaseTitle.astro";
 import StoreButtons from "./StoreButtons.astro";
 
 interface Props {
@@ -26,28 +29,24 @@ const { t } = Astro.props;
     <div class="flex flex-col gap-6">
       <span class="eyebrow">{t["hero.eyebrow"]}</span>
 
-      <h1
-        class="hero-title [font-size:var(--fs-hero)] leading-[0.94] tracking-[-0.04em] font-bold m-0 text-balance text-fg"
-        set:html={t["hero.title"]}
-      />
+      <BaseTitle tag="h1" size="8xl" iColor="--brand-green" balance>
+        <span set:html={t["hero.title"]} />
+      </BaseTitle>
 
-      <p
-        class="[font-size:var(--fs-lead)] text-fg-muted max-w-[52ch] leading-[1.45] text-pretty m-0"
-      >
+      <BaseText size="xl" color="muted">
         {t["hero.sub"]}
-      </p>
+      </BaseText>
 
       <div class="flex flex-wrap gap-3 items-center">
         <StoreButtons t={t} />
-        <BaseButton variant="outline">{t["hero.cta.secondary"]}</BaseButton>
+        <!--<BaseButton variant="outline">{t["hero.cta.secondary"]}</BaseButton>-->
       </div>
 
-      <div class="flex flex-wrap gap-5 items-center text-[13px] text-fg-subtle">
-        <span
-          class="hero-meta-dot w-[6px] h-[6px] rounded-full bg-[#16c447] shadow-[0_0_0_4px_rgba(22,196,71,0.18)] shrink-0"
-          aria-hidden="true"></span>
-        <span set:html={t["hero.meta.free"]} />
-      </div>
+      <BaseList
+        items={[t["hero.meta.free"]]}
+        bulletColor="--brand-green"
+        color="muted"
+      />
     </div>
 
     <!-- Visual -->

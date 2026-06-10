@@ -1,0 +1,66 @@
+---
+type Size = "sm" | "md" | "lg";
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  items: string[];
+  bulletColor?: string;
+  textColor?: string;
+  size?: Size;
+}
+
+const {
+  items,
+  bulletColor,
+  textColor,
+  size = "md",
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+
+const resolveCssValue = (v: string) => (v.startsWith("--") ? `var(${v})` : v);
+
+const sizeClasses: Record<Size, string> = {
+  sm: "text-xs gap-1.5",
+  md: "text-sm gap-2",
+  lg: "text-base gap-3",
+};
+
+const inlineStyle = [
+  `--_bullet:${bulletColor ? resolveCssValue(bulletColor) : "var(--fg)"}`,
+  textColor ? `color:${resolveCssValue(textColor)}` : "",
+  style ? String(style) : "",
+]
+  .filter(Boolean)
+  .join(";");
+---
+
+<ul
+  class:list={[
+    "list-none m-0 p-0 flex flex-col w-full",
+    sizeClasses[size],
+    className,
+  ]}
+  style={inlineStyle}
+  {...rest}
+>
+  {items.map((item) => <li set:html={item} />)}
+</ul>
+
+<style>
+  li {
+    padding-left: 18px;
+    position: relative;
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--_bullet);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+  }
+</style>

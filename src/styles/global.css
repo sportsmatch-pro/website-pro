@@ -88,7 +88,7 @@
 
   /* Density */
   --density-section: var(--space-10);
-  --density-stack: var(--space-7);
+  --density-stack: var(--space-8);
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

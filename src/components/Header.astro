@@ -1,14 +1,17 @@
 ---
-import { getTranslations, type Lang } from '../i18n/index';
-import IconCaret from './IconCaret.astro';
-import IconNavClubs from './IconNavClubs.astro';
-import IconNavPlayers from './IconNavPlayers.astro';
-import IconNavPros from './IconNavPros.astro';
-import IconNavSports from './IconNavSports.astro';
-import IconGlobe from './IconGlobe.astro';
-import IconDownload from './IconDownload.astro';
-import IconMoon from './IconMoon.astro';
-import IconMenu from './IconMenu.astro';
+import { getTranslations, type Lang } from "../i18n/index";
+import IconCaret from "./IconCaret.astro";
+import IconNavClubs from "./IconNavClubs.astro";
+import IconNavPlayers from "./IconNavPlayers.astro";
+import IconNavPros from "./IconNavPros.astro";
+import IconNavSports from "./IconNavSports.astro";
+import IconGlobe from "./IconGlobe.astro";
+import IconDownload from "./IconDownload.astro";
+import IconMoon from "./IconMoon.astro";
+import IconSun from "./IconSun.astro";
+import IconMonitor from "./IconMonitor.astro";
+import IconMenu from "./IconMenu.astro";
+import BaseButton from "./base/BaseButton.astro";
 
 export interface Props {
   lang: Lang;
@@ -18,37 +21,63 @@ export interface Props {
 const { lang, currentPath } = Astro.props;
 const t = getTranslations(lang);
 
-const langRoutes: Record<Lang, string> = { es: '/', ca: '/ca', en: '/en' };
+const langRoutes: Record<Lang, string> = { es: "/", ca: "/ca", en: "/en" };
 const langLabel = lang.toUpperCase();
-const blogHref = lang === 'es' ? '/blog' : `/${lang}/blog`;
-const aboutHref = lang === 'es' ? '/nosotros' : lang === 'ca' ? '/ca/nosaltres' : '/en/about';
+const blogHref = lang === "es" ? "/blog" : `/${lang}/blog`;
+const aboutHref =
+  lang === "es" ? "/nosotros" : lang === "ca" ? "/ca/nosaltres" : "/en/about";
 
 /* Shared class strings — avoids repetition in template */
-const navItem = 'relative px-[14px] py-[10px] text-sm font-medium text-fg-muted rounded-[8px] transition-[color,background] duration-fast inline-flex items-center gap-[6px] bg-transparent border-none cursor-pointer no-underline hover:text-fg hover:bg-surface-2';
-const iconBtn = 'w-9 h-9 grid place-items-center rounded-[8px] text-fg-muted bg-transparent border-none cursor-pointer transition-[color,background] duration-fast hover:text-fg hover:bg-surface-2';
+const navItem =
+  "relative px-[14px] py-[10px] text-sm font-medium text-fg-muted rounded-[8px] transition-[color,background] duration-fast inline-flex items-center gap-[6px] bg-transparent border-none cursor-pointer no-underline hover:text-fg hover:bg-surface-2";
+const iconBtn =
+  "w-9 h-9 grid place-items-center rounded-[8px] text-fg-muted bg-transparent border-none cursor-pointer transition-[color,background] duration-fast hover:text-fg hover:bg-surface-2";
 ---
 
 <header
   class="site-header sticky top-0 z-[100] h-header border-b border-transparent backdrop-saturate-[140%] backdrop-blur-[18px]"
   data-testid="main-header"
 >
-  <div class="max-w-(--container) mx-auto h-full px-[clamp(20px,4vw,48px)] grid grid-cols-[auto_1fr_auto] items-center gap-(--space-6)">
-
+  <div
+    class="max-w-(--container) mx-auto h-full px-[clamp(20px,4vw,48px)] grid grid-cols-[auto_1fr_auto] items-center gap-(--space-6)"
+  >
     <!-- Logo -->
-    <a href={langRoutes[lang]} class="flex items-center shrink-0" aria-label={t['nav.logo.aria']}>
-      <img class="h-[26px] w-auto block dark:hidden" src="/assets/logo-dark.svg" alt="SportsMatch" />
-      <img class="h-[26px] w-auto hidden dark:block" src="/assets/logo-light.svg" alt="SportsMatch" />
+    <a
+      href={langRoutes[lang]}
+      class="flex items-center shrink-0"
+      aria-label={t["nav.logo.aria"]}
+    >
+      <img
+        class="h-[26px] w-auto block dark:hidden"
+        src="/assets/logo-dark.svg"
+        alt="SportsMatch"
+      />
+      <img
+        class="h-[26px] w-auto hidden dark:block"
+        src="/assets/logo-light.svg"
+        alt="SportsMatch"
+      />
     </a>
 
     <!-- Primary nav (desktop) -->
-    <nav class="flex justify-center items-center gap-1 max-[920px]:hidden" aria-label="Principal">
-
+    <nav
+      class="flex justify-center items-center gap-1 max-[920px]:hidden"
+      aria-label="Principal"
+    >
       <!-- Producto dropdown — .dropdown class kept for JS targeting -->
       <div class="dropdown group/dropdown relative" data-open="false">
-        <button type="button" class={navItem} data-dropdown-trigger aria-expanded="false" aria-haspopup="true">
-          <span>{t['nav.product']}</span>
-          <IconCaret class="w-[10px] h-[10px] opacity-60 transition-transform duration-fast group-data-[open=true]/dropdown:rotate-180" />
-        </button>
+        <BaseButton
+          variant="ghost"
+          size="sm"
+          tag="button"
+          iconRight={IconCaret}
+          class={navItem}
+          data-dropdown-trigger
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          <span>{t["nav.product"]}</span>
+        </BaseButton>
 
         <!-- Panel -->
         <div
@@ -62,49 +91,89 @@ const iconBtn = 'w-9 h-9 grid place-items-center rounded-[8px] text-fg-muted bg-
                  group-data-[open=true]/dropdown:translate-y-0"
           role="menu"
         >
-          {[
-            { icon: IconNavClubs,   title: t['nav.product.clubs'],   desc: t['nav.product.clubs.d'] },
-            { icon: IconNavPlayers, title: t['nav.product.players'], desc: t['nav.product.players.d'] },
-            { icon: IconNavPros,    title: t['nav.product.pros'],    desc: t['nav.product.pros.d'] },
-            { icon: IconNavSports,  title: t['nav.product.sports'],  desc: t['nav.product.sports.d'] },
-          ].map(({ icon: Icon, title, desc }) => (
-            <a class="grid grid-cols-[36px_1fr] gap-3 p-3 rounded-[10px] no-underline text-fg transition-colors duration-fast hover:bg-surface-2" href="#" role="menuitem">
-              <span class="w-9 h-9 rounded-[10px] bg-brand-green-soft text-brand-green dark:text-[#4ade80] grid place-items-center shrink-0">
-                <Icon class="w-[18px] h-[18px]" />
-              </span>
-              <div>
-                <p class="text-sm font-semibold text-fg m-0">{title}</p>
-                <p class="text-[12px] text-fg-muted mt-0.5 m-0">{desc}</p>
-              </div>
-            </a>
-          ))}
+          {
+            [
+              {
+                icon: IconNavClubs,
+                title: t["nav.product.clubs"],
+                desc: t["nav.product.clubs.d"],
+              },
+              {
+                icon: IconNavPlayers,
+                title: t["nav.product.players"],
+                desc: t["nav.product.players.d"],
+              },
+              {
+                icon: IconNavPros,
+                title: t["nav.product.pros"],
+                desc: t["nav.product.pros.d"],
+              },
+              {
+                icon: IconNavSports,
+                title: t["nav.product.sports"],
+                desc: t["nav.product.sports.d"],
+              },
+            ].map(({ icon: Icon, title, desc }) => (
+              <a
+                class="grid grid-cols-[36px_1fr] gap-3 p-3 rounded-[10px] no-underline text-fg transition-colors duration-fast hover:bg-surface-2"
+                href="#"
+                role="menuitem"
+              >
+                <span class="w-9 h-9 rounded-[10px] bg-brand-green-soft text-brand-green dark:text-[#4ade80] grid place-items-center shrink-0">
+                  <Icon class="w-[18px] h-[18px]" />
+                </span>
+                <div>
+                  <p class="text-sm font-semibold text-fg m-0">{title}</p>
+                  <p class="text-[12px] text-fg-muted mt-0.5 m-0">{desc}</p>
+                </div>
+              </a>
+            ))
+          }
         </div>
       </div>
 
-      <a class={navItem} href={blogHref}>{t['nav.blog']}</a>
-      <a class={navItem} href={aboutHref}>{t['nav.about']}</a>
+      <BaseButton
+        variant="ghost"
+        size="sm"
+        tag="a"
+        class={navItem}
+        href={blogHref}
+      >
+        <span>{t["nav.blog"]}</span>
+      </BaseButton>
+
+      <BaseButton
+        variant="ghost"
+        size="sm"
+        tag="a"
+        class={navItem}
+        href={aboutHref}
+      >
+        <span>{t["nav.about"]}</span>
+      </BaseButton>
     </nav>
 
     <!-- Header actions -->
     <div class="flex items-center gap-2 shrink-0">
-
       <!-- Language selector — .lang-dropdown class kept for JS targeting -->
-      <div class="lang-dropdown group/langdd relative max-[920px]:hidden" data-open="false">
-        <button
-          class="inline-flex items-center gap-1.5 px-[10px] py-[6px]
-                 border border-line rounded-pill bg-surface text-fg
-                 text-[12px] font-semibold tracking-[0.02em] cursor-pointer
-                 transition-[background,border-color] duration-fast
-                 hover:bg-surface-2 hover:border-line-strong"
-          type="button"
+      <div
+        class="lang-dropdown group/langdd relative max-[920px]:hidden"
+        data-open="false"
+      >
+        <BaseButton
+          variant="outline"
+          size="sm"
           data-lang-trigger
           aria-haspopup="listbox"
           aria-expanded="false"
+          tag="button"
         >
           <IconGlobe class="w-3.5 h-3.5" />
           <span>{langLabel}</span>
-          <IconCaret class="w-2.5 h-2.5 opacity-60 transition-transform duration-fast group-data-[open=true]/langdd:rotate-180" />
-        </button>
+          <IconCaret
+            class="w-2.5 h-2.5 opacity-60 transition-transform duration-fast group-data-[open=true]/langdd:rotate-180"
+          />
+        </BaseButton>
 
         <!-- Menu -->
         <div
@@ -118,55 +187,101 @@ const iconBtn = 'w-9 h-9 grid place-items-center rounded-[8px] text-fg-muted bg-
                  group-data-[open=true]/langdd:translate-y-0"
           role="listbox"
         >
-          {([
-            { code: 'ES', href: '/',    key: 'lang.es', current: lang === 'es' },
-            { code: 'CA', href: '/ca', key: 'lang.ca', current: lang === 'ca' },
-            { code: 'EN', href: '/en', key: 'lang.en', current: lang === 'en' },
-          ] as const).map(({ code, href, key, current }) => (
-            <a
-              class="lang-item flex items-center justify-between gap-3 px-3 py-2
+          {
+            (
+              [
+                {
+                  code: "ES",
+                  href: "/",
+                  key: "lang.es",
+                  current: lang === "es",
+                },
+                {
+                  code: "CA",
+                  href: "/ca",
+                  key: "lang.ca",
+                  current: lang === "ca",
+                },
+                {
+                  code: "EN",
+                  href: "/en",
+                  key: "lang.en",
+                  current: lang === "en",
+                },
+              ] as const
+            ).map(({ code, href, key, current }) => (
+              <a
+                class="lang-item flex items-center justify-between gap-3 px-3 py-2
                      text-[13px] font-medium text-fg rounded-[8px]
                      cursor-pointer no-underline transition-colors duration-fast
                      hover:bg-surface-2
                      aria-[current=true]:bg-surface-2 aria-[current=true]:font-semibold"
-              href={href}
-              role="option"
-              aria-current={current ? 'true' : 'false'}
-            >
-              <span class="font-bold tracking-[0.02em] text-[11px] text-fg-muted w-[22px]">{code}</span>
-              <span class="text-fg grow">{t[key]}</span>
-            </a>
-          ))}
+                href={href}
+                role="option"
+                aria-current={current ? "true" : "false"}
+              >
+                <span class="font-bold tracking-[0.02em] text-[11px] text-fg-muted w-[22px]">
+                  {code}
+                </span>
+                <span class="text-fg grow">{t[key]}</span>
+              </a>
+            ))
+          }
         </div>
       </div>
 
       <!-- Theme toggle -->
-      <button class={`${iconBtn} max-[920px]:hidden`} data-theme-toggle aria-label={t['theme.toggle']} type="button">
-        <IconMoon class="w-[18px] h-[18px]" />
-      </button>
+      <BaseButton
+        variant="ghost"
+        size="sm"
+        data-theme-toggle
+        aria-label={t["theme.toggle"]}
+        tag="button"
+      >
+        <span data-theme-icon="light" style="display:none"
+          ><IconSun class="w-[18px] h-[18px] text-fg-muted" /></span
+        >
+        <span data-theme-icon="dark" style="display:none"
+          ><IconMoon class="w-[18px] h-[18px] text-fg-muted" /></span
+        >
+        <span data-theme-icon="system" style="display:none"
+          ><IconMonitor class="w-[18px] h-[18px] text-fg-muted" /></span
+        >
+      </BaseButton>
 
       <!-- Sign in -->
-      <a class="max-[920px]:hidden inline-flex items-center justify-center gap-2 px-[14px] py-2
-                rounded-pill font-semibold text-[13px] tracking-[-0.005em] whitespace-nowrap
-                no-underline border border-line-strong text-fg bg-transparent
-                transition-[transform,background,border-color] duration-fast ease-snap
-                hover:bg-surface-2 hover:border-fg active:translate-y-px active:scale-[0.99]"
-         href="#">{t['cta.signin']}</a>
-
+      <!--
+      <BaseButton
+        variant="outline"
+        size="sm"
+        href="https://app.sportsmatch.pro"
+        target="_blank"
+        tag="a"
+      >
+        {t["cta.signin"]}
+      </BaseButton>
+      -->
       <!-- Download -->
-      <a class="max-[920px]:hidden inline-flex items-center justify-center gap-2 px-[14px] py-2
-                rounded-pill font-semibold text-[13px] tracking-[-0.005em] whitespace-nowrap
-                no-underline border border-transparent text-fg-on-brand bg-brand-green
-                transition-[transform,background,box-shadow] duration-fast ease-snap
-                hover:bg-brand-green-hover hover:shadow-[0_6px_24px_-8px_rgba(1,140,41,0.5)]
-                active:translate-y-px active:scale-[0.99]"
-         href="#">
-        <IconDownload class="w-3.5 h-3.5" />
-        <span>{t['cta.download']}</span>
-      </a>
-
+      <BaseButton
+        bgColor="--brand-green"
+        textColor="white"
+        size="sm"
+        href="https://share.sportsmatch.pro"
+        target="_blank"
+        tag="a"
+        class="md:hidden"
+        iconLeft={IconDownload}
+      >
+        {t["cta.download"]}
+      </BaseButton>
       <!-- Mobile hamburger -->
-      <button class={`${iconBtn} min-[921px]:hidden`} type="button" data-mobile-toggle aria-expanded="false" aria-label={t['nav.open']}>
+      <button
+        class={`${iconBtn} min-[921px]:hidden`}
+        type="button"
+        data-mobile-toggle
+        aria-expanded="false"
+        aria-label={t["nav.open"]}
+      >
         <IconMenu class="w-[18px] h-[18px]" />
       </button>
     </div>
@@ -180,30 +295,42 @@ const iconBtn = 'w-9 h-9 grid place-items-center rounded-[8px] text-fg-muted bg-
     data-mobile-drawer
     data-open="false"
   >
-    <a class={navItem} href="#">{t['nav.product.clubs']}</a>
-    <a class={navItem} href="#">{t['nav.product.players']}</a>
-    <a class={navItem} href="#">{t['nav.product.pros']}</a>
-    <a class={navItem} href="#">{t['nav.product.sports']}</a>
+    <a class={navItem} href="#">{t["nav.product.clubs"]}</a>
+    <a class={navItem} href="#">{t["nav.product.players"]}</a>
+    <a class={navItem} href="#">{t["nav.product.pros"]}</a>
+    <a class={navItem} href="#">{t["nav.product.sports"]}</a>
     <hr class="border-line my-1" />
-    <a class={navItem} href={blogHref}>{t['nav.blog']}</a>
-    <a class={navItem} href={aboutHref}>{t['nav.about']}</a>
+    <a class={navItem} href={blogHref}>{t["nav.blog"]}</a>
+    <a class={navItem} href={aboutHref}>{t["nav.about"]}</a>
     <hr class="border-line my-1" />
-    <a class={navItem} href="/">ES — {t['lang.es']}</a>
-    <a class={navItem} href="/ca">CA — {t['lang.ca']}</a>
-    <a class={navItem} href="/en">EN — {t['lang.en']}</a>
+    <a class={navItem} href="/">ES — {t["lang.es"]}</a>
+    <a class={navItem} href="/ca">CA — {t["lang.ca"]}</a>
+    <a class={navItem} href="/en">EN — {t["lang.en"]}</a>
     <hr class="border-line my-1" />
-    <button class={`${navItem} w-full text-left`} data-theme-toggle type="button">
-      <IconMoon class="w-[18px] h-[18px]" />
-      <span>{t['theme.toggle']}</span>
+    <button
+      class={`${navItem} w-full text-left`}
+      data-theme-toggle
+      type="button"
+    >
+      <span data-theme-icon="light" style="display:none"
+        ><IconSun class="w-[18px] h-[18px]" /></span
+      >
+      <span data-theme-icon="dark" style="display:none"
+        ><IconMoon class="w-[18px] h-[18px]" /></span
+      >
+      <span data-theme-icon="system" style="display:none"
+        ><IconMonitor class="w-[18px] h-[18px]" /></span
+      >
+      <span>{t["theme.toggle"]}</span>
     </button>
   </div>
 </header>
 
 <script>
-  import { initThemeToggle } from '../scripts/theme';
-  import { initDropdowns } from '../scripts/dropdown';
+  import { initThemeToggle } from "../scripts/theme";
+  import { initDropdowns } from "../scripts/dropdown";
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     initThemeToggle();
     initDropdowns();
   });
@@ -213,15 +340,18 @@ const iconBtn = 'w-9 h-9 grid place-items-center rounded-[8px] text-fg-muted bg-
   /* Complex multi-value CSS that doesn't benefit from arbitrary utilities */
   :global(.site-header) {
     background: color-mix(in srgb, var(--bg) 80%, transparent);
-    box-shadow: 0 1px 0 var(--line), 0 6px 24px -8px rgba(10, 10, 12, 0.08);
-    transition: border-color var(--t-fast) var(--ease-out),
-                background var(--t-fast) var(--ease-out),
-                box-shadow var(--t-fast) var(--ease-out);
+    box-shadow:
+      0 1px 0 var(--line),
+      0 6px 24px -8px rgba(10, 10, 12, 0.08);
+    transition:
+      border-color var(--t-fast) var(--ease-out),
+      background var(--t-fast) var(--ease-out),
+      box-shadow var(--t-fast) var(--ease-out);
   }
 
   /* Active lang item green dot — pseudo-element content cannot be a utility */
-  .lang-item[aria-current='true']::after {
-    content: '';
+  .lang-item[aria-current="true"]::after {
+    content: "";
     width: 6px;
     height: 6px;
     border-radius: 50%;

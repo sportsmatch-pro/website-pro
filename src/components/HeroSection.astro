@@ -1,6 +1,6 @@
 ---
-import IconAppStore from './IconAppStore.astro';
-import IconGooglePlay from './IconGooglePlay.astro';
+import BaseButton from "./base/BaseButton.astro";
+import StoreButtons from "./StoreButtons.astro";
 
 interface Props {
   t: Record<string, string>;
@@ -9,66 +9,52 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section class="relative pt-[clamp(48px,8vw,96px)] pb-[clamp(48px,8vw,96px)] overflow-hidden">
-
+<section
+  class="relative pt-[clamp(48px,8vw,96px)] pb-[clamp(48px,8vw,96px)] overflow-hidden"
+>
   <!-- Animated grid background -->
-  <div class="hero-grid-bg absolute inset-0 bg-[url('/assets/bg-net.svg')] bg-cover bg-no-repeat bg-center opacity-60 pointer-events-none" aria-hidden="true"></div>
+  <div
+    class="hero-grid-bg absolute inset-0 bg-[url('/assets/bg-net.svg')] bg-cover bg-no-repeat bg-center opacity-60 pointer-events-none"
+    aria-hidden="true"
+  >
+  </div>
 
-  <div class="relative max-w-(--container) mx-auto px-[clamp(20px,4vw,48px)] grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center gap-[clamp(40px,6vw,80px)] max-[920px]:grid-cols-1 max-[920px]:gap-12">
-
+  <div
+    class="relative max-w-(--container) mx-auto px-[clamp(20px,4vw,48px)] grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center gap-[clamp(40px,6vw,80px)] max-[920px]:grid-cols-1 max-[920px]:gap-12"
+  >
     <!-- Copy -->
     <div class="flex flex-col gap-6">
-      <span class="eyebrow">{t['hero.eyebrow']}</span>
+      <span class="eyebrow">{t["hero.eyebrow"]}</span>
 
-      <h1 class="hero-title [font-size:var(--fs-hero)] leading-[0.94] tracking-[-0.04em] font-bold m-0 text-balance text-fg"
-          set:html={t['hero.title']} />
+      <h1
+        class="hero-title [font-size:var(--fs-hero)] leading-[0.94] tracking-[-0.04em] font-bold m-0 text-balance text-fg"
+        set:html={t["hero.title"]}
+      />
 
-      <p class="[font-size:var(--fs-lead)] text-fg-muted max-w-[52ch] leading-[1.45] text-pretty m-0">
-        {t['hero.sub']}
+      <p
+        class="[font-size:var(--fs-lead)] text-fg-muted max-w-[52ch] leading-[1.45] text-pretty m-0"
+      >
+        {t["hero.sub"]}
       </p>
 
       <div class="flex flex-wrap gap-3 items-center">
-        <!-- App Store -->
-        <a class="inline-flex items-center gap-[10px] py-2 pl-4 pr-[22px]
-                  bg-fg text-bg rounded-pill border border-transparent no-underline
-                  transition-[transform,box-shadow,background] duration-fast ease-snap
-                  hover:-translate-y-px hover:scale-[1.005] hover:shadow-(--shadow-md)"
-           href="#" aria-label="App Store">
-          <IconAppStore class="w-[22px] h-[22px] shrink-0" />
-          <span class="flex flex-col items-start leading-[1.05]">
-            <span class="text-[9.5px] opacity-65 tracking-[0.05em] uppercase font-medium">{t['store.available']}</span>
-            <span class="text-[14px] font-bold tracking-[-0.01em]">{t['store.appstore']}</span>
-          </span>
-        </a>
-        <!-- Google Play -->
-        <a class="inline-flex items-center gap-[10px] py-2 pl-4 pr-[22px]
-                  bg-fg text-bg rounded-pill border border-transparent no-underline
-                  transition-[transform,box-shadow,background] duration-fast ease-snap
-                  hover:-translate-y-px hover:scale-[1.005] hover:shadow-(--shadow-md)"
-           href="#" aria-label="Google Play">
-          <IconGooglePlay class="w-[22px] h-[22px] shrink-0" />
-          <span class="flex flex-col items-start leading-[1.05]">
-            <span class="text-[9.5px] opacity-65 tracking-[0.05em] uppercase font-medium">{t['store.available']}</span>
-            <span class="text-[14px] font-bold tracking-[-0.01em]">{t['store.googleplay']}</span>
-          </span>
-        </a>
-        <a class="inline-flex items-center justify-center gap-2 px-[22px] py-[14px]
-                  rounded-pill font-semibold text-[15px] tracking-[-0.005em]
-                  border border-(--line) text-fg bg-transparent no-underline
-                  transition-[transform,background,border-color] duration-fast ease-snap
-                  hover:bg-surface-2 hover:border-fg active:translate-y-px active:scale-[0.99]"
-           href="#">{t['hero.cta.secondary']}</a>
+        <StoreButtons t={t} />
+        <BaseButton variant="outline">{t["hero.cta.secondary"]}</BaseButton>
       </div>
 
       <div class="flex flex-wrap gap-5 items-center text-[13px] text-fg-subtle">
-        <span class="hero-meta-dot w-[6px] h-[6px] rounded-full bg-[#16c447] shadow-[0_0_0_4px_rgba(22,196,71,0.18)] shrink-0" aria-hidden="true"></span>
-        <span set:html={t['hero.meta.free']} />
+        <span
+          class="hero-meta-dot w-[6px] h-[6px] rounded-full bg-[#16c447] shadow-[0_0_0_4px_rgba(22,196,71,0.18)] shrink-0"
+          aria-hidden="true"></span>
+        <span set:html={t["hero.meta.free"]} />
       </div>
     </div>
 
     <!-- Visual -->
     <div class="relative">
-      <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-2 border border-line shadow-(--shadow-lg)">
+      <div
+        class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-2 border border-line shadow-(--shadow-lg)"
+      >
         <img
           class="w-full h-full object-cover object-[center_25%] block"
           src="/assets/hero-home.jpg"
@@ -79,52 +65,88 @@ const { t } = Astro.props;
       </div>
 
       <!-- Floating chip: player -->
-      <span class="hero-chip absolute top-14 -left-7 max-[920px]:left-2 max-[920px]:top-4
+      <span
+        class="hero-chip absolute top-14 -left-7 max-[920px]:left-2 max-[920px]:top-4
                    bg-surface border border-line rounded-pill py-2 pl-2 pr-[14px]
                    inline-flex items-center gap-2 text-[13px] font-medium
-                   shadow-(--shadow-md) z-[2] whitespace-nowrap">
-        <span class="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_0_4px_rgba(1,140,41,0.18)] mr-0.5 shrink-0" aria-hidden="true"></span>
-        <span>{t['hero.chip.player']}</span>
+                   shadow-(--shadow-md) z-[2] whitespace-nowrap"
+      >
+        <span
+          class="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_0_4px_rgba(1,140,41,0.18)] mr-0.5 shrink-0"
+          aria-hidden="true"></span>
+        <span>{t["hero.chip.player"]}</span>
       </span>
 
       <!-- Floating chip: club -->
-      <span class="hero-chip hero-chip--delayed absolute bottom-16 -right-9 max-[920px]:right-2 max-[920px]:bottom-4
+      <span
+        class="hero-chip hero-chip--delayed absolute bottom-16 -right-9 max-[920px]:right-2 max-[920px]:bottom-4
                    bg-surface border border-line rounded-pill py-2 pl-2 pr-[14px]
                    inline-flex items-center gap-2 text-[13px] font-medium
-                   shadow-(--shadow-md) z-[2] whitespace-nowrap">
-        <span class="w-6 h-6 rounded-full bg-brand-green text-white grid place-items-center text-[10px] font-bold tracking-[-0.02em]">CF</span>
-        <span>{t['hero.chip.club']}</span>
+                   shadow-(--shadow-md) z-[2] whitespace-nowrap"
+      >
+        <span
+          class="w-6 h-6 rounded-full bg-brand-green text-white grid place-items-center text-[10px] font-bold tracking-[-0.02em]"
+          >CF</span
+        >
+        <span>{t["hero.chip.club"]}</span>
       </span>
     </div>
-
   </div>
 </section>
 
 <style>
   /* Keyframe animations — cannot be utility classes */
   @keyframes hero-grid-pulse {
-    0%, 100% { opacity: 0.6; }
-    50%       { opacity: 0.4; }
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.4;
+    }
   }
   @keyframes hero-grid-pulse-dark {
-    0%, 100% { opacity: 0.32; }
-    50%       { opacity: 0.2; }
+    0%,
+    100% {
+      opacity: 0.32;
+    }
+    50% {
+      opacity: 0.2;
+    }
   }
   @keyframes floaty {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-8px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
   }
   @keyframes dot-pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(22,196,71,0.18); }
-    50%       { box-shadow: 0 0 0 6px rgba(22,196,71,0.08); }
+    0%,
+    100% {
+      box-shadow: 0 0 0 4px rgba(22, 196, 71, 0.18);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(22, 196, 71, 0.08);
+    }
   }
 
   .hero-grid-bg {
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 75%);
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 30%,
+      black 30%,
+      transparent 75%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 30%,
+      black 30%,
+      transparent 75%
+    );
     animation: hero-grid-pulse 8s ease-in-out infinite;
   }
-  :root[data-theme='dark'] .hero-grid-bg {
+  :root[data-theme="dark"] .hero-grid-bg {
     opacity: 0.32;
     filter: invert(1);
     animation: hero-grid-pulse-dark 8s ease-in-out infinite;
@@ -142,7 +164,7 @@ const { t } = Astro.props;
     font-style: italic;
     font-weight: 500;
     color: var(--brand-green);
-    font-feature-settings: 'ss01';
+    font-feature-settings: "ss01";
   }
 
   .hero-meta-dot {

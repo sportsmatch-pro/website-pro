@@ -40,7 +40,7 @@ const es: Record<string, string> = {
   'foot.terms': 'Términos',
   'foot.cookies': 'Cookies',
   'foot.gdpr': 'GDPR',
-  'foot.copy': '© 2026 SportsMatch · Made in Barcelona',
+  'foot.copy': '© 2026 SportsMatch',
 
   // Footer nav items
   'foot.product.clubs': 'Para clubes',

@@ -40,6 +40,9 @@ const hreflangEn = `${siteUrl}/en${canonicalPath.replace(/^\/(ca|en)(\/|$)/, '/'
         var t = localStorage.getItem('sm-theme');
         if (t === 'light' || t === 'dark') {
           document.documentElement.setAttribute('data-theme', t);
+        } else if (matchMedia('(prefers-color-scheme: dark)').matches) {
+          // system mode + OS dark → set data-theme so Tailwind dark: utilities fire
+          document.documentElement.setAttribute('data-theme', 'dark');
         }
       })();
     </script>

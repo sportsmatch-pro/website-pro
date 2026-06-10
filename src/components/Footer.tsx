@@ -16,7 +16,7 @@ const translations: Record<string, Record<string, string>> = {
     'foot.terms': 'Términos',
     'foot.cookies': 'Cookies',
     'foot.gdpr': 'GDPR',
-    'foot.copy': '© 2026 SportsMatch · Made in Barcelona',
+    'foot.copy': '© 2026 SportsMatch',
     'foot.product.clubs': 'Para clubes',
     'foot.product.players': 'Para jugadores',
     'foot.product.pros': 'Profesionales',

@@ -6,41 +6,23 @@ import type { Lang } from '../../../i18n/index';
 
 const lang: Lang = 'ca';
 const t = getTranslations(lang);
+const blogBasePath = '/ca/blog';
 
-type MockArticle = { slug: string; title: string; category: string; date: string; excerpt: string };
-
-const MOCK_ARTICLES: MockArticle[] = [
-  {
-    slug: 'primer-articulo-deportivo',
-    title: 'Com trobar el teu club ideal amb SportsMatch',
-    category: 'Consells',
-    date: '2026-01-15',
-    excerpt: 'Descobreix les millors estratègies per connectar amb clubs esportius de la teva zona.',
-  },
-  {
-    slug: 'novedades-plataforma',
-    title: 'Novetats a la plataforma: nous esports disponibles',
-    category: 'Novetats',
-    date: '2026-02-10',
-    excerpt: 'Ampliem l\'oferta esportiva amb handbol, voleibol i més.',
-  },
-  {
-    slug: 'perfil-jugador-completo',
-    title: 'Crea un perfil de jugador que destaqui',
-    category: 'Guies',
-    date: '2026-03-05',
-    excerpt: 'Aprèn a completar el teu perfil per augmentar la teva visibilitat davant els scouts.',
-  },
-];
+let posts: any[] = [];
+try {
+  const res = await fetch(`${import.meta.env.API_BASE_URL}articles?language=ca-ES&sortField=publishedAt&sortOrder=DESC`);
+  const data = await res.json();
+  posts = Array.isArray(data) ? data : data.items || [];
+} catch {
+  // API not available during build
+}
 ---
 
 <BaseLayout title={t['page.blog.title']} description={t['page.blog.desc']} lang={lang}>
   <BlogIndexSection
     t={t}
     lang={lang}
-    posts={MOCK_ARTICLES}
-    blogBasePath="/ca/blog"
-    currentPage={1}
-    totalPages={1}
+    posts={posts}
+    blogBasePath={blogBasePath}
   />
 </BaseLayout>

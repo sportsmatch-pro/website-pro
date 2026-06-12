@@ -2,22 +2,38 @@
 import IconCaret from './IconCaret.astro';
 import type { Lang } from '../i18n/index';
 
-type MockArticle = {
-  slug: string;
+interface Post {
+  id: string;
   title: string;
-  category: string;
-  date: string;
+  content: string;
   excerpt: string;
-};
+  slug: string;
+  featuredImage?: string;
+  status: string;
+  publishedAt?: string;
+  readingTime: number;
+  language: string;
+  sports?: Array<{ id: string; name: string }>;
+}
 
 export interface Props {
   t: Record<string, string>;
   lang: Lang;
-  article: MockArticle;
+  post: Post;
   blogBasePath: string;
 }
 
-const { t, lang, article, blogBasePath } = Astro.props;
+const { t, lang, post, blogBasePath } = Astro.props;
+
+const formatDate = (dateString?: string): string => {
+  if (!dateString) return '';
+  const locale = lang === 'ca' ? 'ca-ES' : lang === 'en' ? 'en-US' : 'es-ES';
+  return new Date(dateString).toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+};
 ---
 
 <article class="max-w-3xl mx-auto px-4 py-12">
@@ -27,23 +43,40 @@ const { t, lang, article, blogBasePath } = Astro.props;
     </a>
     <IconCaret class="-rotate-90 w-3 h-3 shrink-0" />
     <span aria-current="page" class="text-fg font-medium truncate">
-      {article.title}
+      {post.title}
     </span>
   </nav>
 
+  {post.featuredImage && (
+    <img
+      src={post.featuredImage}
+      alt={post.title}
+      class="w-full aspect-video object-cover rounded-2xl mb-8"
+    />
+  )}
+
   <header class="mb-8 flex flex-col gap-3">
-    <p class="text-xs font-semibold uppercase tracking-wider text-fg-muted">
-      {article.category}
-    </p>
+    {post.sports && post.sports.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {post.sports.map((sport) => (
+          <span class="text-xs font-semibold uppercase tracking-wider text-fg-muted">
+            {sport.name}
+          </span>
+        ))}
+      </div>
+    )}
     <h1 class="text-4xl font-bold tracking-tight text-fg leading-tight">
-      {article.title}
+      {post.title}
     </h1>
-    <time datetime={article.date} class="text-sm text-fg-subtle">
-      {article.date}
-    </time>
+    <div class="flex items-center gap-4 text-sm text-fg-subtle">
+      {post.publishedAt && (
+        <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+      )}
+      {post.readingTime > 0 && (
+        <span>{post.readingTime} min</span>
+      )}
+    </div>
   </header>
 
-  <div class="article-content">
-    <p>{t['blog.article.content.placeholder']}</p>
-  </div>
+  <div class="article-content" set:html={post.content} />
 </article>

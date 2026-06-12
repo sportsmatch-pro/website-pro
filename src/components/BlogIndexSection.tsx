@@ -1,21 +1,28 @@
 // React test stub for BlogIndexSection — used only for unit tests.
 // The production component is BlogIndexSection.astro.
 
-type MockArticle = {
+type Post = {
   slug: string;
   title: string;
-  category: string;
-  date: string;
-  excerpt: string;
+  category?: string;
+  date?: string;
+  excerpt?: string;
+  featuredImage?: string;
+  sports?: Array<{ id: string; name: string }>;
+  publishedAt?: string;
+  readingTime?: number;
 };
 
 type Props = {
   t: Record<string, string>;
   lang: 'es' | 'ca' | 'en';
-  posts: MockArticle[];
+  posts: Post[];
   blogBasePath: string;
   currentPage?: number;
   totalPages?: number;
+  prevHref?: string;
+  nextHref?: string;
+  activeSport?: string;
 };
 
 export function BlogIndexSection({
@@ -25,9 +32,11 @@ export function BlogIndexSection({
   blogBasePath,
   currentPage = 1,
   totalPages = 1,
+  prevHref,
+  nextHref,
 }: Props) {
-  const hasPrev = currentPage > 1;
-  const hasNext = currentPage < totalPages;
+  const hasPrev = !!prevHref;
+  const hasNext = !!nextHref;
 
   return (
     <section>
@@ -44,7 +53,7 @@ export function BlogIndexSection({
               <div>
                 <span>{post.category}</span>
                 <h2>{post.title}</h2>
-                <time dateTime={post.date}>{post.date}</time>
+                {post.date && <time dateTime={post.date}>{post.date}</time>}
               </div>
             </a>
           </article>
@@ -53,9 +62,7 @@ export function BlogIndexSection({
 
       <nav aria-label="pagination">
         {hasPrev ? (
-          <a href={`${blogBasePath}?page=${currentPage - 1}`}>
-            {t['blog.index.pagination.prev']}
-          </a>
+          <a href={prevHref}>{t['blog.index.pagination.prev']}</a>
         ) : (
           <span aria-disabled="true">{t['blog.index.pagination.prev']}</span>
         )}
@@ -65,9 +72,7 @@ export function BlogIndexSection({
         </span>
 
         {hasNext ? (
-          <a href={`${blogBasePath}?page=${currentPage + 1}`}>
-            {t['blog.index.pagination.next']}
-          </a>
+          <a href={nextHref}>{t['blog.index.pagination.next']}</a>
         ) : (
           <span aria-disabled="true">{t['blog.index.pagination.next']}</span>
         )}

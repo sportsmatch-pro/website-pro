@@ -1,102 +1,232 @@
 ---
-import IconArrowRight from './IconArrowRight.astro';
-import type { Lang } from '../i18n/index';
+import IconArrowRight from "./IconArrowRight.astro";
+import type { Lang } from "../i18n/index";
 
-type MockArticle = {
-  slug: string;
+interface Post {
+  id: string;
   title: string;
-  category: string;
-  date: string;
+  content: string;
   excerpt: string;
-};
+  slug: string;
+  featuredImage?: string;
+  status: string;
+  publishedAt?: string;
+  readingTime: number;
+  language: string;
+  sports?: Array<{ id: string; name: string }>;
+}
+
+interface SportData {
+  id: string;
+  name: string;
+  color?: string;
+}
 
 export interface Props {
   t: Record<string, string>;
   lang: Lang;
-  posts: MockArticle[];
+  posts: Post[];
   blogBasePath: string;
   currentPage?: number;
   totalPages?: number;
+  prevHref?: string;
+  nextHref?: string;
+  activeSport?: string;
 }
 
-const { t, lang, posts, blogBasePath, currentPage = 1, totalPages = 1 } = Astro.props;
+const {
+  t,
+  lang,
+  posts,
+  blogBasePath,
+  currentPage = 1,
+  totalPages = 1,
+  prevHref,
+  nextHref,
+  activeSport,
+} = Astro.props;
 
-const hasPrev = currentPage > 1;
-const hasNext = currentPage < totalPages;
-const prevHref = hasPrev ? `${blogBasePath}?page=${currentPage - 1}` : undefined;
-const nextHref = hasNext ? `${blogBasePath}?page=${currentPage + 1}` : undefined;
+const hasPrev = !!prevHref;
+const hasNext = !!nextHref;
+
+// Fetch sports for filter buttons
+let allSportsData: SportData[] = [];
+try {
+  const sportsRes = await fetch(import.meta.env.API_BASE_URL + "sports");
+  allSportsData = await sportsRes.json();
+} catch {
+  // API not available during build — use empty list
+}
+
+const sportColorMap: Record<string, string> = {};
+allSportsData.forEach((sport) => {
+  if (sport.name && sport.color) sportColorMap[sport.name] = sport.color;
+});
+
+const formatDate = (dateString?: string): string => {
+  if (!dateString) return "";
+  const locale = lang === "ca" ? "ca-ES" : lang === "en" ? "en-US" : "es-ES";
+  return new Date(dateString).toLocaleDateString(locale, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+};
 ---
 
 <section class="mx-auto max-w-(--container) px-4 sm:px-6 lg:px-8 py-16">
   <div class="mb-10 flex flex-col gap-3">
-    <p class="eyebrow">{t['blog.index.eyebrow']}</p>
+    <p class="eyebrow">{t["blog.index.eyebrow"]}</p>
     <h1 class="text-4xl font-bold tracking-tight text-fg">
-      {t['blog.index.title']}
+      {t["blog.index.title"]}
     </h1>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {posts.map((post) => (
-      <article class="bg-surface rounded-2xl overflow-hidden shadow-(--shadow-sm) hover:shadow-(--shadow-md) transition-shadow">
-        <a href={`${blogBasePath}/${post.slug}`} class="block">
-          <div class="aspect-video bg-surface-2" aria-hidden="true"></div>
-          <div class="p-5 flex flex-col gap-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-fg-muted">
-              {post.category}
-            </span>
-            <h2 class="text-lg font-bold leading-snug text-fg">
-              {post.title}
-            </h2>
-            <time datetime={post.date} class="text-sm text-fg-subtle">
-              {post.date}
-            </time>
-          </div>
+  {
+    allSportsData.length > 0 && (
+      <div class="mb-8 flex flex-wrap gap-2">
+        <a
+          href={blogBasePath}
+          class:list={[
+            "px-3 py-1.5 text-xs rounded-full font-medium transition-all",
+            !activeSport
+              ? "bg-fg text-bg"
+              : "bg-surface-2 text-fg-muted hover:bg-surface-2",
+          ]}
+        >
+          {lang === "en" ? "All" : lang === "ca" ? "Tots" : "Todos"}
         </a>
-      </article>
-    ))}
+        {allSportsData.map((sport) => (
+          <a
+            href={`${blogBasePath}/sport/${sport.name}`}
+            class:list={[
+              "px-3 py-1.5 text-xs rounded-full font-medium transition-all",
+              activeSport === sport.name
+                ? "text-white"
+                : "bg-surface-2 text-fg-muted hover:bg-surface-2",
+            ]}
+            style={
+              activeSport === sport.name && sport.color
+                ? `background-color: ${sport.color}`
+                : ""
+            }
+          >
+            {sport.name}
+          </a>
+        ))}
+      </div>
+    )
+  }
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {
+      posts.map((post) => {
+        const postSports = post.sports || [];
+        return (
+          <article class="bg-surface rounded-2xl overflow-hidden shadow-(--shadow-sm) hover:shadow-(--shadow-md) transition-shadow">
+            <a href={`${blogBasePath}/${post.slug}`} class="block">
+              {post.featuredImage ? (
+                <img
+                  src={post.featuredImage}
+                  alt={post.title}
+                  class="aspect-video w-full object-cover"
+                />
+              ) : (
+                <div class="aspect-video bg-surface-2" aria-hidden="true" />
+              )}
+              <div class="p-5 flex flex-col gap-2">
+                {postSports.length > 0 && (
+                  <div class="flex flex-wrap gap-1">
+                    {postSports.map((sport) => (
+                      <span
+                        class="text-xs font-semibold px-2 py-0.5 rounded-full text-white"
+                        style={`background-color: ${sportColorMap[sport.name] || "#22c55e"}`}
+                      >
+                        {sport.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <h2 class="text-lg font-bold leading-snug text-fg">
+                  {post.title}
+                </h2>
+                {post.excerpt && (
+                  <p class="text-sm text-fg-muted line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                )}
+                <div class="flex items-center justify-between text-sm text-fg-subtle mt-auto pt-2">
+                  <time datetime={post.publishedAt}>
+                    {formatDate(post.publishedAt)}
+                  </time>
+                  {post.readingTime > 0 && <span>{post.readingTime} min</span>}
+                </div>
+              </div>
+            </a>
+          </article>
+        );
+      })
+    }
   </div>
 
-  <nav aria-label="pagination" class="mt-12 flex items-center justify-center gap-4">
-    {hasPrev ? (
-      <a
-        href={prevHref}
-        class="flex items-center gap-1 text-sm font-medium text-fg-muted hover:text-fg transition-colors"
-        aria-label={t['blog.index.pagination.prev']}
-      >
-        <IconArrowRight class="w-4 h-4 rotate-180" />
-        <span>{t['blog.index.pagination.prev']}</span>
-      </a>
-    ) : (
-      <span
-        class="flex items-center gap-1 text-sm font-medium text-fg-subtle cursor-not-allowed"
-        aria-disabled="true"
-      >
-        <IconArrowRight class="w-4 h-4 rotate-180" />
-        <span>{t['blog.index.pagination.prev']}</span>
-      </span>
-    )}
+  {
+    posts.length === 0 && (
+      <p class="text-center py-12 text-fg-muted">
+        {lang === "en"
+          ? "No articles found."
+          : lang === "ca"
+            ? "No s'han trobat articles."
+            : "No se han encontrado artículos."}
+      </p>
+    )
+  }
 
-    <span class="text-sm text-fg-muted">
-      {currentPage} {t['blog.index.pagination.of']} {totalPages}
-    </span>
-
-    {hasNext ? (
-      <a
-        href={nextHref}
-        class="flex items-center gap-1 text-sm font-medium text-fg-muted hover:text-fg transition-colors"
-        aria-label={t['blog.index.pagination.next']}
+  {
+    (totalPages > 1 || hasPrev || hasNext) && (
+      <nav
+        aria-label="pagination"
+        class="mt-12 flex items-center justify-center gap-4"
       >
-        <span>{t['blog.index.pagination.next']}</span>
-        <IconArrowRight class="w-4 h-4" />
-      </a>
-    ) : (
-      <span
-        class="flex items-center gap-1 text-sm font-medium text-fg-subtle cursor-not-allowed"
-        aria-disabled="true"
-      >
-        <span>{t['blog.index.pagination.next']}</span>
-        <IconArrowRight class="w-4 h-4" />
-      </span>
-    )}
-  </nav>
+        {hasPrev ? (
+          <a
+            href={prevHref}
+            class="flex items-center gap-1 text-sm font-medium text-fg-muted hover:text-fg transition-colors"
+            aria-label={t["blog.index.pagination.prev"]}
+          >
+            <IconArrowRight class="w-4 h-4 rotate-180" />
+            <span>{t["blog.index.pagination.prev"]}</span>
+          </a>
+        ) : (
+          <span
+            class="flex items-center gap-1 text-sm font-medium text-fg-subtle cursor-not-allowed"
+            aria-disabled="true"
+          >
+            <IconArrowRight class="w-4 h-4 rotate-180" />
+            <span>{t["blog.index.pagination.prev"]}</span>
+          </span>
+        )}
+        <span class="text-sm text-fg-muted">
+          {currentPage} {t["blog.index.pagination.of"]} {totalPages}
+        </span>
+        {hasNext ? (
+          <a
+            href={nextHref}
+            class="flex items-center gap-1 text-sm font-medium text-fg-muted hover:text-fg transition-colors"
+            aria-label={t["blog.index.pagination.next"]}
+          >
+            <span>{t["blog.index.pagination.next"]}</span>
+            <IconArrowRight class="w-4 h-4" />
+          </a>
+        ) : (
+          <span
+            class="flex items-center gap-1 text-sm font-medium text-fg-subtle cursor-not-allowed"
+            aria-disabled="true"
+          >
+            <span>{t["blog.index.pagination.next"]}</span>
+            <IconArrowRight class="w-4 h-4" />
+          </span>
+        )}
+      </nav>
+    )
+  }
 </section>

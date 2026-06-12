@@ -1,18 +1,17 @@
 ---
-import Layout from "../../../../../layouts/Layout.astro";
-import BlogIndex from "../../../../../components/BlogIndex.astro";
-import type { GetStaticPaths } from "astro";
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import BlogIndexSection from '../../../../../components/BlogIndexSection.astro';
+import { getTranslations } from '../../../../../i18n/index';
+import type { GetStaticPaths } from 'astro';
 
-const currentLang = "en";
-const blogBasePath = "/en/blog";
-const pageSize = 12;
+const lang = 'en' as const;
+const t = getTranslations(lang);
+const blogBasePath = '/en/blog';
 
 export const getStaticPaths = (async ({ paginate }) => {
   try {
     const [articlesRes, sportsRes] = await Promise.all([
-      fetch(
-        `${import.meta.env.API_BASE_URL}articles?language=en&sortField=publishedAt&sortOrder=DESC`,
-      ),
+      fetch(`${import.meta.env.API_BASE_URL}articles?language=en&sortField=publishedAt&sortOrder=DESC`),
       fetch(`${import.meta.env.API_BASE_URL}sports`),
     ]);
 
@@ -24,13 +23,8 @@ export const getStaticPaths = (async ({ paginate }) => {
       const sportPosts = postsArray.filter((post: any) =>
         post.sports?.some((s: { name: string }) => s.name === sport.name),
       );
-
       if (sportPosts.length === 0) return [];
-
-      return paginate(sportPosts, {
-        params: { sport: sport.name },
-        pageSize: 12,
-      });
+      return paginate(sportPosts, { params: { sport: sport.name }, pageSize: 12 });
     });
 
     return paths;
@@ -41,33 +35,18 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props;
 const { sport } = Astro.params;
-
-const sportTranslations: Record<string, string> = {
-  soccer: "Soccer",
-  basketball: "Basketball",
-  handball: "Handball",
-  volleyball: "Volleyball",
-  futsal: "Futsal",
-  rink_hockey: "Rink Hockey",
-  coach: "Staff",
-};
-
-const sportName = sportTranslations[sport?.toLowerCase() || ""] || sport;
 ---
 
-<Layout title={`Blog - ${sportName}`} currentLang={currentLang}>
-  <BlogIndex
-    currentLang={currentLang}
-    blogBasePath={blogBasePath}
+<BaseLayout title={`Blog · ${sport} · SportsMatch`} description={t['page.blog.desc']} lang={lang}>
+  <BlogIndexSection
+    t={t}
+    lang={lang}
     posts={page.data}
-    pagination={{
-      currentPage: page.currentPage,
-      lastPage: page.lastPage,
-      url: {
-        prev: page.url.prev,
-        next: page.url.next,
-      },
-    }}
+    blogBasePath={blogBasePath}
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    prevHref={page.url.prev}
+    nextHref={page.url.next}
     activeSport={sport}
   />
-</Layout>
+</BaseLayout>

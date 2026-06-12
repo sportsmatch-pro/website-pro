@@ -4,43 +4,27 @@ import BlogArticleSection from '../../../components/BlogArticleSection.astro';
 import { getTranslations } from '../../../i18n/index';
 import type { Lang } from '../../../i18n/index';
 
-type MockArticle = { slug: string; title: string; category: string; date: string; excerpt: string };
-
-export function getStaticPaths() {
-  const MOCK_ARTICLES: MockArticle[] = [
-    {
-      slug: 'primer-articulo-deportivo',
-      title: 'How to find your ideal club with SportsMatch',
-      category: 'Tips',
-      date: '2026-01-15',
-      excerpt: 'Discover the best strategies to connect with sports clubs in your area.',
-    },
-    {
-      slug: 'novedades-plataforma',
-      title: 'Platform updates: new sports now available',
-      category: 'Updates',
-      date: '2026-02-10',
-      excerpt: 'We are expanding our sports offering with handball, volleyball and more.',
-    },
-    {
-      slug: 'perfil-jugador-completo',
-      title: 'Create a player profile that stands out',
-      category: 'Guides',
-      date: '2026-03-05',
-      excerpt: 'Learn how to complete your profile to increase your visibility to scouts.',
-    },
-  ];
-  return MOCK_ARTICLES.map((article) => ({
-    params: { slug: article.slug },
-    props: { article },
-  }));
-}
+export const getStaticPaths = async () => {
+  try {
+    const res = await fetch(
+      `${import.meta.env.API_BASE_URL}articles?language=en&sortField=publishedAt&sortOrder=DESC`
+    );
+    const data = await res.json();
+    const posts = Array.isArray(data) ? data : data.items || [];
+    return posts.map((post: any) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+  } catch {
+    return [];
+  }
+};
 
 const lang: Lang = 'en';
 const t = getTranslations(lang);
-const { article } = Astro.props as { article: MockArticle };
+const { post } = Astro.props as { post: any };
 ---
 
-<BaseLayout title={t['page.article.title']} description={article.excerpt} lang={lang}>
-  <BlogArticleSection t={t} lang={lang} article={article} blogBasePath="/en/blog" />
+<BaseLayout title={post.title ?? t['page.article.title']} description={post.excerpt ?? ''} lang={lang}>
+  <BlogArticleSection t={t} lang={lang} post={post} blogBasePath="/en/blog" />
 </BaseLayout>

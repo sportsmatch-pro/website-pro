@@ -8,21 +8,8 @@
    Font face — Inter variable font
    ============================================================ */
 
-@font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter-VariableFont.ttf') format('truetype-variations');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter-Italic-VariableFont.ttf') format('truetype-variations');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/inter/wght-italic.css';
 
 /* ============================================================
    Design tokens — :root (light mode, always)
@@ -36,7 +23,7 @@
   --brand-green-soft: rgba(1, 140, 41, 0.12);
 
   /* Type */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Type scale */
   --fs-hero: clamp(48px, 8vw, 112px);

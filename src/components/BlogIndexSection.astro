@@ -52,7 +52,10 @@ const hasNext = !!nextHref;
 // Fetch sports for filter buttons
 let allSportsData: SportData[] = [];
 try {
-  const sportsRes = await fetch(import.meta.env.API_BASE_URL + "sports");
+  const acceptLanguage = lang === 'ca' ? 'ca-ES' : lang === 'en' ? 'en' : 'es-ES';
+  const sportsRes = await fetch(import.meta.env.API_BASE_URL + "sports", {
+    headers: { 'Accept-Language': acceptLanguage },
+  });
   allSportsData = await sportsRes.json();
 } catch {
   // API not available during build — use empty list
@@ -140,9 +143,9 @@ const formatDate = (dateString?: string): string => {
                     {postSports.map((sport) => (
                       <span
                         class="text-xs font-semibold px-2 py-0.5 rounded-full text-white"
-                        style={`background-color: ${sportColorMap[sport.name] || "#22c55e"}`}
+                        style={`background-color: #22c55e`}
                       >
-                        {sport.name}
+                        {(allSportsData.find(s => s.id === sport.id)?.name ?? sport.name)}
                       </span>
                     ))}
                   </div>

@@ -1,6 +1,6 @@
 ---
-import IconCaret from './IconCaret.astro';
-import type { Lang } from '../i18n/index';
+import IconCaret from "./IconCaret.astro";
+import type { Lang } from "../i18n/index";
 
 interface Post {
   id: string;
@@ -26,20 +26,42 @@ export interface Props {
 const { t, lang, post, blogBasePath } = Astro.props;
 
 const formatDate = (dateString?: string): string => {
-  if (!dateString) return '';
-  const locale = lang === 'ca' ? 'ca-ES' : lang === 'en' ? 'en-US' : 'es-ES';
+  if (!dateString) return "";
+  const locale = lang === "ca" ? "ca-ES" : lang === "en" ? "en-US" : "es-ES";
   return new Date(dateString).toLocaleDateString(locale, {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+    day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 };
+
+interface SportData {
+  id: string;
+  name: string;
+  color?: string;
+}
+
+let allSportsData: SportData[] = [];
+try {
+  const acceptLanguage =
+    lang === "ca" ? "ca-ES" : lang === "en" ? "en" : "es-ES";
+  const sportsRes = await fetch(import.meta.env.API_BASE_URL + "sports", {
+    headers: { "Accept-Language": acceptLanguage },
+  });
+  allSportsData = await sportsRes.json();
+} catch {
+  // API not available during build
+}
 ---
 
 <article class="max-w-3xl mx-auto px-4 py-12">
-  <nav data-testid="breadcrumb" aria-label="breadcrumb" class="flex items-center gap-2 text-sm text-fg-muted mb-8">
+  <nav
+    data-testid="breadcrumb"
+    aria-label="breadcrumb"
+    class="flex items-center gap-2 text-sm text-fg-muted mb-8"
+  >
     <a href={blogBasePath} class="hover:text-fg transition-colors">
-      {t['blog.article.breadcrumb.blog']}
+      {t["blog.article.breadcrumb.blog"]}
     </a>
     <IconCaret class="-rotate-90 w-3 h-3 shrink-0" />
     <span aria-current="page" class="text-fg font-medium truncate">
@@ -47,34 +69,40 @@ const formatDate = (dateString?: string): string => {
     </span>
   </nav>
 
-  {post.featuredImage && (
-    <img
-      src={post.featuredImage}
-      alt={post.title}
-      class="w-full aspect-video object-cover rounded-2xl mb-8"
-    />
-  )}
+  {
+    post.featuredImage && (
+      <img
+        src={post.featuredImage}
+        alt={post.title}
+        class="w-full object-cover rounded-2xl mb-8"
+      />
+    )
+  }
 
   <header class="mb-8 flex flex-col gap-3">
-    {post.sports && post.sports.length > 0 && (
-      <div class="flex flex-wrap gap-2">
-        {post.sports.map((sport) => (
-          <span class="text-xs font-semibold uppercase tracking-wider text-fg-muted">
-            {sport.name}
-          </span>
-        ))}
-      </div>
-    )}
+    {
+      post.sports && post.sports.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {post.sports.map((sport) => (
+            <span class="text-xs font-semibold uppercase tracking-wider text-fg-muted">
+              {allSportsData.find((s) => s.id === sport.id)?.name ?? sport.name}
+            </span>
+          ))}
+        </div>
+      )
+    }
     <h1 class="text-4xl font-bold tracking-tight text-fg leading-tight">
       {post.title}
     </h1>
     <div class="flex items-center gap-4 text-sm text-fg-subtle">
-      {post.publishedAt && (
-        <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-      )}
-      {post.readingTime > 0 && (
-        <span>{post.readingTime} min</span>
-      )}
+      {
+        post.publishedAt && (
+          <time datetime={post.publishedAt}>
+            {formatDate(post.publishedAt)}
+          </time>
+        )
+      }
+      {post.readingTime > 0 && <span>{post.readingTime} min</span>}
     </div>
   </header>
 

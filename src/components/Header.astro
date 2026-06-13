@@ -145,7 +145,7 @@ const iconBtn =
         <span>{t["nav.blog"]}</span>
       </BaseButton>
 
-      <BaseButton
+      <span class="hidden"><BaseButton
         variant="ghost"
         size="sm"
         tag="a"
@@ -153,7 +153,7 @@ const iconBtn =
         href={aboutHref}
       >
         <span>{t["nav.about"]}</span>
-      </BaseButton>
+      </BaseButton></span>
     </nav>
 
     <!-- Header actions -->
@@ -304,7 +304,7 @@ const iconBtn =
     <a class={navItem} href="#">{t["nav.product.sports"]}</a>
     <hr class="border-line my-1" />
     <a class={navItem} href={blogHref}>{t["nav.blog"]}</a>
-    <a class={navItem} href={aboutHref}>{t["nav.about"]}</a>
+    <a class={`${navItem} hidden`} href={aboutHref}>{t["nav.about"]}</a>
     <hr class="border-line my-1" />
     <a class={navItem} href={translatedUrls.es}>ES — {t["lang.es"]}</a>
     <a class={navItem} href={translatedUrls.ca}>CA — {t["lang.ca"]}</a>

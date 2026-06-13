@@ -18,6 +18,7 @@ interface Post {
 
 interface SportData {
   id: string;
+  key?: string;
   name: string;
   color?: string;
 }
@@ -101,15 +102,15 @@ const formatDate = (dateString?: string): string => {
         </a>
         {allSportsData.map((sport) => (
           <a
-            href={`${blogBasePath}/sport/${sport.name}`}
+            href={`${blogBasePath}/sport/${sport.key ?? sport.id}`}
             class:list={[
               "px-3 py-1.5 text-xs rounded-full font-medium transition-all",
-              activeSport === sport.name
+              activeSport === (sport.key ?? sport.id)
                 ? "text-white"
                 : "bg-surface-2 text-fg-muted hover:bg-surface-2",
             ]}
             style={
-              activeSport === sport.name && sport.color
+              activeSport === (sport.key ?? sport.id) && sport.color
                 ? `background-color: ${sport.color}`
                 : ""
             }

@@ -173,7 +173,12 @@ export const routes: AppRoutes = {
     "es-ES": { url: "/terminos", title: "Términos de Servicio", description: "Términos de servicio de SportsMatch" },
     "ca-ES": { url: "/ca/termes", title: "Termes de Servei", description: "Termes de servei de SportsMatch" },
     "en": { url: "/en/terms", title: "Terms of Service", description: "Terms of service of SportsMatch" }
-  }
+  },
+  blog: {
+    "es-ES": { url: "/blog", title: "Blog", description: "Blog de SportsMatch" },
+    "ca-ES": { url: "/ca/blog", title: "Blog", description: "Blog de SportsMatch" },
+    "en": { url: "/en/blog", title: "Blog", description: "Blog de SportsMatch" },
+  },
 };
 
 // Funció helper per obtenir les rutes d'una pàgina específica

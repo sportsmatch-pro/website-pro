@@ -11,9 +11,21 @@ export const getStaticPaths = async () => {
     );
     const data = await res.json();
     const posts = Array.isArray(data) ? data : data.items || [];
-    return posts.map((post: any) => ({
-      params: { slug: post.slug },
-      props: { post },
+    return await Promise.all(posts.map(async (post: any) => {
+      let translationSlugs: { es?: string; ca?: string; en?: string } = {};
+      try {
+        const tRes = await fetch(`${import.meta.env.API_BASE_URL}articles/slug/${post.slug}?language=en`);
+        const tData = await tRes.json();
+        if (Array.isArray(tData.translations)) {
+          tData.translations.forEach((tr: { language: string; slug: string }) => {
+            if (tr.language === 'es-ES') translationSlugs.es = tr.slug;
+            if (tr.language === 'ca-ES') translationSlugs.ca = tr.slug;
+            if (tr.language === 'en') translationSlugs.en = tr.slug;
+          });
+        }
+      } catch { /* ignore */ }
+      translationSlugs.en = post.slug;
+      return { params: { slug: post.slug }, props: { post, translationSlugs } };
     }));
   } catch {
     return [];
@@ -22,9 +34,14 @@ export const getStaticPaths = async () => {
 
 const lang: Lang = 'en';
 const t = getTranslations(lang);
-const { post } = Astro.props as { post: any };
+const { post, translationSlugs = {} } = Astro.props as { post: any; translationSlugs: { es?: string; ca?: string; en?: string } };
+const translatedUrls = {
+  es: translationSlugs.es ? `/blog/${translationSlugs.es}` : '/blog',
+  ca: translationSlugs.ca ? `/ca/blog/${translationSlugs.ca}` : '/ca/blog',
+  en: translationSlugs.en ? `/en/blog/${translationSlugs.en}` : '/en/blog',
+};
 ---
 
-<BaseLayout title={post.title ?? t['page.article.title']} description={post.excerpt ?? ''} lang={lang}>
+<BaseLayout title={post.title ?? t['page.article.title']} description={post.excerpt ?? ''} lang={lang} translatedUrls={translatedUrls}>
   <BlogArticleSection t={t} lang={lang} post={post} blogBasePath="/en/blog" />
 </BaseLayout>

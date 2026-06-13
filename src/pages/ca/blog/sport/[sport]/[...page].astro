@@ -19,12 +19,12 @@ export const getStaticPaths = (async ({ paginate }) => {
     const postsArray = Array.isArray(posts) ? posts : posts.items || [];
     const sports = await sportsRes.json();
 
-    const paths = sports.flatMap((sport: { name: string }) => {
+    const paths = sports.flatMap((sport: { id: string; key?: string; name: string }) => {
       const sportPosts = postsArray.filter((post: any) =>
-        post.sports?.some((s: { name: string }) => s.name === sport.name),
+        post.sports?.some((s: { id: string }) => s.id === sport.id),
       );
       if (sportPosts.length === 0) return [];
-      return paginate(sportPosts, { params: { sport: sport.name }, pageSize: 12 });
+      return paginate(sportPosts, { params: { sport: sport.key ?? sport.id }, pageSize: 12 });
     });
 
     return paths;
@@ -35,9 +35,14 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props;
 const { sport } = Astro.params;
+const translatedUrls = {
+  es: `/blog/sport/${sport}`,
+  ca: `/ca/blog/sport/${sport}`,
+  en: `/en/blog/sport/${sport}`,
+};
 ---
 
-<BaseLayout title={`Blog · ${sport} · SportsMatch`} description={t['page.blog.desc']} lang={lang}>
+<BaseLayout title={`Blog · ${sport} · SportsMatch`} description={t['page.blog.desc']} lang={lang} translatedUrls={translatedUrls}>
   <BlogIndexSection
     t={t}
     lang={lang}

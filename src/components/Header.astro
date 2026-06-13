@@ -17,12 +17,13 @@ import BaseButton from "./base/BaseButton.astro";
 export interface Props {
   lang: Lang;
   currentPath: string;
+  translatedUrls?: { es: string; ca: string; en: string };
 }
 
-const { lang, currentPath } = Astro.props;
+const { lang, currentPath, translatedUrls: translatedUrlsProp } = Astro.props;
 const t = getTranslations(lang);
 
-const translatedUrls = getTranslatedUrlsForPath(currentPath);
+const translatedUrls = translatedUrlsProp ?? getTranslatedUrlsForPath(currentPath);
 const langRoutes: Record<Lang, string> = { es: "/", ca: "/ca", en: "/en" };
 const langLabel = lang.toUpperCase();
 const blogHref = lang === "es" ? "/blog" : `/${lang}/blog`;

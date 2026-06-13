@@ -10,6 +10,7 @@ export interface Props {
   description?: string;
   lang: Lang;
   ogImage?: string;
+  translatedUrls?: { es: string; ca: string; en: string };
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   description = 'SportsMatch — Tu match deportivo, sin intermediarios',
   lang,
   ogImage,
+  translatedUrls,
 } = Astro.props;
 
 const siteUrl = 'https://sportsmatch.pro';
@@ -72,7 +74,7 @@ const hreflangEn = `${siteUrl}/en${canonicalPath.replace(/^\/(ca|en)(\/|$)/, '/'
   </head>
 
   <body>
-    <Header lang={lang} currentPath={Astro.url.pathname} />
+    <Header lang={lang} currentPath={Astro.url.pathname} translatedUrls={translatedUrls} />
     <main>
       <slot />
     </main>

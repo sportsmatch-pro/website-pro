@@ -54,8 +54,8 @@ const en: Record<string, string> = {
   'foot.company.contact': 'Contact',
   'foot.community.instagram': 'Instagram',
   'foot.community.tiktok': 'TikTok',
+  'foot.community.facebook': 'Facebook',
   'foot.community.linkedin': 'LinkedIn',
-  'foot.community.twitter': 'Twitter / X',
 
   // Store buttons
   'store.available': 'Available on',

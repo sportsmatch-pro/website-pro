@@ -28,8 +28,8 @@ const translations: Record<string, Record<string, string>> = {
     'foot.company.contact': 'Contacto',
     'foot.community.instagram': 'Instagram',
     'foot.community.tiktok': 'TikTok',
+    'foot.community.facebook': 'Facebook',
     'foot.community.linkedin': 'LinkedIn',
-    'foot.community.twitter': 'Twitter / X',
     'store.available': 'Disponible en',
     'store.appstore': 'App Store',
     'store.googleplay': 'Google Play',
@@ -83,10 +83,10 @@ export function Footer({ lang = 'es' }: Props) {
         <div data-column="community">
           <p>{t['foot.community']}</p>
           <ul>
-            <li><a href="#">{t['foot.community.instagram']}</a></li>
-            <li><a href="#">{t['foot.community.tiktok']}</a></li>
-            <li><a href="#">{t['foot.community.linkedin']}</a></li>
-            <li><a href="#">{t['foot.community.twitter']}</a></li>
+            <li><a href="https://www.instagram.com/sports.match.pro/" target="_blank" rel="noopener noreferrer">{t['foot.community.instagram']}</a></li>
+            <li><a href="https://www.tiktok.com/@sportsmatch_pro" target="_blank" rel="noopener noreferrer">{t['foot.community.tiktok']}</a></li>
+            <li><a href="https://www.facebook.com/people/Sports-Match/100093952096508/" target="_blank" rel="noopener noreferrer">{t['foot.community.facebook']}</a></li>
+            <li><a href="https://www.linkedin.com/company/sportsmatchapp" target="_blank" rel="noopener noreferrer">{t['foot.community.linkedin']}</a></li>
           </ul>
         </div>
 

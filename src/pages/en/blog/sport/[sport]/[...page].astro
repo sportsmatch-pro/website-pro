@@ -23,7 +23,6 @@ export const getStaticPaths = (async ({ paginate }) => {
       const sportPosts = postsArray.filter((post: any) =>
         post.sports?.some((s: { id: string }) => s.id === sport.id),
       );
-      if (sportPosts.length === 0) return [];
       return paginate(sportPosts, { params: { sport: sport.key ?? sport.id }, pageSize: 12 });
     });
 

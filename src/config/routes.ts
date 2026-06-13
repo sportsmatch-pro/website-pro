@@ -168,6 +168,11 @@ export const routes: AppRoutes = {
     "es-ES": { url: "/registrarse", title: "Registrarse", description: "Registrarse en SportsMatch" },
     "ca-ES": { url: "/ca/registrar-se", title: "Registrar-se", description: "Registrar-se a SportsMatch" },
     "en": { url: "/en/signin", title: "Sign Up", description: "Sign up for SportsMatch" }
+  },
+  terms: {
+    "es-ES": { url: "/terminos", title: "Términos de Servicio", description: "Términos de servicio de SportsMatch" },
+    "ca-ES": { url: "/ca/termes", title: "Termes de Servei", description: "Termes de servei de SportsMatch" },
+    "en": { url: "/en/terms", title: "Terms of Service", description: "Terms of service of SportsMatch" }
   }
 };
 
@@ -179,6 +184,23 @@ export function getPageRoutes(pageKey: string): PageRoutes | undefined {
 // Funció helper per obtenir la configuració d'una pàgina en un idioma específic
 export function getPageConfig(pageKey: string, language: string): RouteConfig | undefined {
   return routes[pageKey]?.[language];
+}
+
+// Given any page URL, return the translated URLs for all three languages.
+// Falls back to the language root if the path is not in the routes table.
+export function getTranslatedUrlsForPath(currentPath: string): { es: string; ca: string; en: string } {
+  for (const pageRoutes of Object.values(routes)) {
+    for (const config of Object.values(pageRoutes)) {
+      if ((config as RouteConfig).url === currentPath) {
+        return {
+          es: (pageRoutes["es-ES"] as RouteConfig)?.url ?? "/",
+          ca: (pageRoutes["ca-ES"] as RouteConfig)?.url ?? "/ca",
+          en: (pageRoutes["en"] as RouteConfig)?.url ?? "/en",
+        };
+      }
+    }
+  }
+  return { es: "/", ca: "/ca", en: "/en" };
 }
 
 // Funció helper per obtenir les rutes de traducció (només URLs) per al LanguageSelector

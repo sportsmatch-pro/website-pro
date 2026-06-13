@@ -5,270 +5,213 @@ export interface Props {
 
 const { currentLang } = Astro.props;
 
-// Traduccions per a cada idioma
 const translations = {
   "es-ES": {
     title: "Política de cookies",
-    description: "Política de cookies de SportsMatch",
-    section1: {
-      title: "Información",
-      content: `<p>FERSUTER SL informa acerca del uso de las cookies en su página web www.sportsmatch.pro</p>`,
-    },
-    section2: {
-      title: "¿Qué son las cookies?",
-      content: `<p>Las cookies son archivos que se pueden descargar en su equipo a través de las páginas web. Son herramientas que tienen un papel esencial para la prestación de numerosos servicios de la sociedad de la información. Entre otros, permiten a una página web almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información obtenida, se pueden utilizar para reconocer al usuario y mejorar el servicio ofrecido.</p>`,
-    },
-    section3: {
-      title: "Tipos de cookies",
-      content: `<p>Según quien sea la entidad que gestione el dominio desde donde se envían las cookies y trate los datos que se obtengan se pueden distinguir dos tipos:</p>
-
-<p class="font-semibold">Cookies propias:</p>
-<p>aquellas que se envían al equipo terminal del usuario desde un equipo o dominio gestionado por el propio editor y desde el que se presta el servicio solicitado por el usuario.</p>
-
-<p class="font-semibold">Cookies de terceros:</p>
-<p>aquellas que se envían al equipo terminal del usuario desde un equipo o dominio que no es gestionado por el editor, sino por otra entidad que trata los datos obtenidos través de las cookies.</p>
-
+    sections: [
+      {
+        title: "Información",
+        content: `<p>FERSUTER SL informa acerca del uso de las cookies en su página web <a href="https://www.sportsmatch.pro" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">www.sportsmatch.pro</a>.</p>`,
+      },
+      {
+        title: "¿Qué son las cookies?",
+        content: `<p>Las cookies son archivos que se pueden descargar en su equipo a través de las páginas web. Son herramientas que tienen un papel esencial para la prestación de numerosos servicios de la sociedad de la información. Entre otros, permiten a una página web almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información obtenida, se pueden utilizar para reconocer al usuario y mejorar el servicio ofrecido.</p>`,
+      },
+      {
+        title: "Tipos de cookies",
+        content: `<p>Según quien sea la entidad que gestione el dominio desde donde se envían las cookies y trate los datos que se obtengan se pueden distinguir dos tipos:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Cookies propias:</strong> aquellas que se envían al equipo terminal del usuario desde un equipo o dominio gestionado por el propio editor y desde el que se presta el servicio solicitado por el usuario.</li>
+  <li><strong>Cookies de terceros:</strong> aquellas que se envían al equipo terminal del usuario desde un equipo o dominio que no es gestionado por el editor, sino por otra entidad que trata los datos obtenidos través de las cookies.</li>
+</ul>
 <p>En el caso de que las cookies sean instaladas desde un equipo o dominio gestionado por el propio editor pero la información que se recoja mediante éstas sea gestionada por un tercero, no pueden ser consideradas como cookies propias.</p>
-
-<p class="font-semibold">Existe también una segunda clasificación según el plazo de tiempo que permanecen almacenadas en el navegador del cliente, pudiendo tratarse de:</p>
-
-<p class="font-semibold">Cookies de sesión:</p>
-<p>diseñadas para recabar y almacenar datos mientras el usuario accede a una página web. Se suelen emplear para almacenar información que solo interesa conservar para la prestación del servicio solicitado por el usuario en una sola ocasión (p.e. una lista de productos adquiridos).</p>
-
-<p class="font-semibold">Cookies persistentes:</p>
-<p>los datos siguen almacenados en el terminal y pueden ser accedidos y tratados durante un periodo definido por el responsable de la cookie, y que puede ir de unos minutos a varios años.</p>
-
-<p class="font-semibold">Por último, existe otra clasificación con cinco tipos de cookies según la finalidad para la que se traten los datos obtenidos:</p>
-
-<ul class="list-disc list-inside mb-4">
+<p>Existe también una segunda clasificación según el plazo de tiempo que permanecen almacenadas en el navegador del cliente, pudiendo tratarse de:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Cookies de sesión:</strong> diseñadas para recabar y almacenar datos mientras el usuario accede a una página web. Se suelen emplear para almacenar información que solo interesa conservar para la prestación del servicio solicitado por el usuario en una sola ocasión (p.e. una lista de productos adquiridos).</li>
+  <li><strong>Cookies persistentes:</strong> los datos siguen almacenados en el terminal y pueden ser accedidos y tratados durante un periodo definido por el responsable de la cookie, y que puede ir de unos minutos a varios años.</li>
+</ul>
+<p>Por último, existe otra clasificación con cinco tipos de cookies según la finalidad para la que se traten los datos obtenidos:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><strong>Cookies técnicas:</strong> aquellas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan como, por ejemplo, controlar el tráfico y la comunicación de datos, identificar la sesión, acceder a partes de acceso restringido, recordar los elementos que integran un pedido, realizar el proceso de compra de un pedido, realizar la solicitud de inscripción o participación en un evento, utilizar elementos de seguridad durante la navegación, almacenar contenidos para la difusión de vídeos o sonido o compartir contenidos a través de redes sociales.</li>
   <li><strong>Cookies de personalización:</strong> permiten al usuario acceder al servicio con algunas características de carácter general predefinidas en función de una serie de criterios en el terminal del usuario como por ejemplo serian el idioma, el tipo de navegador a través del cual accede al servicio, la configuración regional desde donde accede al servicio, etc.</li>
   <li><strong>Cookies de análisis:</strong> permiten al responsable de las mismas, el seguimiento y análisis del comportamiento de los usuarios de los sitios web a los que están vinculadas. La información recogida mediante este tipo de cookies se utiliza en la medición de la actividad de los sitios web, aplicación o plataforma y para la elaboración de perfiles de navegación de los usuarios de dichos sitios, aplicaciones y plataformas, con el fin de introducir mejoras en función del análisis de los datos de uso que hacen los usuarios del servicio.</li>
   <li><strong>Cookies publicitarias:</strong> permiten la gestión, de la forma más eficaz posible, de los espacios publicitarios.</li>
   <li><strong>Cookies de publicidad comportamental:</strong> almacenan información del comportamiento de los usuarios obtenida a través de la observación continuada de sus hábitos de navegación, lo que permite desarrollar un perfil específico para mostrar publicidad en función del mismo.</li>
-  <li><strong>Cookies de redes sociales externas:</strong> se utilizan para que los visitantes puedan interactuar con el contenido de diferentes plataformas sociales (facebook, youtube, Instagram, X, linkedIn, etc..) y que se generen únicamente para los usuarios de dichas redes sociales. Las condiciones de utilización de estas cookies y la información recopilada se regula por la política de privacidad de la plataforma social correspondiente.</li>
+  <li><strong>Cookies de redes sociales externas:</strong> se utilizan para que los visitantes puedan interactuar con el contenido de diferentes plataformas sociales (Facebook, YouTube, Instagram, X, LinkedIn, etc.) y que se generen únicamente para los usuarios de dichas redes sociales. Las condiciones de utilización de estas cookies y la información recopilada se regula por la política de privacidad de la plataforma social correspondiente.</li>
 </ul>`,
-    },
-    section4: {
-      title: "Desactivación y eliminación de cookies",
-      content: `<p>Tienes la opción de permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en su equipo. Al desactivar cookies, algunos de los servicios disponibles podrían dejar de estar operativos. La forma de deshabilitar las cookies es diferente para cada navegador, pero normalmente puede hacerse desde el menú Herramientas u Opciones. También puede consultarse el menú de Ayuda del navegador dónde puedes encontrar instrucciones. El usuario podrá en cualquier momento elegir qué cookies quiere que funcionen en este sitio web.</p>
-
+      },
+      {
+        title: "Desactivación y eliminación de cookies",
+        content: `<p>Tienes la opción de permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en su equipo. Al desactivar cookies, algunos de los servicios disponibles podrían dejar de estar operativos. La forma de deshabilitar las cookies es diferente para cada navegador, pero normalmente puede hacerse desde el menú Herramientas u Opciones. También puede consultarse el menú de Ayuda del navegador dónde puedes encontrar instrucciones. El usuario podrá en cualquier momento elegir qué cookies quiere que funcionen en este sitio web.</p>
 <p>Puede usted permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador:</p>
-
-<ul class="list-disc list-inside mb-4">
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><a href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Microsoft Internet Explorer o Microsoft Edge</a></li>
   <li><a href="https://support.mozilla.org/es/kb/impedir-que-los-sitios-web-guarden-sus-preferencia" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Mozilla Firefox</a></li>
   <li><a href="https://support.google.com/accounts/answer/61416" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Chrome</a></li>
   <li><a href="http://safari.helpmax.net/es/privacidad-y-seguridad/como-gestionar-las-cookies" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Safari</a></li>
   <li><a href="https://help.opera.com/en/latest/web-preferences/#cookies" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Opera</a></li>
 </ul>
-
 <p>Además, también puede gestionar el almacén de cookies en su navegador a través de herramientas como las siguientes:</p>
-
-<ul class="list-disc list-inside mb-4">
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><a href="https://www.ghostery.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Ghostery</a></li>
   <li><a href="https://www.youronlinechoices.com/es/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Your online choices</a></li>
 </ul>`,
-    },
-    section5: {
-      title: "Cookies utilizadas en www.sportsmatch.pro",
-      content: `<p>A continuación se identifican las cookies que están siendo utilizadas en este portal así como su tipología y función:</p>`,
-    },
-    section6: {
-      title: "Aceptación de la Política de cookies",
-      content: `<p>www.sportsmatch.pro asume que usted acepta el uso de cookies. No obstante, muestra información sobre su Política de cookies en la parte inferior o superior de cualquier página del portal con cada inicio de sesión con el objeto de que usted sea consciente. Ante esta información es posible llevar a cabo las siguientes acciones:</p>
-
-<ul class="list-disc list-inside mb-4">
+      },
+      {
+        title: "Cookies utilizadas en www.sportsmatch.pro",
+        content: `<p>A continuación se identifican las cookies que están siendo utilizadas en este portal así como su tipología y función.</p>
+<p><strong>Aceptación de la Política de cookies</strong></p>
+<p>www.sportsmatch.pro asume que usted acepta el uso de cookies. No obstante, muestra información sobre su Política de cookies en la parte inferior o superior de cualquier página del portal con cada inicio de sesión con el objeto de que usted sea consciente. Ante esta información es posible llevar a cabo las siguientes acciones:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><strong>Aceptar cookies.</strong> No se volverá a visualizar este aviso al acceder a cualquier página del portal durante la presente sesión.</li>
   <li><strong>Cerrar.</strong> Se oculta el aviso en la presente página.</li>
   <li><strong>Modificar su configuración.</strong> Podrá obtener más información sobre qué son las cookies, conocer la Política de cookies de www.sportsmatch.pro y modificar la configuración de su navegador.</li>
 </ul>`,
-    },
+      },
+    ],
   },
   "ca-ES": {
     title: "Política de cookies",
-    description: "Política de cookies de SportsMatch",
-    section1: {
-      title: "Informació",
-      content: `<p>FERSUTER SL informa sobre l'ús de les cookies en la seva pàgina web www.sportsmatch.pro</p>`,
-    },
-    section2: {
-      title: "Què són les cookies?",
-      content: `<p>Les cookies són fitxers que es poden descarregar en el vostre equip a través de les pàgines web. Són eines que tenen un paper essencial per a la prestació de nombrosos serveis de la societat de la informació. Entre altres, permeten a una pàgina web emmagatzemar i recuperar informació sobre els hàbits de navegació d'un usuari o del seu equip i, depenent de la informació obtinguda, es poden utilitzar per reconèixer l'usuari i millorar el servei ofert.</p>`,
-    },
-    section3: {
-      title: "Tipus de cookies",
-      content: `<p>Segons qui sigui l'entitat que gestioni el domini des d'on s'envien les cookies i tracti les dades que s'obtinguin es poden distingir dos tipus:</p>
-
-<p class="font-semibold">Cookies pròpies:</p>
-<p>aquelles que s'envien a l'equip terminal de l'usuari des d'un equip o domini gestionat pel propi editor i des del qual es presta el servei sol·licitat per l'usuari.</p>
-
-<p class="font-semibold">Cookies de tercers:</p>
-<p>aquelles que s'envien a l'equip terminal de l'usuari des d'un equip o domini que no és gestionat per l'editor, sinó per una altra entitat que tracta les dades obtinguts través de les cookies.</p>
-
-<p>En el cas que les cookies siguin instal·lades des d'un equip o domini gestionat pel propi editor però la informació que es reculli mitjançant aquestes sigui gestionada per un tercer, no poden ser considerades com a cookies pròpies.</p>
-
-<p class="font-semibold">Existeix també una segona classificació segons el termini de temps que romanen emmagatzemades en el navegador del client, podent tractar-se de:</p>
-
-<p class="font-semibold">Cookies de sessió:</p>
-<p>dissenyades per recopilar i emmagatzemar dades mentre l'usuari accedeix a una pàgina web. Solen emprar-se per emmagatzemar informació que només interessa conservar per a la prestació del servei sol·licitat per l'usuari en una sola ocasió (p.e. una llista de productes adquirits).</p>
-
-<p class="font-semibold">Cookies persistents:</p>
-<p>les dades continuen emmagatzemades en el terminal i poden ser accedides i tractades durant un període definit pel responsable de la cookie, i que pot anar des d'uns minuts fins a diversos anys.</p>
-
-<p class="font-semibold">Per últim, existeix una altra classificació amb cinc tipus de cookies segons la finalitat per a la qual es tractin les dades obtingudes:</p>
-
-<ul class="list-disc list-inside mb-4">
-  <li><strong>Cookies tècniques:</strong> aquelles que permeten a l'usuari la navegació a través d'una pàgina web, plataforma o aplicació i la utilització de les diferents opcions o serveis que en ella existeixin com, per exemple, controlar el trànsit i la comunicació de dades, identificar la sessió, accedir a parts d'accés restringit, recordar els elements que integren una comanda, realitzar el procés de compra d'una comanda, realitzar la sol·licitud d'inscripció o participació en un esdeveniment, utilitzar elements de seguretat durant la navegació, emmagatzemar continguts per a la difusió de vídeos o so o compartir continguts a través de xarxes socials.</li>
-  <li><strong>Cookies de personalització:</strong> permeten a l'usuari accedir al servei amb algunes característiques de caràcter general predefinides en funció d'una sèrie de criteris en el terminal de l'usuari com per exemple serien l'idioma, el tipus de navegador a través del qual accedeix al servei, la configuració regional des d'on accedeix al servei, etc.</li>
-  <li><strong>Cookies d'anàlisi:</strong> permeten al responsable de les mateixes, el seguiment i anàlisi del comportament dels usuaris dels llocs web als quals estan vinculades. La informació recollida mitjançant aquest tipus de cookies s'utilitza en la mesura de l'activitat dels llocs web, aplicació o plataforma i per a l'elaboració de perfils de navegació dels usuaris d'aquests llocs, aplicacions i plataformes, amb la finalitat d'introduir millores en funció de l'anàlisi de les dades d'ús que fan els usuaris del servei.</li>
-  <li><strong>Cookies publicitàries:</strong> permeten la gestió, de la forma més eficaç possible, dels espais publicitaris.</li>
-  <li><strong>Cookies de publicitat comportamental:</strong> emmagatzemen informació del comportament dels usuaris obtinguda a través de l'observació continuada dels seus hàbits de navegació, el que permet desenvolupar un perfil específic per mostrar publicitat en funció del mateix.</li>
-  <li><strong>Cookies de xarxes socials externes:</strong> s'utilitzen perquè els visitants puguin interactuar amb el contingut de diferents plataformes socials (facebook, youtube, Instagram, X, linkedIn, etc..) i que es generin únicament per als usuaris d'aquestes xarxes socials. Les condicions d'utilització d'aquestes cookies i la informació recopilada es regula per la política de privacitat de la plataforma social corresponent.</li>
+    sections: [
+      {
+        title: "Informació",
+        content: `<p>FERSUTER SL informa sobre l'ús de les cookies a la seva pàgina web <a href="https://www.sportsmatch.pro" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">www.sportsmatch.pro</a>.</p>`,
+      },
+      {
+        title: "Què són les cookies?",
+        content: `<p>Les cookies són fitxers que es poden descarregar al vostre dispositiu a través de les pàgines web. Són eines que tenen un paper essencial per a la prestació de nombrosos serveis de la societat de la informació. Entre altres, permeten a una pàgina web emmagatzemar i recuperar informació sobre els hàbits de navegació d'un usuari o del seu dispositiu i, depenent de la informació obtinguda, es poden utilitzar per reconèixer l'usuari i millorar el servei ofert.</p>`,
+      },
+      {
+        title: "Tipus de cookies",
+        content: `<p>Segons l'entitat que gestioni el domini des d'on s'envien les cookies i tracti les dades obtingudes, es poden distingir dos tipus:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Cookies pròpies:</strong> aquelles que s'envien al dispositiu de l'usuari des d'un equip o domini gestionat pel mateix editor i des del qual es presta el servei sol·licitat per l'usuari.</li>
+  <li><strong>Cookies de tercers:</strong> aquelles que s'envien al dispositiu de l'usuari des d'un equip o domini que no és gestionat per l'editor, sinó per una altra entitat que tracta les dades obtingudes a través de les cookies.</li>
+</ul>
+<p>En el cas que les cookies siguin instal·lades des d'un equip o domini gestionat pel mateix editor, però la informació recollida mitjançant aquestes sigui gestionada per un tercer, no es poden considerar com a cookies pròpies.</p>
+<p>A més, existeix una segona classificació segons el temps que romanen emmagatzemades al navegador de l'usuari, podent ser:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Cookies de sessió:</strong> dissenyades per recopilar i emmagatzemar dades mentre l'usuari accedeix a una pàgina web. S'utilitzen per guardar informació que només interessa conservar durant la prestació del servei sol·licitat per l'usuari en una sola ocasió (per exemple, una llista de productes adquirits).</li>
+  <li><strong>Cookies persistents:</strong> les dades segueixen emmagatzemades al dispositiu i poden ser accedides i tractades durant un període definit pel responsable de la cookie, que pot anar des d'uns minuts fins a diversos anys.</li>
+</ul>
+<p>Finalment, hi ha una tercera classificació en funció de la finalitat per a la qual es tractin les dades obtingudes, diferenciant cinc tipus de cookies:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Cookies tècniques:</strong> permeten a l'usuari la navegació a través d'una pàgina web, plataforma o aplicació i la utilització de les diferents opcions o serveis existents, com per exemple controlar el trànsit i la comunicació de dades, identificar la sessió, accedir a parts d'accés restringit, recordar els elements d'una comanda, realitzar el procés de compra, sol·licitar la inscripció o participació en un esdeveniment, utilitzar elements de seguretat durant la navegació, emmagatzemar continguts per a la difusió de vídeos o so, o compartir continguts a través de xarxes socials.</li>
+  <li><strong>Cookies de personalització:</strong> permeten a l'usuari accedir al servei amb algunes característiques generals predefinides segons una sèrie de criteris al dispositiu de l'usuari, com ara l'idioma, el tipus de navegador a través del qual s'accedeix al servei o la configuració regional des d'on es connecta.</li>
+  <li><strong>Cookies d'anàlisi:</strong> permeten al responsable d'aquestes fer un seguiment i anàlisi del comportament dels usuaris dels llocs web als quals estan vinculades. La informació recollida s'utilitza per mesurar l'activitat dels llocs web, aplicacions o plataformes i per elaborar perfils de navegació dels usuaris, amb l'objectiu d'introduir millores basades en l'anàlisi de les dades d'ús del servei.</li>
+  <li><strong>Cookies publicitàries:</strong> permeten la gestió més eficaç dels espais publicitaris.</li>
+  <li><strong>Cookies de publicitat comportamental:</strong> emmagatzemen informació sobre el comportament dels usuaris obtinguda mitjançant l'observació continuada dels seus hàbits de navegació, cosa que permet desenvolupar un perfil específic per mostrar publicitat basada en aquests hàbits.</li>
+  <li><strong>Cookies de xarxes socials externes:</strong> s'utilitzen perquè els visitants puguin interactuar amb el contingut de diferents plataformes socials (Facebook, YouTube, Instagram, X, LinkedIn, etc.) i es generen exclusivament per als usuaris d'aquestes xarxes socials. Les condicions d'ús d'aquestes cookies i la informació recopilada es regeixen per la política de privacitat de la plataforma social corresponent.</li>
 </ul>`,
-    },
-    section4: {
-      title: "Desactivació i eliminació de cookies",
-      content: `<p>Tens l'opció de permetre, bloquejar o eliminar les cookies instal·lades en el teu equip mitjançant la configuració de les opcions del navegador instal·lat en el seu equip. En desactivar cookies, alguns dels serveis disponibles podrien deixar d'estar operatius. La forma de deshabilitar les cookies és diferent per a cada navegador, però normalment pot fer-se des del menú Eines o Opcions. També pot consultar-se el menú d'Ajuda del navegador on pots trobar instruccions. L'usuari podrà en qualsevol moment triar quines cookies vol que funcionin en aquest lloc web.</p>
-
-<p>Podeu permetre, bloquejar o eliminar les cookies instal·lades en el vostre equip mitjançant la configuració de les opcions del navegador instal·lat en el vostre ordinador:</p>
-
-<ul class="list-disc list-inside mb-4">
+      },
+      {
+        title: "Desactivació i eliminació de cookies",
+        content: `<p>Tens l'opció de permetre, bloquejar o eliminar les cookies instal·lades al teu dispositiu mitjançant la configuració de les opcions del navegador. En desactivar cookies, alguns dels serveis disponibles podrien deixar d'estar operatius. La forma de deshabilitar les cookies és diferent per a cada navegador, però normalment pot fer-se des del menú Eines o Opcions. També pot consultar-se el menú d'Ajuda del navegador on pots trobar instruccions. L'usuari podrà en qualsevol moment triar quines cookies vol que funcionin en aquest lloc web.</p>
+<p>Podeu permetre, bloquejar o eliminar les cookies instal·lades al vostre dispositiu mitjançant la configuració de les opcions del navegador:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><a href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Microsoft Internet Explorer o Microsoft Edge</a></li>
   <li><a href="https://support.mozilla.org/es/kb/impedir-que-los-sitios-web-guarden-sus-preferencia" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Mozilla Firefox</a></li>
   <li><a href="https://support.google.com/accounts/answer/61416" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Chrome</a></li>
   <li><a href="http://safari.helpmax.net/es/privacidad-y-seguridad/como-gestionar-las-cookies" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Safari</a></li>
   <li><a href="https://help.opera.com/en/latest/web-preferences/#cookies" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Opera</a></li>
 </ul>
-
-<p>A més, també podeu gestionar l'emmagatzematge de cookies en el vostre navegador a través d'eines com les següents:</p>
-
-<ul class="list-disc list-inside mb-4">
+<p>A més, també podeu gestionar l'emmagatzematge de cookies al vostre navegador a través d'eines com les següents:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><a href="https://www.ghostery.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Ghostery</a></li>
   <li><a href="https://www.youronlinechoices.com/es/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Your online choices</a></li>
 </ul>`,
-    },
-    section5: {
-      title: "Cookies utilitzades en www.sportsmatch.pro",
-      content: `<p>A continuació s'identifiquen les cookies que s'estan utilitzant en aquest portal així com la seva tipologia i funció:</p>`,
-    },
-    section6: {
-      title: "Acceptació de la Política de cookies",
-      content: `<p>www.sportsmatch.pro assumeix que vostè accepta l'ús de cookies. Tanmateix, mostra informació sobre la seva Política de cookies a la part inferior o superior de qualsevol pàgina del portal amb cada inici de sessió amb l'objecte que vostè sigui conscient. Davant d'aquesta informació és possible dur a terme les següents accions:</p>
-
-<ul class="list-disc list-inside mb-4">
+      },
+      {
+        title: "Cookies utilitzades a www.sportsmatch.pro",
+        content: `<p>A continuació s'identifiquen les cookies que s'estan utilitzant en aquest portal així com la seva tipologia i funció.</p>
+<p><strong>Acceptació de la Política de cookies</strong></p>
+<p>www.sportsmatch.pro assumeix que vostè accepta l'ús de cookies. Tanmateix, mostra informació sobre la seva Política de cookies a la part inferior o superior de qualsevol pàgina del portal amb cada inici de sessió perquè vostè en sigui conscient. Davant d'aquesta informació és possible dur a terme les següents accions:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><strong>Acceptar cookies.</strong> No es tornarà a visualitzar aquest avís en accedir a qualsevol pàgina del portal durant la present sessió.</li>
-  <li><strong>Tancar.</strong> S'amaga l'avis en la present pàgina.</li>
+  <li><strong>Tancar.</strong> S'amaga l'avís a la present pàgina.</li>
   <li><strong>Modificar la seva configuració.</strong> Podreu obtenir més informació sobre què són les cookies, conèixer la Política de cookies de www.sportsmatch.pro i modificar la configuració del vostre navegador.</li>
 </ul>`,
-    },
+      },
+    ],
   },
   en: {
     title: "Cookies Policy",
-    description: "Cookies Policy of SportsMatch",
-    section1: {
-      title: "Information",
-      content: `<p>FERSUTER SL informs about the use of cookies on its website www.sportsmatch.pro</p>`,
-    },
-    section2: {
-      title: "What are cookies?",
-      content: `<p>Cookies are files that can be downloaded to your device through web pages. They are tools that have an essential role in providing numerous services of the information society. Among others, they allow a website to store and retrieve information about a user's browsing habits or their device and, depending on the information obtained, they can be used to recognize the user and improve the service offered.</p>`,
-    },
-    section3: {
-      title: "Types of cookies",
-      content: `<p>Depending on who manages the domain from which cookies are sent and processes the data obtained, two types can be distinguished:</p>
-
-<p class="font-semibold">First-party cookies:</p>
-<p>those that are sent to the user's terminal device from a device or domain managed by the editor itself and from which the service requested by the user is provided.</p>
-
-<p class="font-semibold">Third-party cookies:</p>
-<p>those that are sent to the user's terminal device from a device or domain that is not managed by the editor, but by another entity that processes the data obtained through cookies.</p>
-
-<p>In the event that cookies are installed from a device or domain managed by the editor itself but the information collected through them is managed by a third party, they cannot be considered as first-party cookies.</p>
-
-<p class="font-semibold">There is also a second classification according to the time period that they remain stored in the client's browser, which can be:</p>
-
-<p class="font-semibold">Session cookies:</p>
-<p>designed to collect and store data while the user accesses a web page. They are usually used to store information that only needs to be kept for the provision of the service requested by the user on a single occasion (e.g. a list of purchased products).</p>
-
-<p class="font-semibold">Persistent cookies:</p>
-<p>data remains stored in the terminal and can be accessed and processed during a period defined by the cookie manager, which can range from a few minutes to several years.</p>
-
-<p class="font-semibold">Finally, there is another classification with five types of cookies according to the purpose for which the data obtained is processed:</p>
-
-<ul class="list-disc list-inside mb-4">
-  <li><strong>Technical cookies:</strong> those that allow the user to navigate through a web page, platform or application and use the different options or services that exist therein such as, for example, controlling traffic and data communication, identifying the session, accessing restricted access parts, remembering the elements that make up an order, carrying out the purchase process of an order, making the request for registration or participation in an event, using security elements during navigation, storing content for broadcasting videos or sound or sharing content through social networks.</li>
-  <li><strong>Personalization cookies:</strong> allow the user to access the service with some general predefined characteristics based on a series of criteria in the user's terminal such as the language, the type of browser through which they access the service, the regional configuration from where they access the service, etc.</li>
-  <li><strong>Analytics cookies:</strong> allow those responsible for them to track and analyze the behavior of users of the websites to which they are linked. The information collected through this type of cookies is used in measuring website, application or platform activity and for creating browsing profiles of users of said sites, applications and platforms, in order to introduce improvements based on the analysis of usage data by service users.</li>
+    sections: [
+      {
+        title: "Information",
+        content: `<p>FERSUTER SL informs about the use of cookies on its website <a href="https://www.sportsmatch.pro" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">www.sportsmatch.pro</a>.</p>`,
+      },
+      {
+        title: "What are cookies?",
+        content: `<p>Cookies are files that can be downloaded to your device through web pages. They are tools that play an essential role in the provision of numerous information society services. Among other things, they allow a website to store and retrieve information about a user's browsing habits or their device and, depending on the information obtained, can be used to recognize the user and improve the service offered.</p>`,
+      },
+      {
+        title: "Types of cookies",
+        content: `<p>Depending on who manages the domain from which cookies are sent and processes the data obtained, two types can be distinguished:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>First-party cookies:</strong> those sent to the user's device from a device or domain managed by the publisher itself from which the service requested by the user is provided.</li>
+  <li><strong>Third-party cookies:</strong> those sent to the user's device from a device or domain not managed by the publisher, but by another entity that processes the data obtained through the cookies.</li>
+</ul>
+<p>In the event that cookies are installed from a device or domain managed by the publisher itself but the information collected through them is managed by a third party, they cannot be considered first-party cookies.</p>
+<p>There is also a second classification according to the length of time they remain stored in the user's browser:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Session cookies:</strong> designed to collect and store data while the user accesses a web page. They are usually used to store information that only needs to be kept for the provision of the service requested by the user on a single occasion (e.g. a list of purchased products).</li>
+  <li><strong>Persistent cookies:</strong> data remains stored on the device and can be accessed and processed for a period defined by the cookie manager, ranging from a few minutes to several years.</li>
+</ul>
+<p>Finally, there is another classification with five types of cookies according to the purpose for which the data obtained is processed:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Technical cookies:</strong> allow the user to navigate through a web page, platform or application and use the different options or services therein, such as controlling traffic and data communication, identifying the session, accessing restricted areas, remembering order items, processing purchases, registering for events, using security features, storing video or audio content, or sharing content through social networks.</li>
+  <li><strong>Personalisation cookies:</strong> allow the user to access the service with certain general pre-defined features based on criteria on the user's device, such as language, browser type, or regional settings.</li>
+  <li><strong>Analytics cookies:</strong> allow those responsible to track and analyse the behaviour of users on the websites to which they are linked. The information collected is used to measure website activity and create user browsing profiles in order to introduce improvements based on usage data analysis.</li>
   <li><strong>Advertising cookies:</strong> allow the most efficient possible management of advertising spaces.</li>
-  <li><strong>Behavioral advertising cookies:</strong> store information about user behavior obtained through continuous observation of their browsing habits, which allows developing a specific profile to show advertising based on it.</li>
-  <li><strong>External social network cookies:</strong> they are used so that visitors can interact with content from different social platforms (facebook, youtube, Instagram, X, linkedIn, etc..) and are generated solely for users of said social networks. The conditions of use of these cookies and the information collected are regulated by the privacy policy of the corresponding social platform.</li>
+  <li><strong>Behavioural advertising cookies:</strong> store information about user behaviour obtained through continuous observation of browsing habits, enabling the development of a specific profile to display targeted advertising.</li>
+  <li><strong>External social network cookies:</strong> used so that visitors can interact with content from different social platforms (Facebook, YouTube, Instagram, X, LinkedIn, etc.) and generated solely for users of those social networks. The conditions of use and data collected are regulated by the privacy policy of the corresponding social platform.</li>
 </ul>`,
-    },
-    section4: {
-      title: "Deactivation and deletion of cookies",
-      content: `<p>You have the option to allow, block or delete cookies installed on your device through the configuration of the options of the browser installed on your device. When deactivating cookies, some of the available services may stop being operational. The way to disable cookies is different for each browser, but it can normally be done from the Tools or Options menu. The browser's Help menu can also be consulted where you can find instructions. The user can at any time choose which cookies they want to work on this website.</p>
-
-<p>You can allow, block or delete cookies installed on your device through the configuration of the options of the browser installed on your computer:</p>
-
-<ul class="list-disc list-inside mb-4">
+      },
+      {
+        title: "Deactivation and deletion of cookies",
+        content: `<p>You have the option to allow, block or delete cookies installed on your device through your browser settings. Deactivating cookies may cause some available services to stop working. The method for disabling cookies differs by browser but can usually be found in the Tools or Options menu. You can also consult the browser's Help menu for instructions.</p>
+<p>You can allow, block or delete cookies installed on your device through your browser settings:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><a href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Microsoft Internet Explorer or Microsoft Edge</a></li>
   <li><a href="https://support.mozilla.org/es/kb/impedir-que-los-sitios-web-guarden-sus-preferencia" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Mozilla Firefox</a></li>
   <li><a href="https://support.google.com/accounts/answer/61416" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Chrome</a></li>
   <li><a href="http://safari.helpmax.net/es/privacidad-y-seguridad/como-gestionar-las-cookies" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Safari</a></li>
   <li><a href="https://help.opera.com/en/latest/web-preferences/#cookies" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Opera</a></li>
 </ul>
-
-<p>In addition, you can also manage the cookie store in your browser through tools such as the following:</p>
-
-<ul class="list-disc list-inside mb-4">
+<p>You can also manage cookie storage in your browser through tools such as:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><a href="https://www.ghostery.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Ghostery</a></li>
   <li><a href="https://www.youronlinechoices.com/es/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Your online choices</a></li>
 </ul>`,
-    },
-    section5: {
-      title: "Cookies used on www.sportsmatch.pro",
-      content: `<p>Below are identified the cookies that are being used on this portal as well as their type and function:</p>`,
-    },
-    section6: {
-      title: "Acceptance of the Cookies Policy",
-      content: `<p>www.sportsmatch.pro assumes that you accept the use of cookies. However, it displays information about its Cookies Policy at the bottom or top of any page on the portal with each login so that you are aware. Before this information it is possible to carry out the following actions:</p>
-
-<ul class="list-disc list-inside mb-4">
+      },
+      {
+        title: "Cookies used on www.sportsmatch.pro",
+        content: `<p>Below are the cookies being used on this portal along with their type and function.</p>
+<p><strong>Acceptance of the Cookies Policy</strong></p>
+<p>www.sportsmatch.pro assumes that you accept the use of cookies. However, it displays information about its Cookies Policy at the top or bottom of every page on the portal at each login so that you are aware. You may take the following actions:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
   <li><strong>Accept cookies.</strong> This notice will not be displayed again when accessing any page on the portal during the current session.</li>
   <li><strong>Close.</strong> The notice is hidden on the current page.</li>
-  <li><strong>Modify your configuration.</strong> You can obtain more information about what cookies are, learn about the Cookies Policy of www.sportsmatch.pro and modify your browser configuration.</li>
+  <li><strong>Modify your settings.</strong> You can get more information about what cookies are, learn about the Cookies Policy of www.sportsmatch.pro and modify your browser settings.</li>
 </ul>`,
-    },
+      },
+    ],
   },
 };
 
-// Obtenir les traduccions per a l'idioma actual
-const t =
-  translations[currentLang as keyof typeof translations] ||
-  translations["es-ES"];
+const t = translations[currentLang as keyof typeof translations] || translations["es-ES"];
 ---
 
-<div class="max-w-4xl mx-auto px-4 py-16 mt-32">
+<div class="max-w-4xl mx-auto px-4 py-8 mt-16">
   <h1 class="text-4xl font-bold mb-8">{t.title}</h1>
 
   <div class="prose prose-lg max-w-none">
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section1.title}</h2>
-    <div class="mb-6" set:html={t.section1.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section2.title}</h2>
-    <div class="mb-6" set:html={t.section2.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section3.title}</h2>
-    <div class="mb-6" set:html={t.section3.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section4.title}</h2>
-    <div class="mb-6" set:html={t.section4.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section5.title}</h2>
-    <div class="mb-6" set:html={t.section5.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section6.title}</h2>
-    <div class="mb-6" set:html={t.section6.content} />
+    {t.sections.map((section) => (
+      <Fragment>
+        <h2 class="text-2xl font-semibold mb-4 mt-8">{section.title}</h2>
+        <div class="mb-6" set:html={section.content} />
+      </Fragment>
+    ))}
   </div>
 </div>

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import LegalPageSection from '../../components/LegalPageSection.astro';
+import CookiesPage from '../../components/pages/CookiesPage.astro';
 import { getTranslations } from '../../i18n/index';
 
 const lang = 'en' as const;
@@ -8,11 +8,5 @@ const t = getTranslations(lang);
 ---
 
 <BaseLayout title={t['legal.cookies.title']} description={t['legal.cookies.desc']} lang={lang}>
-  <LegalPageSection
-    t={t}
-    titleKey="legal.cookies.title"
-    descKey="legal.cookies.desc"
-    updatedKey="legal.cookies.updated"
-    contentKey="legal.cookies.content"
-  />
+  <CookiesPage currentLang="en" />
 </BaseLayout>

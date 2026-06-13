@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import LegalPageSection from '../../components/LegalPageSection.astro';
+import LegalPage from '../../components/pages/LegalPage.astro';
 import { getTranslations } from '../../i18n/index';
 
 const lang = 'en' as const;
@@ -8,11 +8,5 @@ const t = getTranslations(lang);
 ---
 
 <BaseLayout title={t['legal.terms.title']} description={t['legal.terms.desc']} lang={lang}>
-  <LegalPageSection
-    t={t}
-    titleKey="legal.terms.title"
-    descKey="legal.terms.desc"
-    updatedKey="legal.terms.updated"
-    contentKey="legal.terms.content"
-  />
+  <LegalPage currentLang="en" />
 </BaseLayout>

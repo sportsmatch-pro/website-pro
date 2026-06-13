@@ -5,231 +5,273 @@ export interface Props {
 
 const { currentLang } = Astro.props;
 
-// Traduccions per a cada idioma
 const translations = {
   "es-ES": {
     title: "Política de privacidad",
-    description: "Política de privacidad de SportsMatch",
-    section1: {
-      title: "Cookies",
-      content: `<p>Este sitio web utiliza cookies propias y de terceros para recopilar información estadística sobre la navegación de los usuarios y mejorar sus servicios con las preferencias, generadas a partir de sus hábitos de navegación. Asimismo, le informamos que este sitio web cumple con lo que se establece en la LSSI-CE y en el RGPD. En este sentido, no se almacenarán las cookies en su terminal para las finalidades indicadas si el usuario no nos ha prestado su consentimiento.</p>
-
+    sections: [
+      {
+        title: "Cookies",
+        content: `<p>Este sitio web utiliza cookies propias y de terceros para recopilar información estadística sobre la navegación de los usuarios y mejorar sus servicios con las preferencias, generadas a partir de sus hábitos de navegación. Asimismo, le informamos que este sitio web cumple con lo que se establece en la LSSI-CE y en el RGPD. En este sentido, no se almacenarán las cookies en su terminal para las finalidades indicadas si el usuario no nos ha prestado su consentimiento.</p>
 <p>Ver más información sobre la <a href="/cookies" class="text-blue-600 hover:text-blue-800 underline">política de cookies aquí</a>.</p>`,
-    },
-    section2: {
-      title: "Protección de datos de carácter personal según la LOPDDD",
-      content: `<p>FERSUTER SL (sociedad propietaria de la marca registrada SPORTSMATCH), en aplicación de la normativa vigente en materia de protección de datos de carácter personal, informa que los datos personales que se recogen a través de los formularios del sitio web SPORTSMATCH.PRO, se incluyen en los ficheros automatizados específicos de usuarios de los servicios de FERSUTER SL.</p>
-
+      },
+      {
+        title: "Protección de datos de carácter personal según la LOPDDD",
+        content: `<p>FERSUTER SL (sociedad propietaria de la marca registrada SPORTSMATCH), en aplicación de la normativa vigente en materia de protección de datos de carácter personal, informa que los datos personales que se recogen a través de los formularios del sitio web SPORTSMATCH.PRO, se incluyen en los ficheros automatizados específicos de usuarios de los servicios de FERSUTER SL.</p>
 <p>La recogida y tratamiento automatizado de los datos de carácter personal tiene como finalidad el mantenimiento de la relación comercial y el desempeño de tareas de información, formación, asesoramiento y otras actividades propias de FERSUTER SL.</p>
-
 <p>Estos datos únicamente serán cedidos a aquellas entidades que sean necesarias con el único objetivo de dar cumplimiento a la finalidad anteriormente expuesta.</p>
-
 <p>FERSUTER SL adopta las medidas necesarias para garantizar la seguridad, integridad y confidencialidad de los datos conforme a lo dispuesto en el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de los mismos.</p>
-
-<p>El usuario podrá en cualquier momento ejercitar los derechos de acceso, oposición, rectificación y cancelación reconocidos en el citado Reglamento (UE). El ejercicio de estos derechos puede realizarlo el propio usuario a través de email a: INFO@SPORTSMATCH.PRO.</p>
-
+<p>El usuario podrá en cualquier momento ejercitar los derechos de acceso, oposición, rectificación y cancelación reconocidos en el citado Reglamento (UE). El ejercicio de estos derechos puede realizarlo el propio usuario a través de email a: <a href="mailto:INFO@SPORTSMATCH.PRO" class="text-blue-600 hover:text-blue-800 underline">INFO@SPORTSMATCH.PRO</a>.</p>
 <p>El usuario manifiesta que todos los datos facilitados por él son ciertos y correctos, y se compromete a mantenerlos actualizados, comunicando los cambios a SPORTSMATCH.</p>`,
-    },
-    section3: {
-      title: "Finalidad del tratamiento de los datos personales",
-      content: `<p class="font-semibold">¿Con qué finalidad trataremos tus datos personales?</p>
-
+      },
+      {
+        title: "Finalidad del tratamiento de los datos personales",
+        content: `<p>¿Con qué finalidad trataremos tus datos personales?</p>
 <p>FERSUTER SL tratará tus datos personales recabados a través del sitio web SPORTSMATCH.PRO, con las siguientes finalidades:</p>
-
-<ul class="list-disc list-inside mb-4">
+<ol class="list-decimal list-inside mb-4 space-y-2">
   <li>En caso de contratación de los bienes y servicios ofertados a través de SPORTSMATCH.PRO, para mantener la relación contractual, así como la gestión, administración, información, prestación y mejora del servicio.</li>
   <li>Envío de información solicitada a través de los formularios dispuestos en SPORTSMATCH.PRO.</li>
   <li>Remitir boletines (newsletters), así como comunicaciones comerciales de promociones y/o publicidad de SPORTSMATCH.PRO y del sector.</li>
-</ul>
-
+</ol>
 <p>Te recordamos que puedes oponerte al envío de comunicaciones comerciales por cualquier vía y en cualquier momento, remitiendo un correo electrónico a la dirección indicada anteriormente.</p>
-
-<p>Los campos de dichos registros son de cumplimentación obligatoria, siendo imposible realizar las finalidades expresadas si no se aportan esos datos.</p>
-
-<p class="font-semibold">¿Por cuánto tiempo se conservan los datos personales recabados?</p>
-<p>Los datos personales proporcionados se conservarán mientras se mantenga la relación comercial o no solicites su supresión y durante el plazo por el cuál pudieran derivarse responsabilidades legales por los servicios prestados.</p>`,
-    },
-    section4: {
-      title: "Legitimación",
-      content: `<p>El tratamiento de tus datos se realiza con las siguientes bases jurídicas que legitiman el mismo:</p>
-
-<ul class="list-disc list-inside mb-4">
+<p>Los campos de dichos registros son de cumplimentación obligatoria, siendo imposible realizar las finalidades expresadas si no se aportan esos datos.</p>`,
+      },
+      {
+        title: "¿Por cuánto tiempo se conservan los datos personales recabados?",
+        content: `<p>Los datos personales proporcionados se conservarán mientras se mantenga la relación comercial o no solicites su supresión y durante el plazo por el cuál pudieran derivarse responsabilidades legales por los servicios prestados.</p>
+<p><strong>Legitimación:</strong></p>
+<p>El tratamiento de tus datos se realiza con las siguientes bases jurídicas que legitiman el mismo:</p>
+<ol class="list-decimal list-inside mb-4 space-y-2">
   <li>La solicitud de información y/o la contratación de los servicios de SPORTSMATCH.PRO, cuyos términos y condiciones se pondrán a tu disposición en todo caso, de forma previa a una eventual contratación.</li>
   <li>El consentimiento libre, específico, informado e inequívoco, en tanto que te informamos poniendo a tu disposición la presente política de privacidad, que tras la lectura de la misma, en caso de estar conforme, puedes aceptar mediante una declaración o una clara acción afirmativa, como el marcado de una casilla dispuesta al efecto.</li>
-</ul>
-
+</ol>
 <p>En caso de que no nos facilites tus datos o lo hagas de forma errónea o incompleta, no podremos atender tu solicitud, resultando del todo imposible proporcionarte la información solicitada o llevar a cabo la contratación de los servicios.</p>`,
-    },
-    section5: {
-      title: "Destinatarios",
-      content: `<p>Los datos no se comunicarán a ningún tercero ajeno a FERSUTER SL, salvo obligación legal.</p>
-
-<p class="font-semibold">Datos recopilados por usuarios de los servicios.</p>
+      },
+      {
+        title: "Destinatarios",
+        content: `<p>Los datos no se comunicarán a ningún tercero ajeno a FERSUTER SL, salvo obligación legal.</p>
+<p><strong>Datos recopilados por usuarios de los servicios</strong></p>
 <p>En los casos en que el usuario incluya ficheros con datos de carácter personal en los servidores de alojamiento compartido, no se hace responsable del incumplimiento por parte del usuario del RGPD.</p>
-
-<p class="font-semibold">Retención de datos en conformidad a la LSSI.</p>
+<p><strong>Retención de datos en conformidad a la LSSI</strong></p>
 <p>FERSUTER SL informa de que, como prestador de servicio de alojamiento de datos y en virtud de lo establecido en la Ley 34/2002 de 11 de julio de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI), retiene por un periodo máximo de 12 meses la información imprescindible para identificar el origen de los datos alojados y el momento en que se inició la prestación del servicio. La retención de estos datos no afecta al secreto de las comunicaciones y sólo podrán ser utilizados en el marco de una investigación criminal o para la salvaguardia de la seguridad pública, poniéndose a disposición de los jueces y/o tribunales o del Ministerio que así los requiera.</p>
-
-<p>La comunicación de datos a las Fuerzas y Cuerpos del Estado se hará en virtud a lo dispuesto en la normativa sobre protección de datos personales.</p>`,
-    },
+<p>La comunicación de datos a las Fuerzas y Cuerpos del Estado se hará en virtud a lo dispuesto en la normativa sobre protección de datos personales.</p>
+<p><strong>Derechos propiedad intelectual SPORTSMATCH.PRO</strong></p>
+<p>FERSUTER SL es titular de todos los derechos de autor, propiedad intelectual, industrial, "know how" y cuantos otros derechos guardan relación con los contenidos del sitio web SPORTSMATCH.PRO y los servicios ofertados en el mismo, así como de los programas necesarios para su implementación y la información relacionada.</p>
+<p>No se permite la reproducción, publicación y/o uso no estrictamente privado de los contenidos, totales o parciales, del sitio web SPORTSMATCH.PRO sin el consentimiento previo y por escrito.</p>`,
+      },
+      {
+        title: "Propiedad intelectual del software",
+        content: `<p>El usuario debe respetar los programas de terceros puestos a su disposición por FERSUTER SL, aún siendo gratuitos y/o de disposición pública.</p>
+<p>FERSUTER SL dispone de los derechos de explotación y propiedad intelectual necesarios del software.</p>
+<p>El usuario no adquiere derecho alguno o licencia por el servicio contratado, sobre el software necesario para la prestación del servicio, ni tampoco sobre la información técnica de seguimiento del servicio, excepción hecha de los derechos y licencias necesarios para el cumplimiento de los servicios contratados y únicamente durante la duración de los mismos.</p>
+<p>Para toda actuación que exceda del cumplimiento del contrato, el usuario necesitará autorización por escrito por parte de FERSUTER SL, quedando prohibido al usuario acceder, modificar, visualizar la configuración, estructura y ficheros de los servidores propiedad de FERSUTER SL, asumiendo la responsabilidad civil y penal derivada de cualquier incidencia que se pudiera producir en los servidores y sistemas de seguridad como consecuencia directa de una actuación negligente o maliciosa por su parte.</p>`,
+      },
+      {
+        title: "Propiedad intelectual de los contenidos alojados",
+        content: `<p>Se prohíbe el uso contrario a la legislación sobre propiedad intelectual de los servicios prestados por FERSUTER SL y, en particular de:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>La utilización que resulte contraria a las leyes españolas o que infrinja los derechos de terceros.</li>
+  <li>La publicación o la transmisión de cualquier contenido que, a juicio de FERSUTER SL, resulte violento, obsceno, abusivo, ilegal, racial, xenófobo o difamatorio.</li>
+  <li>Los cracks, números de serie de programas o cualquier otro contenido que vulnere derechos de la propiedad intelectual de terceros.</li>
+  <li>La recogida y/o utilización de datos personales de otros usuarios sin su consentimiento expreso o contraviniendo lo dispuesto en Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de los mismos.</li>
+  <li>La utilización del servidor de correo del dominio y de las direcciones de correo electrónico para el envío de correo masivo no deseado.</li>
+</ul>
+<p>El usuario tiene toda la responsabilidad sobre el contenido de su web, la información transmitida y almacenada, los enlaces de hipertexto, las reivindicaciones de terceros y las acciones legales en referencia a propiedad intelectual.</p>`,
+      },
+      {
+        title: "Derechos de terceros y protección de menores",
+        content: `<p>El usuario es responsable respecto a las leyes y reglamentos en vigor y las reglas que tienen que ver con el funcionamiento del servicio online, comercio electrónico, derechos de autor, mantenimiento del orden público, así como principios universales de uso de Internet.</p>
+<p>El usuario indemnizará a FERSUTER SL por los gastos que generara la imputación de FERSUTER SL en alguna causa cuya responsabilidad fuera atribuible al usuario, incluidos honorarios y gastos de defensa jurídica, incluso en el caso de una decisión judicial no definitiva.</p>`,
+      },
+      {
+        title: "Protección de la información alojada",
+        content: `<p>FERSUTER SL realiza copias de seguridad de los contenidos alojados en sus servidores, sin embargo no se responsabiliza de la pérdida o el borrado accidental de los datos por parte de los usuarios. De igual manera, no garantiza la reposición total de los datos borrados por los usuarios, ya que los citados datos podrían haber sido suprimidos y/o modificados durante el periodo del tiempo transcurrido desde la última copia de seguridad.</p>
+<p>Los servicios ofertados, excepto los servicios específicos de backup, no incluyen la reposición de los contenidos conservados en las copias de seguridad realizadas por FERSUTER SL, cuando ésta pérdida sea imputable al usuario; en este caso, se determinará una tarifa acorde a la complejidad y volumen de la recuperación, siempre previa aceptación del usuario.</p>
+<p>La reposición de datos borrados sólo está incluida en el precio del servicio cuando la pérdida del contenido sea debida a causas atribuibles a FERSUTER SL.</p>`,
+      },
+    ],
   },
   "ca-ES": {
     title: "Política de privacitat",
-    description: "Política de privacitat de SportsMatch",
-    section1: {
-      title: "Cookies",
-      content: `<p>Aquest lloc web utilitza cookies pròpies i de tercers per recopilar informació estadística sobre la navegació dels usuaris i millorar els seus serveis amb les preferències, generades a partir dels seus hàbits de navegació. També us informem que aquest lloc web compleix amb el que s'estableix a la LSSI-CE i al RGPD. En aquest sentit, no s'emmagatzemaran les cookies al vostre terminal per a les finalitats indicades si l'usuari no ens ha prestat el seu consentiment.</p>
-
+    sections: [
+      {
+        title: "Cookies",
+        content: `<p>Aquest lloc web utilitza cookies pròpies i de tercers per recopilar informació estadística sobre la navegació dels usuaris i millorar els seus serveis segons les preferències generades a partir dels seus hàbits de navegació. Així mateix, l'informem que aquest lloc web compleix amb el que s'estableix a la LSSI-CE i al RGPD. En aquest sentit, no s'emmagatzemaran cookies al seu dispositiu per a les finalitats indicades si l'usuari no ens ha donat el seu consentiment.</p>
 <p>Veure més informació sobre la <a href="/ca/cookies" class="text-blue-600 hover:text-blue-800 underline">política de cookies aquí</a>.</p>`,
-    },
-    section2: {
-      title: "Protecció de dades de caràcter personal segons la LOPDDD",
-      content: `<p>FERSUTER SL (societat propietària de la marca registrada SPORTSMATCH), en aplicació de la normativa vigent en matèria de protecció de dades de caràcter personal, informa que les dades personals que es recullen a través dels formularis del lloc web SPORTSMATCH.PRO, s'inclouen en els fitxers automatitzats específics d'usuaris dels serveis de FERSUTER SL.</p>
-
-<p>La recollida i tractament automatitzat de les dades de caràcter personal té com a finalitat el manteniment de la relació comercial i el desenvolupament de tasques d'informació, formació, assessorament i altres activitats pròpies de FERSUTER SL.</p>
-
-<p>Aquestes dades únicament seran cedides a aquelles entitats que siguin necessàries amb l'únic objectiu de donar compliment a la finalitat anteriorment exposada.</p>
-
-<p>FERSUTER SL adopta les mesures necessàries per garantir la seguretat, integritat i confidencialitat de les dades conforme al disposat en el Reglament (UE) 2016/679 del Parlament Europeu i del Consell, de 27 d'abril de 2016, relatiu a la protecció de les persones físiques pel que fa al tractament de dades personals i a la lliure circulació d'aquestes.</p>
-
-<p>L'usuari podrà en qualsevol moment exercir els drets d'accés, oposició, rectificació i cancel·lació reconeguts en l'esmentat Reglament (UE). L'exercici d'aquests drets pot realitzar-lo el propi usuari a través d'email a: INFO@SPORTSMATCH.PRO.</p>
-
-<p>L'usuari manifesta que totes les dades facilitades per ell són certes i correctes, i es compromet a mantenir-les actualitzades, comunicant els canvis a SPORTSMATCH.</p>`,
-    },
-    section3: {
-      title: "Finalitat del tractament de les dades personals",
-      content: `<p class="font-semibold">Amb quina finalitat tractarem les teves dades personals?</p>
-
-<p>FERSUTER SL tractarà les teves dades personals captades a través del lloc web SPORTSMATCH.PRO, amb les següents finalitats:</p>
-
-<ul class="list-disc list-inside mb-4">
-  <li>En cas de contractació dels béns i serveis oferts a través de SPORTSMATCH.PRO, per mantenir la relació contractual, així com la gestió, administració, informació, prestació i millora del servei.</li>
-  <li>Enviament d'informació sol·licitada a través dels formularis disposats en SPORTSMATCH.PRO.</li>
-  <li>Remetre butlletins (newsletters), així com comunicacions comercials de promocions i/o publicitat de SPORTSMATCH.PRO i del sector.</li>
+      },
+      {
+        title: "Protecció de dades de caràcter personal segons la LOPDDD",
+        content: `<p>FERSUTER SL (societat propietària de la marca registrada SPORTSMATCH), en aplicació de la normativa vigent en matèria de protecció de dades de caràcter personal, informa que les dades personals recollides a través dels formularis del lloc web SPORTSMATCH.PRO s'inclouen en els fitxers automatitzats específics d'usuaris dels serveis de FERSUTER SL.</p>
+<p>La recollida i el tractament automatitzat de les dades de caràcter personal tenen com a finalitat el manteniment de la relació comercial i el desenvolupament de tasques d'informació, formació, assessorament i altres activitats pròpies de FERSUTER SL.</p>
+<p>Aquestes dades només seran cedides a aquelles entitats que siguin necessàries amb l'únic objectiu de complir la finalitat anteriorment exposada.</p>
+<p>FERSUTER SL adopta les mesures necessàries per garantir la seguretat, integritat i confidencialitat de les dades, d'acord amb el que disposa el Reglament (UE) 2016/679 del Parlament Europeu i del Consell, de 27 d'abril de 2016, relatiu a la protecció de les persones físiques en relació amb el tractament de dades personals i la lliure circulació d'aquestes.</p>
+<p>L'usuari podrà exercir en qualsevol moment els drets d'accés, oposició, rectificació i cancel·lació reconeguts en el citat Reglament (UE). L'exercici d'aquests drets pot realitzar-lo l'usuari mateix enviant un correu electrònic a: <a href="mailto:INFO@SPORTSMATCH.PRO" class="text-blue-600 hover:text-blue-800 underline">INFO@SPORTSMATCH.PRO</a>.</p>
+<p>L'usuari manifesta que totes les dades facilitades són verídiques i correctes, i es compromet a mantenir-les actualitzades, comunicant qualsevol canvi a SPORTSMATCH.</p>`,
+      },
+      {
+        title: "Finalitat del tractament de les dades personals",
+        content: `<p>Amb quina finalitat tractarem les teves dades personals?</p>
+<p>FERSUTER SL tractarà les teves dades personals recollides a través del lloc web SPORTSMATCH.PRO amb les següents finalitats:</p>
+<ol class="list-decimal list-inside mb-4 space-y-2">
+  <li>En cas de contractació dels béns i serveis oferts a través de SPORTSMATCH.PRO, per mantenir la relació contractual, així com per a la gestió, administració, informació, prestació i millora del servei.</li>
+  <li>Enviament d'informació sol·licitada a través dels formularis disponibles a SPORTSMATCH.PRO.</li>
+  <li>Enviament de butlletins (newsletters), així com comunicacions comercials de promocions i/o publicitat de SPORTSMATCH.PRO i del sector.</li>
+</ol>
+<p>Et recordem que pots oposar-te a l'enviament de comunicacions comercials per qualsevol via i en qualsevol moment enviant un correu electrònic a l'adreça indicada anteriorment.</p>
+<p>Els camps d'aquests registres són de compliment obligatori, i és impossible dur a terme les finalitats expressades si no es faciliten aquestes dades.</p>`,
+      },
+      {
+        title: "Durada de la conservació de les dades personals recollides",
+        content: `<p>Les dades personals proporcionades es conservaran mentre es mantingui la relació comercial o fins que en sol·licitis la supressió, i durant el termini en què puguin derivar-se responsabilitats legals pels serveis prestats.</p>
+<p><strong>Legitimació:</strong></p>
+<p>El tractament de les teves dades es realitza sobre les següents bases jurídiques que el legitimen:</p>
+<ol class="list-decimal list-inside mb-4 space-y-2">
+  <li>La sol·licitud d'informació i/o la contractació dels serveis de SPORTSMATCH.PRO, els termes i condicions dels quals es posaran a la teva disposició en tot cas, de manera prèvia a una eventual contractació.</li>
+  <li>El consentiment lliure, específic, informat i inequívoc, en tant que t'informem posant a la teva disposició aquesta política de privacitat, que després de la seva lectura, en cas d'estar conforme, pots acceptar mitjançant una declaració o una clara acció afirmativa, com ara el marcatge d'una casella disposada a aquest efecte.</li>
+</ol>
+<p>En cas que no ens facilitis les teves dades o ho facis de manera errònia o incompleta, no podrem atendre la teva sol·licitud, fet que impossibilitaria proporcionar-te la informació sol·licitada o dur a terme la contractació dels serveis.</p>`,
+      },
+      {
+        title: "Destinataris",
+        content: `<p>Les dades no es comunicaran a cap tercer aliè a FERSUTER SL, excepte en cas d'obligació legal.</p>
+<p><strong>Dades recopilades pels usuaris dels serveis</strong></p>
+<p>En els casos en què l'usuari inclogui fitxers amb dades de caràcter personal als servidors d'allotjament compartit, FERSUTER SL no es fa responsable de l'incompliment per part de l'usuari del RGPD.</p>
+<p><strong>Retenció de dades en conformitat amb la LSSI</strong></p>
+<p>FERSUTER SL informa que, com a prestador de serveis d'allotjament de dades i en virtut del que estableix la Llei 34/2002, d'11 de juliol, de Serveis de la Societat de la Informació i de Comerç Electrònic (LSSI), reté durant un període màxim de 12 mesos la informació imprescindible per identificar l'origen de les dades allotjades i el moment en què es va iniciar la prestació del servei. La retenció d'aquestes dades no afecta el secret de les comunicacions i només podran ser utilitzades en el marc d'una investigació criminal o per a la salvaguarda de la seguretat pública, posant-se a disposició dels jutges i/o tribunals o del Ministeri que així ho requereixi.</p>
+<p>La comunicació de dades a les Forces i Cossos de Seguretat de l'Estat es farà d'acord amb la normativa sobre protecció de dades personals.</p>
+<p><strong>Drets de propietat intel·lectual de SPORTSMATCH.PRO</strong></p>
+<p>FERSUTER SL és titular de tots els drets d'autor, propietat intel·lectual, industrial, know-how i qualsevol altre dret relacionat amb els continguts del lloc web SPORTSMATCH.PRO i els serveis oferts en aquest, així com dels programes necessaris per a la seva implementació i la informació relacionada.</p>
+<p>No es permet la reproducció, publicació i/o ús no estrictament privat dels continguts, totals o parcials, del lloc web SPORTSMATCH.PRO sense el consentiment previ i per escrit.</p>`,
+      },
+      {
+        title: "Propietat intel·lectual del programari",
+        content: `<p>L'usuari ha de respectar els programes de tercers posats a la seva disposició per FERSUTER SL, encara que siguin gratuïts i/o de disposició pública.</p>
+<p>FERSUTER SL disposa dels drets d'explotació i propietat intel·lectual necessaris sobre el programari.</p>
+<p>L'usuari no adquireix cap dret ni llicència sobre el servei contractat, ni sobre el programari necessari per a la prestació del servei, ni tampoc sobre la informació tècnica de seguiment del servei, excepte els drets i llicències necessaris per al compliment dels serveis contractats i únicament durant la seva durada.</p>
+<p>Per a qualsevol actuació que excedeixi el compliment del contracte, l'usuari necessitarà autorització per escrit per part de FERSUTER SL. Queda prohibit a l'usuari accedir, modificar o visualitzar la configuració, estructura i fitxers dels servidors propietat de FERSUTER SL, assumint la responsabilitat civil i penal derivada de qualsevol incidència que es pogués produir en els servidors i sistemes de seguretat com a conseqüència directa d'una actuació negligent o malintencionada per part seva.</p>`,
+      },
+      {
+        title: "Propietat intel·lectual dels continguts allotjats",
+        content: `<p>Queda prohibit l'ús contrari a la legislació sobre propietat intel·lectual dels serveis prestats per FERSUTER SL i, en particular:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>La utilització que sigui contrària a les lleis espanyoles o que infringeixi els drets de tercers.</li>
+  <li>La publicació o transmissió de qualsevol contingut que, segons el criteri de FERSUTER SL, sigui violent, obscè, abusiu, il·legal, racista, xenòfob o difamatori.</li>
+  <li>L'ús de cracks, números de sèrie de programes o qualsevol altre contingut que vulneri els drets de propietat intel·lectual de tercers.</li>
+  <li>La recollida i/o utilització de dades personals d'altres usuaris sense el seu consentiment exprés o contravenint el que disposa el Reglament (UE) 2016/679 del Parlament Europeu i del Consell, de 27 d'abril de 2016, relatiu a la protecció de les persones físiques en el tractament de dades personals i la seva lliure circulació.</li>
+  <li>L'ús del servidor de correu del domini i de les adreces de correu electrònic per a l'enviament de correu massiu no desitjat.</li>
 </ul>
-
-<p>Et recordem que pots oposar-te a l'enviament de comunicacions comercials per qualsevol via i en qualsevol moment, remetent un correu electrònic a la direcció indicada anteriorment.</p>
-
-<p>Els camps d'aquests registres són de compliment obligatori, essent impossible realitzar les finalitats expressades si no s'aporten aquestes dades.</p>
-
-<p class="font-semibold">Per quant de temps es conserven les dades personals captades?</p>
-<p>Les dades personals proporcionades es conservaran mentre es mantingui la relació comercial o no sol·licitis la seva supressió i durant el termini pel qual es poguessin derivar responsabilitats legals pels serveis prestats.</p>`,
-    },
-    section4: {
-      title: "Legitimació",
-      content: `<p>El tractament de les teves dades es realitza amb les següents bases jurídiques que legitimen el mateix:</p>
-
-<ul class="list-disc list-inside mb-4">
-  <li>La sol·licitud d'informació i/o la contractació dels serveis de SPORTSMATCH.PRO, els termes i condicions dels quals es posaran a la teva disposició en tot cas, de forma prèvia a una eventual contractació.</li>
-  <li>El consentiment lliure, específic, informat i inequívoc, en tant que t'informem posant a la teva disposició la present política de privacitat, que després de la lectura de la mateixa, en cas d'estar conforme, pots acceptar mitjançant una declaració o una clara acció afirmativa, com el marcatge d'una casella disposada per al cas.</li>
-</ul>
-
-<p>En cas que no ens facilites les teves dades o ho facis de forma errònia o incompleta, no podrem atendre la teva sol·licitud, resultant de tot impossible proporcionar-te la informació sol·licitada o dur a terme la contractació dels serveis.</p>`,
-    },
-    section5: {
-      title: "Destinataris",
-      content: `<p>Les dades no es comunicaran a cap tercer aliè a FERSUTER SL, llevat d'obligació legal.</p>
-
-<p class="font-semibold">Dades recopilades per usuaris dels serveis.</p>
-<p>En els casos en què l'usuari inclogui fitxers amb dades de caràcter personal en els servidors d'allotjament compartit, no es fa responsable de l'incompliment per part de l'usuari del RGPD.</p>
-
-<p class="font-semibold">Retenció de dades en conformitat amb la LSSI.</p>
-<p>FERSUTER SL informa que, com a prestador de servei d'allotjament de dades i en virtut de l'establert en la Llei 34/2002 de 11 de juliol de Serveis de la Societat de la Informació i de Comerç Electrònic (LSSI), reté per un període màxim de 12 mesos la informació imprescindible per identificar l'origen de les dades allotjades i el moment en què es va iniciar la prestació del servei. La retenció d'aquestes dades no afecta al secret de les comunicacions i només podran ser utilitzades en el marc d'una investigació criminal o per a la salvaguarda de la seguretat pública, posant-se a disposició dels jutges i/o tribunals o del Ministeri que així els requereixi.</p>
-
-<p>La comunicació de dades a les Forces i Cossos de l'Estat es farà en virtut al disposat en la normativa sobre protecció de dades personals.</p>`,
-    },
+<p>L'usuari assumeix tota la responsabilitat sobre el contingut de la seva web, la informació transmesa i emmagatzemada, els enllaços d'hipertext, les reclamacions de tercers i les accions legals en referència a la propietat intel·lectual.</p>`,
+      },
+      {
+        title: "Drets de tercers i protecció de menors",
+        content: `<p>L'usuari és responsable del compliment de les lleis i reglaments vigents, així com de les normes relacionades amb el funcionament del servei en línia, el comerç electrònic, els drets d'autor, el manteniment de l'ordre públic i els principis universals d'ús d'Internet.</p>
+<p>L'usuari indemnitzarà FERSUTER SL per les despeses derivades de qualsevol imputació a FERSUTER SL en una causa la responsabilitat de la qual sigui atribuïble a l'usuari, incloent-hi honoraris i despeses de defensa jurídica, fins i tot en cas d'una resolució judicial no definitiva.</p>`,
+      },
+      {
+        title: "Protecció de la informació allotjada",
+        content: `<p>FERSUTER SL realitza còpies de seguretat dels continguts allotjats als seus servidors; tanmateix, no es responsabilitza de la pèrdua o eliminació accidental de dades per part dels usuaris. Així mateix, no es garanteix la restitució total de les dades esborrades pels usuaris, ja que aquestes podrien haver estat suprimides i/o modificades durant el període transcorregut des de l'última còpia de seguretat.</p>
+<p>Els serveis oferts, excepte els serveis específics de backup, no inclouen la reposició dels continguts conservats en les còpies de seguretat realitzades per FERSUTER SL quan la pèrdua sigui imputable a l'usuari. En aquest cas, es determinarà una tarifa en funció de la complexitat i el volum de la recuperació, sempre amb la prèvia acceptació de l'usuari.</p>
+<p>La restitució de dades esborrades només està inclosa en el preu del servei quan la pèrdua del contingut sigui deguda a causes atribuïbles a FERSUTER SL.</p>`,
+      },
+    ],
   },
   en: {
     title: "Privacy Policy",
-    description: "Privacy Policy of SportsMatch",
-    section1: {
-      title: "Cookies",
-      content: `<p>This website uses its own and third-party cookies to collect statistical information about users' browsing and improve their services with preferences generated from their browsing habits. Likewise, we inform you that this website complies with what is established in the LSSI-CE and the GDPR. In this sense, cookies will not be stored on your terminal for the indicated purposes if the user has not given us their consent.</p>
-
+    sections: [
+      {
+        title: "Cookies",
+        content: `<p>This website uses its own and third-party cookies to collect statistical information about users' browsing and improve services based on preferences generated from their browsing habits. We also inform you that this website complies with the provisions of the LSSI-CE and GDPR. In this regard, cookies will not be stored on your device for the stated purposes unless the user has given their consent.</p>
 <p>See more information about the <a href="/en/cookies" class="text-blue-600 hover:text-blue-800 underline">cookies policy here</a>.</p>`,
-    },
-    section2: {
-      title: "Personal data protection according to LOPDDD",
-      content: `<p>FERSUTER SL (company owner of the registered trademark SPORTSMATCH), in application of current regulations on personal data protection, informs that the personal data collected through the forms on the SPORTSMATCH.PRO website, are included in the automated files specific to users of FERSUTER SL services.</p>
-
-<p>The collection and automated processing of personal data has the purpose of maintaining commercial relations and carrying out information, training, advisory tasks and other activities of FERSUTER SL.</p>
-
-<p>This data will only be transferred to those entities that are necessary for the sole purpose of fulfilling the previously stated purpose.</p>
-
-<p>FERSUTER SL adopts the necessary measures to guarantee the security, integrity and confidentiality of the data in accordance with the provisions of Regulation (EU) 2016/679 of the European Parliament and of the Council, of April 27, 2016, regarding the protection of natural persons with respect to the processing of personal data and the free movement thereof.</p>
-
-<p>The user may at any time exercise the rights of access, opposition, rectification and cancellation recognized in the aforementioned Regulation (EU). The exercise of these rights can be carried out by the user himself via email at: INFO@SPORTSMATCH.PRO.</p>
-
-<p>The user declares that all data provided by him is true and correct, and undertakes to keep it updated, communicating changes to SPORTSMATCH.</p>`,
-    },
-    section3: {
-      title: "Purpose of personal data processing",
-      content: `<p class="font-semibold">For what purpose will we process your personal data?</p>
-
-<p>FERSUTER SL will process your personal data collected through the SPORTSMATCH.PRO website, for the following purposes:</p>
-
-<ul class="list-disc list-inside mb-4">
+      },
+      {
+        title: "Personal data protection according to LOPDDD",
+        content: `<p>FERSUTER SL (company owning the registered trademark SPORTSMATCH), in application of current personal data protection regulations, informs that personal data collected through the forms on the SPORTSMATCH.PRO website is included in the automated files specific to users of FERSUTER SL services.</p>
+<p>The collection and automated processing of personal data is intended to maintain the commercial relationship and carry out information, training, advisory tasks and other activities of FERSUTER SL.</p>
+<p>This data will only be transferred to those entities that are necessary solely for the purpose of fulfilling the previously stated objective.</p>
+<p>FERSUTER SL adopts the necessary measures to guarantee the security, integrity and confidentiality of data in accordance with the provisions of Regulation (EU) 2016/679 of the European Parliament and of the Council, of April 27, 2016, on the protection of natural persons with regard to the processing of personal data and on the free movement of such data.</p>
+<p>The user may at any time exercise the rights of access, objection, rectification and cancellation recognized in the aforementioned Regulation (EU). These rights can be exercised by the user via email at: <a href="mailto:INFO@SPORTSMATCH.PRO" class="text-blue-600 hover:text-blue-800 underline">INFO@SPORTSMATCH.PRO</a>.</p>
+<p>The user states that all data provided is true and correct, and undertakes to keep it updated, communicating any changes to SPORTSMATCH.</p>`,
+      },
+      {
+        title: "Purpose of personal data processing",
+        content: `<p>For what purpose will we process your personal data?</p>
+<p>FERSUTER SL will process your personal data collected through the SPORTSMATCH.PRO website for the following purposes:</p>
+<ol class="list-decimal list-inside mb-4 space-y-2">
   <li>In case of contracting the goods and services offered through SPORTSMATCH.PRO, to maintain the contractual relationship, as well as the management, administration, information, provision and improvement of the service.</li>
   <li>Sending information requested through the forms available on SPORTSMATCH.PRO.</li>
-  <li>Sending newsletters, as well as commercial communications of promotions and/or advertising from SPORTSMATCH.PRO and the sector.</li>
-</ul>
-
-<p>We remind you that you can object to the sending of commercial communications by any means and at any time, by sending an email to the address indicated above.</p>
-
-<p>The fields of these records are mandatory, making it impossible to carry out the expressed purposes if these data are not provided.</p>
-
-<p class="font-semibold">How long are the collected personal data retained?</p>
-<p>The provided personal data will be retained while the commercial relationship is maintained or you do not request its deletion and during the period for which legal responsibilities could arise from the services provided.</p>`,
-    },
-    section4: {
-      title: "Legitimization",
-      content: `<p>The processing of your data is carried out with the following legal bases that legitimize it:</p>
-
-<ul class="list-disc list-inside mb-4">
+  <li>Sending newsletters, as well as commercial communications regarding promotions and/or advertising from SPORTSMATCH.PRO and the sector.</li>
+</ol>
+<p>We remind you that you may object to the sending of commercial communications by any means and at any time, by sending an email to the address indicated above.</p>
+<p>The fields in these records are mandatory, making it impossible to fulfil the stated purposes if the data is not provided.</p>`,
+      },
+      {
+        title: "How long is the collected personal data retained?",
+        content: `<p>The personal data provided will be retained for as long as the commercial relationship is maintained or until you request its deletion, and for the period during which legal responsibilities may arise from the services provided.</p>
+<p><strong>Legitimacy:</strong></p>
+<p>The processing of your data is carried out under the following legal bases that legitimize it:</p>
+<ol class="list-decimal list-inside mb-4 space-y-2">
   <li>The request for information and/or the contracting of SPORTSMATCH.PRO services, whose terms and conditions will be made available to you in any case, prior to any eventual contracting.</li>
-  <li>Free, specific, informed and unequivocal consent, insofar as we inform you by making available the present privacy policy, which after reading it, if you agree, you can accept by means of a declaration or a clear affirmative action, such as checking a box provided for this purpose.</li>
+  <li>Free, specific, informed and unequivocal consent, insofar as we inform you by making available this privacy policy, which after reading it, if you agree, you can accept by means of a declaration or a clear affirmative action, such as ticking a box provided for this purpose.</li>
+</ol>
+<p>If you do not provide us with your data or do so incorrectly or incompletely, we will not be able to respond to your request, making it completely impossible to provide the requested information or carry out the contracting of services.</p>`,
+      },
+      {
+        title: "Recipients",
+        content: `<p>Data will not be communicated to any third party outside FERSUTER SL, except where legally required.</p>
+<p><strong>Data collected by service users</strong></p>
+<p>In cases where the user uploads files containing personal data to shared hosting servers, FERSUTER SL is not responsible for the user's non-compliance with the GDPR.</p>
+<p><strong>Data retention in compliance with LSSI</strong></p>
+<p>FERSUTER SL informs that, as a data hosting service provider and by virtue of the provisions of Law 34/2002 of July 11 on Information Society Services and Electronic Commerce (LSSI), it retains for a maximum period of 12 months the essential information to identify the origin of hosted data and the moment when the service began to be provided. The retention of this data does not affect the confidentiality of communications and may only be used within the framework of a criminal investigation or to safeguard public security, being made available to judges and/or courts or the relevant Ministry that so requires.</p>
+<p>The communication of data to State Security Forces will be carried out in accordance with personal data protection regulations.</p>
+<p><strong>Intellectual property rights SPORTSMATCH.PRO</strong></p>
+<p>FERSUTER SL holds all copyright, intellectual property, industrial, know-how and any other rights related to the contents of the SPORTSMATCH.PRO website and the services offered therein, as well as the programs necessary for its implementation and related information.</p>
+<p>Reproduction, publication and/or non-strictly private use of the contents, in whole or in part, of the SPORTSMATCH.PRO website is not permitted without prior written consent.</p>`,
+      },
+      {
+        title: "Software intellectual property",
+        content: `<p>The user must respect third-party programs made available by FERSUTER SL, even if they are free and/or publicly available.</p>
+<p>FERSUTER SL holds the necessary exploitation and intellectual property rights over the software.</p>
+<p>The user does not acquire any right or license for the contracted service regarding the software necessary to provide the service, nor the technical service monitoring information, except for the rights and licenses necessary to fulfil the contracted services and only for their duration.</p>
+<p>For any action exceeding the performance of the contract, the user will need written authorization from FERSUTER SL. The user is prohibited from accessing, modifying, or viewing the configuration, structure and files of FERSUTER SL's servers, and assumes civil and criminal liability for any incident that may occur on the servers and security systems as a direct consequence of their negligent or malicious action.</p>`,
+      },
+      {
+        title: "Intellectual property of hosted content",
+        content: `<p>The use of FERSUTER SL services contrary to intellectual property legislation is prohibited, in particular:</p>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Use that is contrary to Spanish laws or that infringes the rights of third parties.</li>
+  <li>The publication or transmission of any content that, in the opinion of FERSUTER SL, is violent, obscene, abusive, illegal, racist, xenophobic or defamatory.</li>
+  <li>Cracks, program serial numbers or any other content that violates the intellectual property rights of third parties.</li>
+  <li>The collection and/or use of personal data of other users without their express consent or in contravention of Regulation (EU) 2016/679 of the European Parliament and of the Council, of April 27, 2016, on the protection of natural persons with regard to the processing of personal data and on the free movement of such data.</li>
+  <li>The use of the domain's mail server and email addresses to send unwanted bulk mail.</li>
 </ul>
-
-<p>If you do not provide us with your data or do so incorrectly or incompletely, we will not be able to respond to your request, making it completely impossible to provide you with the requested information or carry out the contracting of services.</p>`,
-    },
-    section5: {
-      title: "Recipients",
-      content: `<p>Data will not be communicated to any third party outside FERSUTER SL, except legal obligation.</p>
-
-<p class="font-semibold">Data collected by service users.</p>
-<p>In cases where the user includes files with personal data on shared hosting servers, it is not responsible for the user's non-compliance with the GDPR.</p>
-
-<p class="font-semibold">Data retention in accordance with LSSI.</p>
-<p>FERSUTER SL informs that, as a data hosting service provider and by virtue of the provisions of Law 34/2002 of July 11 on Services of the Information Society and Electronic Commerce (LSSI), it retains for a maximum period of 12 months the essential information to identify the origin of the hosted data and the moment when the service began to be provided. The retention of this data does not affect the secrecy of communications and can only be used within the framework of a criminal investigation or to safeguard public security, being made available to the judges and/or courts or the Ministry that so requires.</p>
-
-<p>The communication of data to the State Security Forces will be carried out by virtue of the provisions on personal data protection regulations.</p>`,
-    },
+<p>The user bears full responsibility for the content of their website, the information transmitted and stored, hyperlinks, third-party claims and legal actions regarding intellectual property.</p>`,
+      },
+      {
+        title: "Third-party rights and protection of minors",
+        content: `<p>The user is responsible for compliance with the laws and regulations in force and the rules relating to the operation of the online service, electronic commerce, copyright, maintenance of public order, as well as universal principles of Internet use.</p>
+<p>The user will indemnify FERSUTER SL for any expenses arising from FERSUTER SL being implicated in any matter for which the user is responsible, including legal fees and defence costs, even in the case of a non-final judicial decision.</p>`,
+      },
+      {
+        title: "Protection of hosted information",
+        content: `<p>FERSUTER SL performs backup copies of the content hosted on its servers; however, it is not responsible for the accidental loss or deletion of data by users. Likewise, it does not guarantee the full restoration of data deleted by users, as said data may have been deleted and/or modified during the period elapsed since the last backup.</p>
+<p>The services offered, except for specific backup services, do not include the restoration of content preserved in backup copies made by FERSUTER SL when such loss is attributable to the user; in this case, a rate will be determined according to the complexity and volume of recovery, always with the user's prior acceptance.</p>
+<p>The restoration of deleted data is only included in the service price when the content loss is due to causes attributable to FERSUTER SL.</p>`,
+      },
+    ],
   },
 };
 
-// Obtenir les traduccions per a l'idioma actual
-const t =
-  translations[currentLang as keyof typeof translations] ||
-  translations["es-ES"];
+const t = translations[currentLang as keyof typeof translations] || translations["es-ES"];
 ---
 
-<div class="max-w-4xl mx-auto px-4 py-16 mt-32">
+<div class="max-w-4xl mx-auto px-4 py-8 mt-16">
   <h1 class="text-4xl font-bold mb-8">{t.title}</h1>
 
   <div class="prose prose-lg max-w-none">
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section1.title}</h2>
-    <div class="mb-6" set:html={t.section1.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section2.title}</h2>
-    <div class="mb-6" set:html={t.section2.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section3.title}</h2>
-    <div class="mb-6" set:html={t.section3.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section4.title}</h2>
-    <div class="mb-6" set:html={t.section4.content} />
-
-    <h2 class="text-2xl font-semibold mb-4 mt-8">{t.section5.title}</h2>
-    <div class="mb-6" set:html={t.section5.content} />
+    {t.sections.map((section) => (
+      <Fragment>
+        <h2 class="text-2xl font-semibold mb-4 mt-8">{section.title}</h2>
+        <div class="mb-6" set:html={section.content} />
+      </Fragment>
+    ))}
   </div>
 </div>

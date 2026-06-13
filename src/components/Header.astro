@@ -1,5 +1,6 @@
 ---
 import { getTranslations, type Lang } from "../i18n/index";
+import { getTranslatedUrlsForPath } from "../config/routes";
 import IconCaret from "./IconCaret.astro";
 import IconNavClubs from "./IconNavClubs.astro";
 import IconNavPlayers from "./IconNavPlayers.astro";
@@ -21,6 +22,7 @@ export interface Props {
 const { lang, currentPath } = Astro.props;
 const t = getTranslations(lang);
 
+const translatedUrls = getTranslatedUrlsForPath(currentPath);
 const langRoutes: Record<Lang, string> = { es: "/", ca: "/ca", en: "/en" };
 const langLabel = lang.toUpperCase();
 const blogHref = lang === "es" ? "/blog" : `/${lang}/blog`;
@@ -192,19 +194,19 @@ const iconBtn =
               [
                 {
                   code: "ES",
-                  href: "/",
+                  href: translatedUrls.es,
                   key: "lang.es",
                   current: lang === "es",
                 },
                 {
                   code: "CA",
-                  href: "/ca",
+                  href: translatedUrls.ca,
                   key: "lang.ca",
                   current: lang === "ca",
                 },
                 {
                   code: "EN",
-                  href: "/en",
+                  href: translatedUrls.en,
                   key: "lang.en",
                   current: lang === "en",
                 },
@@ -303,9 +305,9 @@ const iconBtn =
     <a class={navItem} href={blogHref}>{t["nav.blog"]}</a>
     <a class={navItem} href={aboutHref}>{t["nav.about"]}</a>
     <hr class="border-line my-1" />
-    <a class={navItem} href="/">ES — {t["lang.es"]}</a>
-    <a class={navItem} href="/ca">CA — {t["lang.ca"]}</a>
-    <a class={navItem} href="/en">EN — {t["lang.en"]}</a>
+    <a class={navItem} href={translatedUrls.es}>ES — {t["lang.es"]}</a>
+    <a class={navItem} href={translatedUrls.ca}>CA — {t["lang.ca"]}</a>
+    <a class={navItem} href={translatedUrls.en}>EN — {t["lang.en"]}</a>
     <hr class="border-line my-1" />
     <button
       class={`${navItem} w-full text-left`}

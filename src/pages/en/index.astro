@@ -4,6 +4,7 @@ import HeroSection from '../../components/HeroSection.astro';
 import DualitySplitSection from '../../components/DualitySplitSection.astro';
 import SportsGallerySection from '../../components/SportsGallerySection.astro';
 import StatsSection from '../../components/StatsSection.astro';
+import CtaStripSection from '../../components/CtaStripSection.astro';
 import { getTranslations } from '../../i18n/index';
 
 const lang = 'en' as const;
@@ -19,4 +20,5 @@ const t = getTranslations(lang);
   <DualitySplitSection t={t} />
   <SportsGallerySection t={t} />
   <StatsSection t={t} />
+  <CtaStripSection t={t} />
 </BaseLayout>

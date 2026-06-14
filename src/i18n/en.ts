@@ -98,6 +98,9 @@ const en: Record<string, string> = {
   'duality.club.b3': 'Public club page in player searches',
   'duality.club.cta': 'Create your club profile',
 
+  // Final CTA
+  'cta.final.title': 'Your sports dream, <em>within reach</em>.',
+
   // Stats
   'stats.eyebrow': 'By the numbers',
   'stats.title': 'A community growing every week.',

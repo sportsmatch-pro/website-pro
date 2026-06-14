@@ -98,6 +98,9 @@ const ca: Record<string, string> = {
   'duality.club.b3': 'Visibilitat pública del club a les cerques',
   'duality.club.cta': 'Crea el perfil del teu club',
 
+  // Final CTA
+  'cta.final.title': 'El teu somni esportiu, <em>a l\'abast</em>.',
+
   // Stats
   'stats.eyebrow': 'En números',
   'stats.title': 'Una comunitat que creix cada setmana.',

@@ -98,6 +98,15 @@ const es: Record<string, string> = {
   'duality.club.b3': 'Visibilidad pública del club en búsquedas',
   'duality.club.cta': 'Crea el perfil de tu club',
 
+  // Stats
+  'stats.eyebrow': 'En números',
+  'stats.title': 'Una comunidad que crece cada semana.',
+  'stats.sub': 'Jugadores, clubes y profesionales que ya confían en SportsMatch para encontrar su próximo match.',
+  'stats.users': 'Profesionales registrados',
+  'stats.clubs': 'Clubes',
+  'stats.matches': 'Publicaciones realizadas',
+  'stats.sports': 'Deportes disponibles',
+
   // Sports gallery
   'sports.eyebrow': 'Verticales deportivas',
   'sports.title': 'Adaptado a tu deporte.',

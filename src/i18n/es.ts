@@ -98,6 +98,15 @@ const es: Record<string, string> = {
   'duality.club.b3': 'Visibilidad pública del club en búsquedas',
   'duality.club.cta': 'Crea el perfil de tu club',
 
+  // Sports gallery
+  'sports.eyebrow': 'Verticales deportivas',
+  'sports.title': 'Adaptado a tu deporte.',
+  'sports.sub': 'Cada disciplina tiene sus posiciones, categorías y métricas. SportsMatch entiende las reglas de tu juego, no las inventa.',
+  'sports.live': 'Activo',
+  'sports.soon': 'Próximamente',
+  'sports.all': 'Ver todos los deportes',
+  'sports.note': 'Si tu deporte aún no está, escríbenos.',
+
   // Blog
   'blog.index.eyebrow': 'Blog deportivo',
   'blog.index.title': 'Últimas noticias',

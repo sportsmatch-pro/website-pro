@@ -98,6 +98,15 @@ const ca: Record<string, string> = {
   'duality.club.b3': 'Visibilitat pública del club a les cerques',
   'duality.club.cta': 'Crea el perfil del teu club',
 
+  // Sports gallery
+  'sports.eyebrow': 'Verticals esportives',
+  'sports.title': 'Adaptat al teu esport.',
+  'sports.sub': 'Cada disciplina té les seves posicions, categories i mètriques. SportsMatch entén les regles del teu joc, no se les inventa.',
+  'sports.live': 'Actiu',
+  'sports.soon': 'Aviat',
+  'sports.all': 'Veure tots els esports',
+  'sports.note': 'Si el teu esport encara no hi és, escriu-nos.',
+
   // Blog
   'blog.index.eyebrow': 'Blog esportiu',
   'blog.index.title': 'Últimes notícies',

@@ -1,6 +1,5 @@
 ---
 import BaseButton from "./base/BaseButton.astro";
-import BaseList from "./base/BaseList.astro";
 import BaseText from "./base/BaseText.astro";
 import BaseTitle from "./base/BaseTitle.astro";
 import StoreButtons from "./StoreButtons.astro";
@@ -29,11 +28,11 @@ const { t } = Astro.props;
     <div class="flex flex-col gap-6">
       <span class="eyebrow">{t["hero.eyebrow"]}</span>
 
-      <BaseTitle tag="h1" size="8xl" iColor="--brand-green" balance>
+      <BaseTitle tag="h1" iColor="--brand-green" balance class="hero-title" style="font-size: clamp(48px, 8vw, 112px); line-height: 0.94; letter-spacing: -0.04em">
         <span set:html={t["hero.title"]} />
       </BaseTitle>
 
-      <BaseText size="xl" color="muted">
+      <BaseText color="muted" class="hero-sub">
         {t["hero.sub"]}
       </BaseText>
 
@@ -42,11 +41,10 @@ const { t } = Astro.props;
         <!--<BaseButton variant="outline">{t["hero.cta.secondary"]}</BaseButton>-->
       </div>
 
-      <BaseList
-        items={[t["hero.meta.free"]]}
-        bulletColor="--brand-green"
-        color="muted"
-      />
+      <div class="hero-meta">
+        <span class="hero-meta-dot" aria-hidden="true"></span>
+        <span set:html={t["hero.meta.free"]} />
+      </div>
     </div>
 
     <!-- Visual -->
@@ -175,5 +173,30 @@ const { t } = Astro.props;
   }
   .hero-chip--delayed {
     animation-delay: 2s;
+  }
+
+  .hero-sub {
+    font-size: clamp(18px, 1.4vw, 22px);
+    max-width: 52ch;
+    line-height: 1.45;
+    text-wrap: pretty;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--fg-subtle);
+  }
+
+  .hero-meta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #16c447;
+    box-shadow: 0 0 0 4px rgba(22, 196, 71, 0.18);
+    flex: 0 0 6px;
+    animation: dot-pulse 2s ease-in-out infinite;
   }
 </style>

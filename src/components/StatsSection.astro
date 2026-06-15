@@ -31,11 +31,16 @@ const stats: Stat[] = [
     <div class="flex flex-wrap justify-between items-end gap-6 mb-14">
       <div>
         <span class="eyebrow">{t['stats.eyebrow']}</span>
-        <BaseTitle tag="h2" size="7xl" balance class="mt-3">
+        <BaseTitle
+          tag="h2"
+          balance
+          class="mt-4 max-w-[18ch]"
+          style="font-size: clamp(34px, 4vw, 56px); line-height: 1.1; letter-spacing: -0.015em"
+        >
           {t['stats.title']}
         </BaseTitle>
       </div>
-      <BaseText size="xl" color="muted" class="max-w-[42ch]">
+      <BaseText color="muted" class="max-w-[42ch] stats-sub">
         {t['stats.sub']}
       </BaseText>
     </div>
@@ -43,7 +48,7 @@ const stats: Stat[] = [
     <!-- Stats grid — gap-px + bg-line creates 1px dividers between cells -->
     <div
       data-stats-grid
-      class="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line rounded-xl overflow-hidden"
+      class="grid grid-cols-2 min-[821px]:grid-cols-4 gap-px bg-line border border-line rounded-xl overflow-hidden"
     >
       {stats.map((stat) => (
         <StatItem
@@ -96,3 +101,10 @@ const stats: Stat[] = [
 
   grids.forEach((el) => observer.observe(el));
 </script>
+
+<style>
+  .stats-sub {
+    font-size: clamp(18px, 1.4vw, 22px);
+    text-wrap: pretty;
+  }
+</style>

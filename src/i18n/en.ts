@@ -119,6 +119,9 @@ const en: Record<string, string> = {
   'sports.all': 'View all sports',
   'sports.note': "If your sport isn't here yet, let us know.",
 
+  // Pages
+  'page.home.title': 'SportsMatch — Your sports match, without middlemen',
+
   // Blog
   'blog.index.eyebrow': 'Sports blog',
   'blog.index.title': 'Latest news',

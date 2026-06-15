@@ -119,6 +119,9 @@ const ca: Record<string, string> = {
   'sports.all': 'Veure tots els esports',
   'sports.note': 'Si el teu esport encara no hi és, escriu-nos.',
 
+  // Pages
+  'page.home.title': 'SportsMatch — El teu match esportiu, sense intermediaris',
+
   // Blog
   'blog.index.eyebrow': 'Blog esportiu',
   'blog.index.title': 'Últimes notícies',

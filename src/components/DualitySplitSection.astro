@@ -53,10 +53,10 @@ const { t } = Astro.props;
           <BaseTag size="sm">
             {t["duality.club.tag"]}
           </BaseTag>
-          <BaseTitle tag="h3" size="5xl" iColor="--brand-orange">
+          <BaseTitle tag="h3" size="5xl" iColor="--brand-orange" textColor="white">
             <span set:html={t["duality.club.title"]} />
           </BaseTitle>
-          <BaseText size="sm">
+          <BaseText size="sm" textColor="white">
             {t["duality.club.desc"]}
           </BaseText>
           <BaseList
@@ -97,10 +97,11 @@ const { t } = Astro.props;
             size="5xl"
             class="md:text-right"
             iColor="--brand-green"
+            textColor="white"
           >
             <span set:html={t["duality.player.title"]} />
           </BaseTitle>
-          <BaseText size="sm">
+          <BaseText size="sm" textColor="white">
             {t["duality.player.desc"]}
           </BaseText>
           <BaseList

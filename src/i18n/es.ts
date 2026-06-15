@@ -116,6 +116,7 @@ const es: Record<string, string> = {
   'sports.sub': 'Cada disciplina tiene sus posiciones, categorías y métricas. SportsMatch entiende las reglas de tu juego, no las inventa.',
   'sports.live': 'Activo',
   'sports.soon': 'Próximamente',
+  'sports.new': 'Novedad ya disponible!',
   'sports.all': 'Ver todos los deportes',
   'sports.note': 'Si tu deporte aún no está, escríbenos.',
 

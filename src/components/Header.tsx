@@ -86,8 +86,8 @@ export function Header({ lang = 'es', currentPath = '/' }: Props) {
       </div>
 
       {/* Action buttons */}
-      <a href="#" className="btn btn--ghost">{t['cta.signin']}</a>
-      <a href="#" className="btn btn--primary">
+      <a href="https://app.sportsmatch.pro" className="btn btn--ghost">{t['cta.signin']}</a>
+      <a href="https://share.sportsmatch.pro" className="btn btn--primary">
         {t['cta.download']}
       </a>
     </header>

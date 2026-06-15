@@ -115,7 +115,8 @@ const ca: Record<string, string> = {
   'sports.title': 'Adaptat al teu esport.',
   'sports.sub': 'Cada disciplina té les seves posicions, categories i mètriques. SportsMatch entén les regles del teu joc, no se les inventa.',
   'sports.live': 'Actiu',
-  'sports.soon': 'En breus',
+  'sports.soon': 'Poperament',
+  'sports.new': 'Novetat ja disponible!',
   'sports.all': 'Veure tots els esports',
   'sports.note': 'Si el teu esport encara no hi és, escriu-nos.',
 

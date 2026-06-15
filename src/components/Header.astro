@@ -23,7 +23,8 @@ export interface Props {
 const { lang, currentPath, translatedUrls: translatedUrlsProp } = Astro.props;
 const t = getTranslations(lang);
 
-const translatedUrls = translatedUrlsProp ?? getTranslatedUrlsForPath(currentPath);
+const translatedUrls =
+  translatedUrlsProp ?? getTranslatedUrlsForPath(currentPath);
 const langRoutes: Record<Lang, string> = { es: "/", ca: "/ca", en: "/en" };
 const langLabel = lang.toUpperCase();
 const blogHref = lang === "es" ? "/blog" : `/${lang}/blog`;
@@ -42,7 +43,7 @@ const iconBtn =
   data-testid="main-header"
 >
   <div
-    class="max-w-(--container) mx-auto h-full px-[clamp(20px,4vw,48px)] grid grid-cols-[auto_1fr_auto] items-center gap-(--space-6)"
+    class="max-w-(--container) mx-auto h-full px-[clamp(20px,4vw,48px)] grid grid-cols-[auto_1fr_auto] items-center gap-(--space-2) md:gap-(--space-6)"
   >
     <!-- Logo -->
     <a
@@ -64,7 +65,7 @@ const iconBtn =
 
     <!-- Primary nav (desktop) -->
     <nav
-      class="flex justify-center items-center gap-1 max-[920px]:hidden"
+      class="justify-center items-center gap-1 hidden md:flex"
       aria-label="Principal"
     >
       <!-- Producto dropdown — .dropdown class kept for JS targeting -->
@@ -145,22 +146,26 @@ const iconBtn =
         <span>{t["nav.blog"]}</span>
       </BaseButton>
 
-      <span class="hidden"><BaseButton
-        variant="ghost"
-        size="sm"
-        tag="a"
-        class={navItem}
-        href={aboutHref}
+      <span class="hidden"
+        ><BaseButton
+          variant="ghost"
+          size="sm"
+          tag="a"
+          class={navItem}
+          href={aboutHref}
+        >
+          <span>{t["nav.about"]}</span>
+        </BaseButton></span
       >
-        <span>{t["nav.about"]}</span>
-      </BaseButton></span>
     </nav>
 
     <!-- Header actions -->
-    <div class="flex items-center gap-2 shrink-0">
+    <div
+      class="flex items-center gap-2 shrink-0 justify-end col-span-2 md:col-span-1"
+    >
       <!-- Language selector — .lang-dropdown class kept for JS targeting -->
       <div
-        class="lang-dropdown group/langdd relative max-[920px]:hidden"
+        class="lang-dropdown group/langdd relative hidden md:block"
         data-open="false"
       >
         <BaseButton
@@ -234,23 +239,25 @@ const iconBtn =
       </div>
 
       <!-- Theme toggle -->
-      <BaseButton
-        variant="ghost"
-        size="sm"
-        data-theme-toggle
-        aria-label={t["theme.toggle"]}
-        tag="button"
-      >
-        <span data-theme-icon="light" style="display:none"
-          ><IconSun class="w-[18px] h-[18px] text-fg-muted" /></span
+      <div class="hidden md:block">
+        <BaseButton
+          variant="ghost"
+          size="sm"
+          data-theme-toggle
+          aria-label={t["theme.toggle"]}
+          tag="button"
         >
-        <span data-theme-icon="dark" style="display:none"
-          ><IconMoon class="w-[18px] h-[18px] text-fg-muted" /></span
-        >
-        <span data-theme-icon="system" style="display:none"
-          ><IconMonitor class="w-[18px] h-[18px] text-fg-muted" /></span
-        >
-      </BaseButton>
+          <span data-theme-icon="light" style="display:none"
+            ><IconSun class="w-[18px] h-[18px] text-fg-muted" /></span
+          >
+          <span data-theme-icon="dark" style="display:none"
+            ><IconMoon class="w-[18px] h-[18px] text-fg-muted" /></span
+          >
+          <span data-theme-icon="system" style="display:none"
+            ><IconMonitor class="w-[18px] h-[18px] text-fg-muted" /></span
+          >
+        </BaseButton>
+      </div>
 
       <!-- Sign in -->
       <!--
@@ -279,7 +286,7 @@ const iconBtn =
       </BaseButton>
       <!-- Mobile hamburger -->
       <button
-        class={`${iconBtn} min-[921px]:hidden`}
+        class={`${iconBtn} md:hidden`}
         type="button"
         data-mobile-toggle
         aria-expanded="false"
@@ -293,8 +300,8 @@ const iconBtn =
   <!-- Mobile drawer -->
   <div
     class="hidden data-[open=true]:flex data-[open=true]:flex-col data-[open=true]:gap-1
-           fixed top-header left-0 right-0 bottom-0 bg-bg
-           px-6 py-4 overflow-y-auto z-[49] border-t border-line min-[921px]:hidden"
+           fixed top-header left-0 right-0 bg-bg absolute
+           px-6 py-4 overflow-y-auto z-[49] border-t border-line md:hidden"
     data-mobile-drawer
     data-open="false"
   >
@@ -306,7 +313,7 @@ const iconBtn =
       <hr class="border-line my-1" />
     </div>
     <a class={navItem} href={blogHref}>{t["nav.blog"]}</a>
-    <a class={`${navItem} hidden`} href={aboutHref}>{t["nav.about"]}</a>
+    <!-- <a class={`${navItem} hidden`} href={aboutHref}>{t["nav.about"]}</a> -->
     <hr class="border-line my-1" />
     <a class={navItem} href={translatedUrls.es}>ES — {t["lang.es"]}</a>
     <a class={navItem} href={translatedUrls.ca}>CA — {t["lang.ca"]}</a>

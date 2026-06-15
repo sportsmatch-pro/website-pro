@@ -1,5 +1,5 @@
 ---
-import { getTranslations, type Lang } from '../i18n/index';
+import { getTranslations, type Lang } from "../i18n/index";
 
 export interface Props {
   lang: Lang;
@@ -18,13 +18,17 @@ const t = getTranslations(lang);
   aria-label="Download app"
 >
   <div>
-    <span class="text-[14px] font-semibold tracking-[-0.01em]">{t['sticky.brand']}</span>
-    <span class="block text-[11px] opacity-70 mt-0.5">{t['sticky.tagline']}</span>
+    <span class="text-[14px] font-semibold tracking-[-0.01em]"
+      >{t["sticky.brand"]}</span
+    >
+    <span class="block text-[11px] opacity-70 mt-0.5"
+      >{t["sticky.tagline"]}</span
+    >
   </div>
   <a
     class="inline-flex items-center shrink-0 px-4 py-[10px] rounded-pill
            bg-brand-green text-white text-[13px] font-semibold no-underline whitespace-nowrap
            transition-colors duration-fast hover:bg-brand-green-hover"
-    href="#"
-  >{t['cta.download.mobile']}</a>
+    href="https://share.sportsmatch.pro">{t["cta.download.mobile"]}</a
+  >
 </div>

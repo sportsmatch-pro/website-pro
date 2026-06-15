@@ -7,7 +7,7 @@ const en: Record<string, string> = {
   'nav.product.players': 'For Players',
   'nav.product.players.d': 'Build your profile, find a club.',
   'nav.product.pros': 'For Professionals',
-  'nav.product.pros.d': 'Coaches, physios, analysts.',
+  'nav.product.pros.d': 'Coaches, physiotherapists, analysts.',
   'nav.product.sports': 'Sports',
   'nav.product.sports.d': 'Football, basket, hockey, volley...',
   'nav.pricing': 'Pricing',
@@ -135,22 +135,22 @@ const en: Record<string, string> = {
   // Legal
   'legal.privacy.title': 'Privacy Policy',
   'legal.privacy.desc': 'Learn how SportsMatch handles your personal data.',
-  'legal.privacy.updated': 'Last updated: January 1, 2025',
+  'legal.privacy.updated': 'Last updated: June 15, 2026',
   'legal.privacy.content': 'At SportsMatch we are committed to protecting your privacy. This policy describes what data we collect, how we use it, and what rights you have over it. For any questions, contact us at privacy@sportsmatch.app.',
 
   'legal.terms.title': 'Terms of Service',
   'legal.terms.desc': 'Read the terms and conditions of use for SportsMatch.',
-  'legal.terms.updated': 'Last updated: January 1, 2025',
+  'legal.terms.updated': 'Last updated: June 15, 2026',
   'legal.terms.content': 'By using SportsMatch you agree to these terms in full. The service is provided as-is and may be modified at any time with prior notice. Violations of community guidelines may result in account suspension.',
 
   'legal.cookies.title': 'Cookie Policy',
   'legal.cookies.desc': 'Information about cookie usage on SportsMatch.',
-  'legal.cookies.updated': 'Last updated: January 1, 2025',
+  'legal.cookies.updated': 'Last updated: June 15, 2026',
   'legal.cookies.content': 'SportsMatch uses first-party and third-party cookies to improve user experience and analyse traffic. You can configure your browser to reject all cookies, though this may affect site functionality.',
 
   'legal.notice.title': 'Legal Notice',
   'legal.notice.desc': 'Legal information about the owner of SportsMatch.',
-  'legal.notice.updated': 'Last updated: January 1, 2025',
+  'legal.notice.updated': 'Last updated: June 15, 2026',
   'legal.notice.content': 'Owner: SportsMatch S.L., registered in Barcelona, Spain. Access to and use of this website constitutes full acceptance of the terms set out in this legal notice. For legal queries or complaints, contact legal@sportsmatch.app.',
 };
 

@@ -86,14 +86,14 @@ const es: Record<string, string> = {
   'duality.player.tag': 'Jugadores o profesionales',
   'duality.player.title': 'No esperes a que te <i>descubran</i>.',
   'duality.player.desc': 'Crea tu perfil deportivo, gana visibilidad y accede a oportunidades publicadas por clubes.',
-  'duality.player.b1': 'Perfil con información y qualidades',
+  'duality.player.b1': 'Perfil verificado con historial federado real',
   'duality.player.b2': 'Publica tus jugadas y gana visibilidad',
   'duality.player.b3': 'Notificaciones cuando un club te abre la puerta',
   'duality.player.cta': 'Crea tu perfil gratuito',
   'duality.club.tag': 'Clubes y Scouts',
   'duality.club.title': 'Encuentra <i>talento</i> deportivo.',
   'duality.club.desc': 'Publica necesidades deportivas, filtra perfiles y conecta con jugadores y profesionales sin depender solo del boca a boca.',
-  'duality.club.b1': 'Acceso a perfiles con informació y qualidades',
+  'duality.club.b1': 'Acceso a perfiles con historial federado',
   'duality.club.b2': 'Gestión centralizada de vacantes y respuestas',
   'duality.club.b3': 'Visibilidad pública del club en búsquedas',
   'duality.club.cta': 'Crea el perfil de tu club',
@@ -135,22 +135,22 @@ const es: Record<string, string> = {
   // Legal
   'legal.privacy.title': 'Política de Privacidad',
   'legal.privacy.desc': 'Conoce cómo SportsMatch trata tus datos personales.',
-  'legal.privacy.updated': 'Última actualización: 1 de enero de 2025',
+  'legal.privacy.updated': 'Última actualización: 15 de junio de 2026',
   'legal.privacy.content': 'En SportsMatch nos comprometemos a proteger tu privacidad. Esta política describe qué datos recopilamos, cómo los usamos y qué derechos tienes sobre ellos. Para cualquier consulta, puedes contactarnos en privacidad@sportsmatch.app.',
 
   'legal.terms.title': 'Términos de Servicio',
   'legal.terms.desc': 'Lee los términos y condiciones de uso de SportsMatch.',
-  'legal.terms.updated': 'Última actualización: 1 de enero de 2025',
+  'legal.terms.updated': 'Última actualización: 15 de junio de 2026',
   'legal.terms.content': 'Al usar SportsMatch aceptas estos términos en su totalidad. El servicio se ofrece tal cual y puede modificarse en cualquier momento con aviso previo. El incumplimiento de las normas de la comunidad puede resultar en la suspensión de la cuenta.',
 
   'legal.cookies.title': 'Política de Cookies',
   'legal.cookies.desc': 'Información sobre el uso de cookies en SportsMatch.',
-  'legal.cookies.updated': 'Última actualización: 1 de enero de 2025',
+  'legal.cookies.updated': 'Última actualización: 15 de junio de 2026',
   'legal.cookies.content': 'SportsMatch utiliza cookies propias y de terceros para mejorar la experiencia de usuario y analizar el tráfico. Puedes configurar tu navegador para rechazar todas las cookies, aunque esto puede afectar a la funcionalidad del sitio.',
 
   'legal.notice.title': 'Aviso Legal',
   'legal.notice.desc': 'Información legal sobre el titular de SportsMatch.',
-  'legal.notice.updated': 'Última actualización: 1 de enero de 2025',
+  'legal.notice.updated': 'Última actualización: 15 de junio de 2026',
   'legal.notice.content': 'Titular: SportsMatch S.L., con domicilio social en Barcelona, España. El acceso y uso de este sitio web implica la aceptación plena de las condiciones recogidas en este aviso legal. Para reclamaciones o consultas legales, contacta con legal@sportsmatch.app.',
 };
 

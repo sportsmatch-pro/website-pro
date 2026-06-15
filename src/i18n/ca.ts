@@ -115,7 +115,7 @@ const ca: Record<string, string> = {
   'sports.title': 'Adaptat al teu esport.',
   'sports.sub': 'Cada disciplina té les seves posicions, categories i mètriques. SportsMatch entén les regles del teu joc, no se les inventa.',
   'sports.live': 'Actiu',
-  'sports.soon': 'Aviat',
+  'sports.soon': 'En breus',
   'sports.all': 'Veure tots els esports',
   'sports.note': 'Si el teu esport encara no hi és, escriu-nos.',
 
@@ -135,22 +135,22 @@ const ca: Record<string, string> = {
   // Legal
   'legal.privacy.title': 'Política de Privacitat',
   'legal.privacy.desc': 'Coneix com SportsMatch tracta les teves dades personals.',
-  'legal.privacy.updated': 'Darrera actualització: 1 de gener de 2025',
+  'legal.privacy.updated': 'Darrera actualització: 15 de juny de 2026',
   'legal.privacy.content': 'A SportsMatch ens comprometem a protegir la teva privacitat. Aquesta política descriu quines dades recopilem, com les fem servir i quins drets tens sobre elles. Per a qualsevol consulta, pots contactar-nos a privacitat@sportsmatch.app.',
 
   'legal.terms.title': 'Termes de Servei',
   'legal.terms.desc': "Llegeix els termes i condicions d'ús de SportsMatch.",
-  'legal.terms.updated': 'Darrera actualització: 1 de gener de 2025',
+  'legal.terms.updated': 'Darrera actualització: 15 de juny de 2026',
   'legal.terms.content': "En usar SportsMatch acceptes aquests termes en la seva totalitat. El servei s'ofereix tal qual i es pot modificar en qualsevol moment amb avís previ. L'incompliment de les normes de la comunitat pot resultar en la suspensió del compte.",
 
   'legal.cookies.title': 'Política de Cookies',
   'legal.cookies.desc': "Informació sobre l'ús de cookies a SportsMatch.",
-  'legal.cookies.updated': 'Darrera actualització: 1 de gener de 2025',
+  'legal.cookies.updated': 'Darrera actualització: 15 de juny de 2026',
   'legal.cookies.content': "SportsMatch utilitza cookies pròpies i de tercers per millorar l'experiència d'usuari i analitzar el trànsit. Pots configurar el teu navegador per rebutjar totes les cookies, tot i que això pot afectar la funcionalitat del lloc.",
 
   'legal.notice.title': 'Avís Legal',
   'legal.notice.desc': 'Informació legal sobre el titular de SportsMatch.',
-  'legal.notice.updated': 'Darrera actualització: 1 de gener de 2025',
+  'legal.notice.updated': 'Darrera actualització: 15 de juny de 2026',
   'legal.notice.content': "Titular: SportsMatch S.L., amb domicili social a Barcelona, Espanya. L'accés i ús d'aquest lloc web implica l'acceptació plena de les condicions recollides en aquest avís legal. Per a reclamacions o consultes legals, contacta amb legal@sportsmatch.app.",
 };
 

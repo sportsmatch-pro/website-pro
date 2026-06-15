@@ -68,7 +68,7 @@ const iconBtn =
       aria-label="Principal"
     >
       <!-- Producto dropdown — .dropdown class kept for JS targeting -->
-      <div class="dropdown group/dropdown relative" data-open="false">
+      <div class="hidden dropdown group/dropdown relative" data-open="false">
         <BaseButton
           variant="ghost"
           size="sm"
@@ -298,11 +298,13 @@ const iconBtn =
     data-mobile-drawer
     data-open="false"
   >
-    <a class={navItem} href="#">{t["nav.product.clubs"]}</a>
-    <a class={navItem} href="#">{t["nav.product.players"]}</a>
-    <a class={navItem} href="#">{t["nav.product.pros"]}</a>
-    <a class={navItem} href="#">{t["nav.product.sports"]}</a>
-    <hr class="border-line my-1" />
+    <div class="hidden">
+      <a class={navItem} href="#">{t["nav.product.clubs"]}</a>
+      <a class={navItem} href="#">{t["nav.product.players"]}</a>
+      <a class={navItem} href="#">{t["nav.product.pros"]}</a>
+      <a class={navItem} href="#">{t["nav.product.sports"]}</a>
+      <hr class="border-line my-1" />
+    </div>
     <a class={navItem} href={blogHref}>{t["nav.blog"]}</a>
     <a class={`${navItem} hidden`} href={aboutHref}>{t["nav.about"]}</a>
     <hr class="border-line my-1" />

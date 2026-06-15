@@ -2,7 +2,6 @@
 import BaseButton from './base/BaseButton.astro';
 import BaseTitle from './base/BaseTitle.astro';
 import BaseText from './base/BaseText.astro';
-import IconArrowRight from './IconArrowRight.astro';
 import SportCard from './SportCard.astro';
 
 interface Props {
@@ -35,14 +34,19 @@ const sports: Sport[] = [
   <div class="container">
 
     <!-- Header -->
-    <div class="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 items-end mb-14">
+    <div class="grid grid-cols-1 min-[821px]:grid-cols-[1.2fr_1fr] gap-8 items-end mb-14">
       <div>
         <span class="eyebrow">{t['sports.eyebrow']}</span>
-        <BaseTitle tag="h2" size="7xl" balance class="mt-3">
+        <BaseTitle
+          tag="h2"
+          balance
+          class="mt-3 max-w-[18ch]"
+          style="font-size: clamp(36px, 4.5vw, 60px); line-height: 1; letter-spacing: -0.03em"
+        >
           {t['sports.title']}
         </BaseTitle>
       </div>
-      <BaseText size="xl" color="muted" class="max-w-[44ch]">
+      <BaseText color="muted" class="max-w-[44ch] sports-lead">
         {t['sports.sub']}
       </BaseText>
     </div>
@@ -62,7 +66,7 @@ const sports: Sport[] = [
 
     <!-- CTA row -->
     <div class="flex flex-wrap items-center justify-center gap-4 mt-10">
-      <BaseButton tag="a" variant="ghost" href="#" iconRight={IconArrowRight}>
+      <BaseButton tag="a" variant="outline" href="#" class="px-[22px] py-[14px] text-[15px] tracking-[-0.005em]">
         {t['sports.all']}
       </BaseButton>
       <span class="text-[13px] text-fg-muted">{t['sports.note']}</span>
@@ -108,5 +112,10 @@ const sports: Sport[] = [
       grid-column: span 2;
       grid-row: span 1;
     }
+  }
+
+  .sports-lead {
+    font-size: clamp(18px, 1.4vw, 22px);
+    text-wrap: pretty;
   }
 </style>

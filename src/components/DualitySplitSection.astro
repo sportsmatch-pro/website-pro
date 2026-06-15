@@ -21,7 +21,7 @@ const { t } = Astro.props;
     class="container text-center flex flex-col gap-3.5 mb-14 items-center pb-(--density-stack)"
   >
     <span class="eyebrow">{t["duality.eyebrow"]}</span>
-    <BaseTitle tag="h2" size="7xl" balance>
+    <BaseTitle tag="h2" balance class="max-w-[18ch]" style="font-size: clamp(40px, 6vw, 80px); line-height: 0.96; letter-spacing: -0.035em">
       <span set:html={t["duality.title"]} />
     </BaseTitle>
   </div>
@@ -30,10 +30,10 @@ const { t } = Astro.props;
   <div class="bg-black">
     <!-- Layer 1: copy + shared bg image -->
     <div
-      class="container relative grid grid-cols-1 md:grid-cols-2 h-auto md:h-[clamp(520px,44vh,720px)] isolate overflow-hidden"
+      class="container relative grid grid-cols-1 min-[821px]:grid-cols-2 h-auto min-[821px]:h-[clamp(520px,44vh,720px)] isolate overflow-hidden"
     >
       <img
-        class="duality-bg absolute inset-0 w-full h-full object-cover md:object-contain brightness-[0.55] saturate-[1.05] transition-[transform,filter] duration-slow ease-out-expo"
+        class="duality-bg absolute inset-0 w-full h-full object-cover min-[821px]:object-contain brightness-[0.55] saturate-[1.05] transition-[transform,filter] duration-slow ease-out-expo"
         src="/assets/duality-club.jpg"
         alt=""
         loading="lazy"
@@ -42,7 +42,7 @@ const { t } = Astro.props;
       <!-- Left side: clubs/scouts -->
       <a
         class="side-link group/side relative overflow-hidden flex items-end text-white no-underline z-[2]
-                transition-[flex] duration-slow ease-out-expo md:border-b-20"
+                transition-[flex] duration-slow ease-out-expo min-[821px]:border-b-20"
         href="#"
         data-side="player"
         aria-label="Soy jugador o profesional"
@@ -53,10 +53,10 @@ const { t } = Astro.props;
           <BaseTag size="sm">
             {t["duality.club.tag"]}
           </BaseTag>
-          <BaseTitle tag="h3" size="5xl" iColor="--brand-orange" textColor="white">
+          <BaseTitle tag="h3" iColor="--brand-orange" textColor="white" style="font-size: clamp(28px, 3.2vw, 44px); line-height: 1.02; letter-spacing: -0.025em">
             <span set:html={t["duality.club.title"]} />
           </BaseTitle>
-          <BaseText size="sm" textColor="white">
+          <BaseText size="sm" textColor="rgba(255,255,255,0.78)">
             {t["duality.club.desc"]}
           </BaseText>
           <BaseList
@@ -78,30 +78,35 @@ const { t } = Astro.props;
         </div>
       </a>
 
+      <!-- Divider -->
+      <span class="duality-divider" aria-hidden="true">
+        <span class="duality-divider__pill">VS</span>
+      </span>
+
       <!-- Right side: players/pros -->
       <a
         class="side-link group/side relative overflow-hidden flex items-end text-white no-underline z-[1]
-                transition-[flex] duration-slow ease-out-expo md:border-b-20"
+                transition-[flex] duration-slow ease-out-expo min-[821px]:border-b-20"
         href="#"
         data-side="club"
         aria-label="Soy club o scouter"
       >
         <div
-          class="club-copy relative z-[3] p-[clamp(28px,4vw,56px)] flex flex-col gap-3.5 text-left ml-0 md:ml-auto items-start md:items-end"
+          class="club-copy relative z-[3] p-[clamp(28px,4vw,56px)] flex flex-col gap-3.5 text-left ml-0 min-[821px]:ml-auto items-start min-[821px]:items-end"
         >
-          <BaseTag size="sm" class="md:self-end">
+          <BaseTag size="sm" class="min-[821px]:self-end">
             {t["duality.player.tag"]}
           </BaseTag>
           <BaseTitle
             tag="h3"
-            size="5xl"
-            class="md:text-right"
+            class="min-[821px]:text-right"
             iColor="--brand-green"
             textColor="white"
+            style="font-size: clamp(28px, 3.2vw, 44px); line-height: 1.02; letter-spacing: -0.025em"
           >
             <span set:html={t["duality.player.title"]} />
           </BaseTitle>
-          <BaseText size="sm" textColor="white">
+          <BaseText size="sm" textColor="rgba(255,255,255,0.78)">
             {t["duality.player.desc"]}
           </BaseText>
           <BaseList
@@ -134,10 +139,65 @@ const { t } = Astro.props;
     border-color: var(--brand-green);
   }
 
-  /* Bg image hover effect — triggered by sibling side hovering */
+  /* Bg image hover effect */
   .side-link:hover ~ * .duality-bg,
   .side-link:hover + .duality-bg {
     transform: scale(1.04);
     filter: brightness(0.7) saturate(1.15);
+  }
+
+  /* Divider — desktop: absolute overlay with vertical bar + pill */
+  .duality-divider {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+  }
+  .duality-divider::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    height: 130%;
+    width: 4px;
+    background: var(--bg-elev);
+    transform: translateX(-50%);
+  }
+  .duality-divider__pill {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    color: #0a0a0c;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    font-style: italic;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35), inset 0 0 0 1px var(--brand-green);
+  }
+
+  /* Mobile: stack vertically, divider becomes horizontal bar */
+  @media (max-width: 820px) {
+    .side-link {
+      min-height: 420px;
+    }
+    .duality-divider {
+      position: relative;
+      inset: auto;
+      height: 4px;
+      background: var(--bg-elev);
+    }
+    .duality-divider::before {
+      display: none;
+    }
+    .duality-divider__pill {
+      display: none;
+    }
   }
 </style>

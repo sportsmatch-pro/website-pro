@@ -12,18 +12,32 @@ const { t } = Astro.props;
 <section class="py-(--density-section)">
   <div class="container">
     <div
-      class="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 items-center
+      class="grid grid-cols-1 min-[821px]:grid-cols-[3fr_1fr] gap-12 items-center
              rounded-2xl overflow-hidden
              p-[clamp(48px,6vw,80px)]
              bg-[linear-gradient(147deg,var(--fg)_35%,var(--brand-green)_100%)]"
     >
-      <BaseTitle tag="h2" size="6xl" balance textColor="--bg" iColor="--brand-green">
+      <BaseTitle
+        tag="h2"
+        balance
+        textColor="--bg"
+        iColor="--brand-green"
+        class="cta-title"
+        style="font-size: clamp(32px, 4vw, 56px); line-height: 1.05; letter-spacing: -0.03em"
+      >
         <span set:html={t['cta.final.title']} />
       </BaseTitle>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-3 items-start">
         <StoreButtons t={t} bgColor="--bg" textColor="--fg" />
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .cta-title :global(em),
+  .cta-title :global(i) {
+    font-weight: 500;
+  }
+</style>

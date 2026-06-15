@@ -21,7 +21,12 @@ const { t } = Astro.props;
     class="container text-center flex flex-col gap-3.5 mb-14 items-center pb-(--density-stack)"
   >
     <span class="eyebrow">{t["duality.eyebrow"]}</span>
-    <BaseTitle tag="h2" balance class="max-w-[18ch]" style="font-size: clamp(40px, 6vw, 80px); line-height: 0.96; letter-spacing: -0.035em">
+    <BaseTitle
+      tag="h2"
+      balance
+      class="max-w-[18ch]"
+      style="font-size: clamp(40px, 6vw, 80px); line-height: 0.96; letter-spacing: -0.035em"
+    >
       <span set:html={t["duality.title"]} />
     </BaseTitle>
   </div>
@@ -53,7 +58,12 @@ const { t } = Astro.props;
           <BaseTag size="sm">
             {t["duality.club.tag"]}
           </BaseTag>
-          <BaseTitle tag="h3" iColor="--brand-orange" textColor="white" style="font-size: clamp(28px, 3.2vw, 44px); line-height: 1.02; letter-spacing: -0.025em">
+          <BaseTitle
+            tag="h3"
+            iColor="--brand-orange"
+            textColor="white"
+            style="font-size: clamp(28px, 3.2vw, 44px); line-height: 1.02; letter-spacing: -0.025em"
+          >
             <span set:html={t["duality.club.title"]} />
           </BaseTitle>
           <BaseText size="sm" textColor="rgba(255,255,255,0.78)">
@@ -72,6 +82,9 @@ const { t } = Astro.props;
             iconRight={IconArrowRight}
             bgColor="--brand-orange"
             textColor="white"
+            tag="a"
+            target="_blank"
+            href="https://share.sportsmatch.pro"
           >
             {t["duality.club.cta"]}
           </BaseButton>
@@ -122,6 +135,9 @@ const { t } = Astro.props;
             iconRight={IconArrowRight}
             bgColor="--brand-green"
             textColor="white"
+            tag="a"
+            target="_blank"
+            href="https://share.sportsmatch.pro"
           >
             {t["duality.player.cta"]}
           </BaseButton>
@@ -156,7 +172,7 @@ const { t } = Astro.props;
     place-items: center;
   }
   .duality-divider::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -10%;
     left: 50%;
@@ -179,7 +195,9 @@ const { t } = Astro.props;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.35), inset 0 0 0 1px var(--brand-green);
+    box-shadow:
+      0 12px 32px rgba(0, 0, 0, 0.35),
+      inset 0 0 0 1px var(--brand-green);
   }
 
   /* Mobile: stack vertically, divider becomes horizontal bar */

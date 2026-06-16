@@ -45,12 +45,10 @@ const { t } = Astro.props;
       />
 
       <!-- Left side: clubs/scouts -->
-      <a
+      <div
         class="side-link group/side relative overflow-hidden flex items-end text-white no-underline z-[2]
                 transition-[flex] duration-slow ease-out-expo min-[821px]:border-b-20"
-        href="#"
         data-side="player"
-        aria-label="Soy jugador o profesional"
       >
         <div
           class="relative z-[3] p-[clamp(28px,4vw,56px)] max-w-[570px] flex flex-col gap-3.5 items-start"
@@ -89,7 +87,7 @@ const { t } = Astro.props;
             {t["duality.club.cta"]}
           </BaseButton>
         </div>
-      </a>
+      </div>
 
       <!-- Divider -->
       <span class="duality-divider" aria-hidden="true">
@@ -97,12 +95,10 @@ const { t } = Astro.props;
       </span>
 
       <!-- Right side: players/pros -->
-      <a
+      <div
         class="side-link group/side relative overflow-hidden flex items-end text-white no-underline z-[1]
                 transition-[flex] duration-slow ease-out-expo min-[821px]:border-b-20"
-        href="#"
         data-side="club"
-        aria-label="Soy club o scouter"
       >
         <div
           class="club-copy relative z-[3] p-[clamp(28px,4vw,56px)] flex flex-col gap-3.5 text-left ml-0 min-[821px]:ml-auto items-start min-[821px]:items-end"
@@ -142,7 +138,7 @@ const { t } = Astro.props;
             {t["duality.player.cta"]}
           </BaseButton>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </section>

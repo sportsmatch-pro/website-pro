@@ -25,6 +25,8 @@ export interface Props {
 
 const { t, lang, post, blogBasePath } = Astro.props;
 
+const content = (post.content || '').replace(/youtube\.com\/embed\//g, 'youtube-nocookie.com/embed/');
+
 const formatDate = (dateString?: string): string => {
   if (!dateString) return "";
   const locale = lang === "ca" ? "ca-ES" : lang === "en" ? "en-US" : "es-ES";
@@ -110,7 +112,7 @@ try {
     </div>
   </header>
 
-  <div class="article-content" set:html={post.content} />
+  <div class="article-content" set:html={content} />
 </article>
 
 <style>

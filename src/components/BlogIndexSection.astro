@@ -110,8 +110,8 @@ const formatDate = (dateString?: string): string => {
                 : "bg-surface-2 text-fg-muted hover:bg-surface-2",
             ]}
             style={
-              activeSport === (sport.key ?? sport.id) && sport.color
-                ? `background-color: ${sport.color}`
+              activeSport === (sport.key ?? sport.id)
+                ? `background-color: var(--brand-green)`
                 : ""
             }
           >
@@ -150,7 +150,7 @@ const formatDate = (dateString?: string): string => {
                     {postSports.map((sport) => (
                       <span
                         class="text-xs font-semibold px-2 py-0.5 rounded-full text-white"
-                        style={`background-color: #22c55e`}
+                        style={`background-color: var(--brand-green)`}
                       >
                         {(allSportsData.find(s => s.id === sport.id)?.name ?? sport.name)}
                       </span>

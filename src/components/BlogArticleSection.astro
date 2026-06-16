@@ -75,6 +75,10 @@ try {
         src={post.featuredImage}
         alt={post.title}
         class="w-full object-cover rounded-2xl mb-8"
+        width="1200"
+        height="675"
+        fetchpriority="high"
+        decoding="async"
       />
     )
   }
@@ -108,3 +112,15 @@ try {
 
   <div class="article-content" set:html={post.content} />
 </article>
+
+<style>
+  .article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 1rem;
+    margin-block: 1.5rem;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+</style>

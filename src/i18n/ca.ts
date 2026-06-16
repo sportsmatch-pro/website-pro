@@ -122,6 +122,7 @@ const ca: Record<string, string> = {
 
   // Pages
   'page.home.title': 'SportsMatch — El teu match esportiu, sense intermediaris',
+  'page.home.desc': 'La plataforma que connecta jugadors, professionals i clubs de tot Espanya. Perfils verificats, contacte directe, sense soroll.',
 
   // Blog
   'blog.index.eyebrow': 'Blog esportiu',

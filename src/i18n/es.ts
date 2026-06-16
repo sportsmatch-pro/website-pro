@@ -122,6 +122,7 @@ const es: Record<string, string> = {
 
   // Pages
   'page.home.title': 'SportsMatch — Tu match deportivo, sin intermediarios',
+  'page.home.desc': 'La plataforma que conecta jugadores, profesionales y clubes deportivos. Perfiles verificados, contacto directo, sin ruido.',
 
   // Blog
   'blog.index.eyebrow': 'Blog deportivo',

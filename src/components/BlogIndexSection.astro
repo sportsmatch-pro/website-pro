@@ -124,8 +124,9 @@ const formatDate = (dateString?: string): string => {
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {
-      posts.map((post) => {
+      posts.map((post, index) => {
         const postSports = post.sports || [];
+        const isFirst = index === 0;
         return (
           <article class="bg-surface rounded-2xl overflow-hidden shadow-(--shadow-sm) hover:shadow-(--shadow-md) transition-shadow">
             <a href={`${blogBasePath}/${post.slug}`} class="block">
@@ -134,6 +135,11 @@ const formatDate = (dateString?: string): string => {
                   src={post.featuredImage}
                   alt={post.title}
                   class="aspect-video w-full object-cover"
+                  width="640"
+                  height="360"
+                  loading={isFirst ? "eager" : "lazy"}
+                  decoding={isFirst ? "sync" : "async"}
+                  fetchpriority={isFirst ? "high" : "low"}
                 />
               ) : (
                 <div class="aspect-video bg-surface-2" aria-hidden="true" />

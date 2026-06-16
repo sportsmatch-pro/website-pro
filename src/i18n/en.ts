@@ -122,6 +122,7 @@ const en: Record<string, string> = {
 
   // Pages
   'page.home.title': 'SportsMatch — Your sports match, without middlemen',
+  'page.home.desc': 'The platform connecting players, professionals and clubs across Spain. Verified profiles, direct contact, no noise.',
 
   // Blog
   'blog.index.eyebrow': 'Sports blog',

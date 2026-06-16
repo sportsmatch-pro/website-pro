@@ -265,7 +265,6 @@ body {
   color: var(--fg-muted);
   font-size: var(--fs-body, 16px);
   line-height: var(--lh-loose, 1.7);
-  max-width: 68ch;
 }
 
 .article-content h2 {

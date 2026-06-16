@@ -175,9 +175,9 @@ export const routes: AppRoutes = {
     "en": { url: "/en/terms", title: "Terms of Service", description: "Terms of service of SportsMatch" }
   },
   blog: {
-    "es-ES": { url: "/blog", title: "Blog", description: "Blog de SportsMatch" },
-    "ca-ES": { url: "/ca/blog", title: "Blog", description: "Blog de SportsMatch" },
-    "en": { url: "/en/blog", title: "Blog", description: "Blog de SportsMatch" },
+    "es-ES": { url: "/blog/", title: "Blog", description: "Blog de SportsMatch" },
+    "ca-ES": { url: "/ca/blog/", title: "Blog", description: "Blog de SportsMatch" },
+    "en": { url: "/en/blog/", title: "Blog", description: "Blog de SportsMatch" },
   },
 };
 

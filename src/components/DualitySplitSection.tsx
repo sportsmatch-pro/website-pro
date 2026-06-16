@@ -16,7 +16,7 @@ export function DualitySplitSection({ t }: Props) {
       <div className="duality-split__stage">
         <img
           className="duality-split__bg-img"
-          src="/assets/duality-club.jpg"
+          src="/assets/duality-club.webp"
           alt=""
           loading="lazy"
           aria-hidden="true"

@@ -50,7 +50,7 @@ export function HeroSection({ t }: Props) {
           <div className="hero__visual hero__visual--photo">
             <img
               className="hero__photo"
-              src="/assets/hero-home.jpg"
+              src="/assets/hero-home.webp"
               alt="Jugador y representante de club en contexto deportivo real"
               loading="eager"
             />

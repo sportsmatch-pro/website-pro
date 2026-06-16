@@ -27,7 +27,7 @@ const translatedUrls =
   translatedUrlsProp ?? getTranslatedUrlsForPath(currentPath);
 const langRoutes: Record<Lang, string> = { es: "/", ca: "/ca", en: "/en" };
 const langLabel = lang.toUpperCase();
-const blogHref = lang === "es" ? "/blog" : `/${lang}/blog`;
+const blogHref = lang === "es" ? "/blog/" : `/${lang}/blog/`;
 const aboutHref =
   lang === "es" ? "/nosotros" : lang === "ca" ? "/ca/nosaltres" : "/en/about";
 

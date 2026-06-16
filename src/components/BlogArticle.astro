@@ -169,7 +169,7 @@ const getDaysAgo = (dateString: string | undefined): string => {
 const getBlogBasePath = (language: string): string => {
   if (language === "ca-ES") return "/ca/blog";
   if (language === "en") return "/en/blog";
-  return "/blog";
+  return "/blog/";
 };
 
 const blogBasePath = getBlogBasePath(post.language);

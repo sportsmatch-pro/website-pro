@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Disallow: /acceder
+Disallow: /registrarse
+Disallow: /soporte
+Disallow: /ca/acceder
+Disallow: /ca/registrarse
+Disallow: /ca/soporte
+Disallow: /en/acceder
+Disallow: /en/registrarse
+Disallow: /en/soporte
+
+Sitemap: https://sportsmatch.pro/sitemap-index.xml

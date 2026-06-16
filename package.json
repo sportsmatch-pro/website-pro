@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/inter": "^5.2.8",
     "astro": "^5.17.3",
     "react": "^19.0.0",
@@ -20,6 +21,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^4.7.0",
+    "astro-critters": "^2.2.1",
     "jsdom": "^25.0.1",
     "tailwindcss": "^4.0.0",
     "vitest": "^4.1.6"

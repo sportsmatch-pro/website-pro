@@ -57,7 +57,7 @@ export function Header({ lang = 'es', currentPath = '/' }: Props) {
             </a>
           </div>
         </div>
-        <a href="/blog">{t['nav.blog']}</a>
+        <a href="/blog/">{t['nav.blog']}</a>
         <a href="/nosotros">{t['nav.about']}</a>
       </nav>
 

@@ -1,6 +1,6 @@
 ---
-import BaseTitle from './base/BaseTitle.astro';
-import StoreButtons from './StoreButtons.astro';
+import BaseTitle from "./base/BaseTitle.astro";
+import StoreButtons from "./StoreButtons.astro";
 
 interface Props {
   t: Record<string, string>;
@@ -25,11 +25,16 @@ const { t } = Astro.props;
         class="cta-title"
         style="font-size: clamp(32px, 4vw, 56px); line-height: 1.05; letter-spacing: -0.03em"
       >
-        <span set:html={t['cta.final.title']} />
+        <span set:html={t["cta.final.title"]} />
       </BaseTitle>
 
       <div class="flex flex-col gap-3 items-start">
-        <StoreButtons t={t} bgColor="--bg" textColor="--fg" />
+        <StoreButtons
+          t={t}
+          bgColor="--bg"
+          textColor="--fg"
+          ctaOrigin="strip-section"
+        />
       </div>
     </div>
   </div>

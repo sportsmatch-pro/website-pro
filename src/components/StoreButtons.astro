@@ -7,9 +7,10 @@ interface Props {
   t: Record<string, string>;
   bgColor?: string;
   textColor?: string;
+  ctaOrigin?: string;
 }
 
-const { t, bgColor, textColor } = Astro.props;
+const { t, bgColor, textColor, ctaOrigin = "unknown" } = Astro.props;
 ---
 
 <BaseButton
@@ -21,6 +22,7 @@ const { t, bgColor, textColor } = Astro.props;
   href="https://apps.apple.com/app/sportsmatch/6741365151"
   bgColor={bgColor}
   textColor={textColor}
+  data-cta={`${ctaOrigin}-app-store-download-btn`}
 >
   <span class="flex flex-col items-start leading-[1.05] my-1">
     <span class="color-gra uppercase font-medium text-[9px] tracking-[0.1em]">
@@ -38,6 +40,7 @@ const { t, bgColor, textColor } = Astro.props;
   href="https://play.google.com/store/apps/details?id=com.fersuter.sportsmatch"
   bgColor={bgColor}
   textColor={textColor}
+  data-cta={`${ctaOrigin}-play-store-download-btn`}
 >
   <span class="flex flex-col items-start leading-[1.05] my-1">
     <span class="color-gra uppercase font-medium text-[9px] tracking-[0.1em]">

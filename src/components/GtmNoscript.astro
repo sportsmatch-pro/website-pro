@@ -1,0 +1,9 @@
+---
+// GTM <noscript> iframe fallback, rendered as the first child of <body>.
+// Renders nothing when PUBLIC_GTM_ID is unset. (R3, R4, R13)
+import { getGtmId, buildNoscriptIframe } from './gtm'
+
+const gtmId = getGtmId()
+---
+
+{gtmId && <noscript set:html={buildNoscriptIframe(gtmId)} />}

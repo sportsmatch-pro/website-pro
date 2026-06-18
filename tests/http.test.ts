@@ -161,3 +161,56 @@ it('GET /en/blog/primer-articulo-deportivo returns 200', async () => {
   const res = await fetch(`${BASE_URL}/en/blog/primer-articulo-deportivo`)
   expect(res.status).toBe(200)
 })
+
+// ── T10 — Cookie consent (R3, R22, R23, R24, R25) ─────────────────────────────
+
+it('T10a — GET / contains the Consent Mode default-denied script (R3)', async () => {
+  const res = await fetch(`${BASE_URL}/`)
+  expect(res.status).toBe(200)
+  const html = await res.text()
+  expect(html).toContain("gtag('consent', 'default'")
+  expect(html).toContain("analytics_storage: 'denied'")
+  expect(html).toContain('cookie-consent-config')
+})
+
+it('T10b — GET / contains ES cookie texts and /cookies link (R22, R24)', async () => {
+  const res = await fetch(`${BASE_URL}/`)
+  const html = await res.text()
+  expect(html).toContain('Usamos cookies')
+  expect(html).toContain('/cookies')
+})
+
+it('T10c — GET /ca contains CA cookie texts and /ca/cookies link (R22, R24)', async () => {
+  const res = await fetch(`${BASE_URL}/ca`)
+  expect(res.status).toBe(200)
+  const html = await res.text()
+  expect(html).toContain('Utilitzem cookies')
+  expect(html).toContain('/ca/cookies')
+})
+
+it('T10d — GET /en contains EN cookie texts and /en/cookies link (R22, R24)', async () => {
+  const res = await fetch(`${BASE_URL}/en`)
+  expect(res.status).toBe(200)
+  const html = await res.text()
+  expect(html).toContain('We use cookies')
+  expect(html).toContain('/en/cookies')
+})
+
+it('T10e — GET / exposes the footer cookie reopen control, page stays interactive (R18, R25)', async () => {
+  const res = await fetch(`${BASE_URL}/`)
+  const html = await res.text()
+  expect(html).toContain('data-testid="cookie-preferences-reopen"')
+  // No cookie wall: main content is present in the static HTML alongside the banner
+  expect(html).toContain('data-testid="main-footer"')
+})
+
+// ── T13 — GTM gating in the default build (no PUBLIC_GTM_ID) (R4) ──────────────
+// The globalSetup build runs without PUBLIC_GTM_ID, so no GTM must appear.
+
+it('T13a — GET / contains no GTM reference when PUBLIC_GTM_ID is unset (R4)', async () => {
+  const res = await fetch(`${BASE_URL}/`)
+  const html = await res.text()
+  expect(html).not.toContain('googletagmanager.com')
+  // The Consent Mode default-denied script is still present (PHASE 1 unchanged).
+  expect(html).toContain("gtag('consent', 'default'")
+})

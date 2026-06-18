@@ -1,0 +1,25 @@
+---
+// Consent Mode v2 defaults: all signals denied, render-blocking, emitted in
+// <head> BEFORE the GTM gtm.js loader so GTM receives the denied defaults
+// before loading any tag. Moved verbatim from PHASE 1 CookieConsent.astro.
+// (R5, R7, R8)
+---
+
+{/* R5, R7, R8 — Consent Mode v2 defaults: all signals denied, render-blocking,
+    bootstraps window.dataLayer + gtag before gtm.js runs. */}
+<script is:inline>
+  window.dataLayer = window.dataLayer || []
+  function gtag() {
+    window.dataLayer.push(arguments)
+  }
+  window.gtag = window.gtag || gtag
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500,
+  })
+</script>

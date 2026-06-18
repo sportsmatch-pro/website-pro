@@ -39,6 +39,7 @@ const ca: Record<string, string> = {
   'foot.privacy': 'Privacitat',
   'foot.terms': 'Termes',
   'foot.cookies': 'Cookies',
+  'foot.cookies.manage': 'Gestionar cookies',
   'foot.gdpr': 'GDPR',
   'foot.copy': '© 2026 SportsMatch',
 

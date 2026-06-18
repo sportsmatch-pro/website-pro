@@ -39,6 +39,7 @@ const en: Record<string, string> = {
   'foot.privacy': 'Privacy',
   'foot.terms': 'Terms',
   'foot.cookies': 'Cookies',
+  'foot.cookies.manage': 'Manage cookies',
   'foot.gdpr': 'GDPR',
   'foot.copy': '© 2026 SportsMatch',
 

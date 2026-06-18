@@ -1,0 +1,112 @@
+---
+import type { Lang } from '../i18n/index'
+import { getCookieConsentTexts } from '../i18n/cookieConsent'
+
+export interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const texts = getCookieConsentTexts(lang)
+const config = JSON.stringify({ lang, texts })
+---
+
+{/* Consent Mode v2 default-denied bootstrap now lives in
+    ConsentModeDefaults.astro (rendered in <head> before gtm.js). This component
+    keeps the locale config block and the CMP init module script. */}
+
+{/* Locale text block serialized at build time from the page locale (R22, R23). */}
+<script
+  is:inline
+  type="application/json"
+  data-testid="cookie-consent-config"
+  set:html={config}
+/>
+
+{/* R7..R17, R20, R22..R25 — CMP init (bundled module script). */}
+<script>
+  import * as CookieConsent from 'vanilla-cookieconsent'
+  import 'vanilla-cookieconsent/dist/cookieconsent.css'
+  import { buildConsentUpdate, buildConsentEvent } from '../scripts/consentMode'
+  import type { CookieConsentTexts } from '../i18n/cookieConsent'
+  import type { ConsentCategory } from '../scripts/consentMode'
+
+  const node = document.querySelector('[data-testid="cookie-consent-config"]')
+  const { lang, texts } = JSON.parse(node?.textContent ?? '{}') as {
+    lang: string
+    texts: CookieConsentTexts
+  }
+
+  const applyConsent = (): void => {
+    const accepted = CookieConsent.getUserPreferences()
+      .acceptedCategories as ConsentCategory[]
+    window.gtag?.('consent', 'update', buildConsentUpdate(accepted))
+    window.dataLayer?.push(buildConsentEvent(accepted))
+  }
+
+  CookieConsent.run({
+    guiOptions: {
+      consentModal: {
+        layout: 'box',
+        position: 'bottom left',
+        equalWeightButtons: true,
+        flipButtons: false,
+      },
+      preferencesModal: {
+        layout: 'box',
+        equalWeightButtons: true,
+        flipButtons: false,
+      },
+    },
+    categories: {
+      necessary: { enabled: true, readOnly: true },
+      analytics: {},
+      marketing: {},
+    },
+    language: {
+      default: lang,
+      translations: {
+        [lang]: {
+          consentModal: {
+            title: texts.banner.title,
+            description: texts.banner.description,
+            acceptAllBtn: texts.buttons.acceptAll,
+            acceptNecessaryBtn: texts.buttons.rejectAll,
+            showPreferencesBtn: texts.buttons.preferences,
+            footer: `<a href="${texts.policy.href}">${texts.policy.label}</a>`,
+          },
+          preferencesModal: {
+            title: texts.preferences.title,
+            acceptAllBtn: texts.buttons.acceptAll,
+            acceptNecessaryBtn: texts.buttons.rejectAll,
+            savePreferencesBtn: texts.buttons.save,
+            closeIconLabel: texts.preferences.close,
+            sections: [
+              {
+                title: texts.categories.necessary.title,
+                description: texts.categories.necessary.description,
+                linkedCategory: 'necessary',
+              },
+              {
+                title: texts.categories.analytics.title,
+                description: texts.categories.analytics.description,
+                linkedCategory: 'analytics',
+              },
+              {
+                title: texts.categories.marketing.title,
+                description: texts.categories.marketing.description,
+                linkedCategory: 'marketing',
+              },
+              {
+                title: texts.policy.label,
+                description: `<a href="${texts.policy.href}">${texts.policy.label}</a>`,
+              },
+            ],
+          },
+        },
+      },
+    },
+    onConsent: applyConsent,
+    onChange: applyConsent,
+  })
+</script>

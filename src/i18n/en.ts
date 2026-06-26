@@ -106,10 +106,10 @@ const en: Record<string, string> = {
   'stats.eyebrow': 'By the numbers',
   'stats.title': 'A community growing every week.',
   'stats.sub': 'Players, clubs and professionals already trusting SportsMatch to find their next match.',
-  'stats.users': 'Registered professionals',
-  'stats.clubs': 'Clubs',
+  'stats.users': 'Players and coaches',
+  'stats.clubs': 'Matches between clubs and players',
   'stats.matches': 'Posts published',
-  'stats.sports': 'Sports available',
+  'stats.sports': 'Clubs and Scouters',
 
   // Sports gallery
   'sports.eyebrow': 'Sport verticals',

@@ -106,10 +106,10 @@ const ca: Record<string, string> = {
   'stats.eyebrow': 'En números',
   'stats.title': 'Una comunitat que creix cada setmana.',
   'stats.sub': 'Jugadors, clubs i professionals que ja confien en SportsMatch per trobar el seu proper match.',
-  'stats.users': 'Professionals registrats',
-  'stats.clubs': 'Clubs',
+  'stats.users': 'Jugadors i entrenadors',
+  'stats.clubs': 'Matchs entre clubs i jugadors',
   'stats.matches': 'Publicacions realitzades',
-  'stats.sports': 'Esports disponibles',
+  'stats.sports': 'Clubs i Scouters',
 
   // Sports gallery
   'sports.eyebrow': 'Verticals esportives',
